@@ -1,0 +1,23 @@
+# render.yaml — Render deployment configuration for CloudDash
+# Deploy at: https://dashboard.render.com/new/blueprint
+
+services:
+  - type: web
+    name: clouddash-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false          # Set manually in Render dashboard
+      - key: LANGSMITH_API_KEY
+        sync: false          # Optional — set for tracing
+      - key: LANGSMITH_PROJECT
+        value: clouddash-support
+      - key: LANGCHAIN_TRACING_V2
+        value: "false"       # Set to "true" if LANGSMITH_API_KEY is provided
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: "3.11"

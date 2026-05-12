@@ -12,9 +12,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from dotenv import load_dotenv
 load_dotenv()
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
 from agents.orchestrator import Orchestrator
 from api.schemas import (
     ConversationHistoryResponse,
@@ -34,6 +35,41 @@ setup_logging()
 configure_tracing()
 logger = get_logger(__name__)
 
+
+def _run_kb_ingest_if_needed():
+    """Run KB ingestion if ChromaDB collection is empty or missing.
+
+    This makes Render (and any fresh deployment) work automatically —
+    the first startup ingests, subsequent startups skip.
+    """
+    try:
+        from retrieval.vector_store import VectorStore
+        vs = VectorStore()
+        count = vs.count
+        if count > 0:
+            logger.info("kb_already_ingested", chunk_count=count)
+            return
+    except Exception:
+        pass  # Collection doesn't exist yet — fall through to ingest
+
+    logger.info("kb_ingestion_starting", reason="ChromaDB empty or missing")
+    try:
+        from knowledge_base.ingest import KBIngestionPipeline
+        pipeline = KBIngestionPipeline()
+        pipeline.run()
+        logger.info("kb_ingestion_complete")
+    except Exception as e:
+        logger.error("kb_ingestion_failed", error=str(e))
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Run startup tasks before serving requests."""
+    _run_kb_ingest_if_needed()
+    yield  # App is now running
+    # Shutdown tasks (none needed currently)
+
+
 # Initialize the orchestrator
 orchestrator = Orchestrator()
 
@@ -47,6 +83,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # CORS middleware
