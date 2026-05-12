@@ -1,0 +1,9 @@
+{
+  "id": "KB-012",
+  "title": "How to Invite Team Members",
+  "category": "faq",
+  "tags": ["team", "invite", "users", "access", "management"],
+  "content": "# How to Invite Team Members\n\nAdd team members to your CloudDash organization to collaborate on monitoring and alerting.\n\n## Steps to Invite\n\n1. Navigate to **Settings > Team > Members**.\n2. Click **Invite Member**.\n3. Enter the team member's **email address**.\n4. Select their **role**:\n   - **Admin**: Full access to all settings, billing, and team management.\n   - **Editor**: Can create and modify dashboards, alerts, and integrations. Cannot access billing or team settings.\n   - **Viewer**: Read-only access to dashboards and alerts. Cannot create or modify anything.\n5. Optionally, assign them to a **team** (Enterprise only).\n6. Click **Send Invitation**.\n\n## Invitation Details\n\n- Invitations expire after **7 days**.\n- The invitee receives an email with a link to join the organization.\n- If they don't have a CloudDash account, they'll be prompted to create one.\n- You can resend or revoke pending invitations from the **Pending** tab.\n\n## User Limits\n\n- **Starter**: Up to 5 users.\n- **Pro**: Up to 25 users.\n- **Enterprise**: Unlimited users.\n\nIf you've reached your plan's user limit, you'll need to upgrade or remove existing users.\n\n## Removing Team Members\n\n1. Go to **Settings > Team > Members**.\n2. Find the user and click the **⋮** menu.\n3. Select **Remove Member**.\n4. Their access is revoked immediately.\n5. Any dashboards or alerts they created remain intact (ownership transfers to the org admin).",
+  "last_updated": "2026-03-25",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}

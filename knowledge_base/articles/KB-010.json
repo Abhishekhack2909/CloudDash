@@ -1,0 +1,9 @@
+{
+  "id": "KB-010",
+  "title": "How to Reset Your API Key",
+  "category": "faq",
+  "tags": ["api", "key", "reset", "authentication", "security"],
+  "content": "# How to Reset Your API Key\n\nAPI keys are used to authenticate requests to the CloudDash REST API.\n\n## When to Reset Your API Key\n\n- If you suspect your key has been compromised.\n- If a team member with API access leaves the organization.\n- As part of your regular security key rotation policy.\n\n## Steps to Reset\n\n1. Log in to CloudDash with an **admin** account.\n2. Navigate to **Settings > API > API Keys**.\n3. Find the key you want to reset.\n4. Click **Regenerate Key**.\n5. Confirm the action in the dialog box.\n6. **Copy the new key immediately** — it will only be shown once.\n7. Update the key in all applications and scripts that use it.\n\n## Important Notes\n\n- The old key is **immediately invalidated** upon reset.\n- All API requests using the old key will receive a `401 Unauthorized` response.\n- You can have up to **5 active API keys** per account (Pro plan) or **20 keys** (Enterprise plan).\n- Starter plan accounts have **1 API key** (read-only).\n- API key activity is logged in **Settings > Security > Audit Log**.\n\n## API Key Best Practices\n\n- Never hardcode API keys in source code. Use environment variables.\n- Rotate keys every 90 days.\n- Use separate keys for different applications/environments.\n- Set IP allowlists for API keys under **Settings > API > Security**.",
+  "last_updated": "2026-04-08",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}

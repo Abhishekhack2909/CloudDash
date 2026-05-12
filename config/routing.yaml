@@ -1,0 +1,95 @@
+# CloudDash — Intent Routing Configuration
+
+# Maps classified intents to target agents
+intent_routing:
+  technical:
+    target_agent: "technical_support"
+    description: "Technical issues, integrations, API, alerts, dashboards, SSO"
+    keywords:
+      - alert
+      - integration
+      - api
+      - dashboard
+      - error
+      - bug
+      - webhook
+      - sso
+      - saml
+      - configuration
+      - setup
+      - code
+      - sdk
+      - cloudwatch
+      - monitor
+      - threshold
+
+  billing:
+    target_agent: "billing"
+    description: "Billing, subscription, invoices, payments, plans, pricing"
+    keywords:
+      - bill
+      - invoice
+      - payment
+      - charge
+      - subscription
+      - plan
+      - upgrade
+      - downgrade
+      - pricing
+      - refund
+      - credit
+      - cost
+      - enterprise
+      - pro
+      - starter
+
+  account:
+    target_agent: "technical_support"  # Account issues handled by tech support
+    description: "User access, team management, permissions, audit logs"
+    keywords:
+      - account
+      - user
+      - team
+      - permission
+      - role
+      - rbac
+      - access
+      - invite
+      - member
+      - organization
+      - audit
+
+  general:
+    target_agent: "technical_support"
+    description: "Feature requests, product questions, onboarding"
+    keywords:
+      - feature
+      - roadmap
+      - onboarding
+      - getting started
+      - how to
+      - what is
+      - support
+
+  escalation:
+    target_agent: "escalation"
+    description: "Customer explicitly requests human support or manager"
+    keywords:
+      - manager
+      - human
+      - person
+      - escalate
+      - speak to
+      - talk to
+      - complaint
+      - unacceptable
+      - lawyer
+      - legal
+
+# Fallback chain when target agent fails
+fallback_chain:
+  - triage
+  - escalation
+
+# Maximum handovers per conversation before forced escalation
+max_handovers: 3

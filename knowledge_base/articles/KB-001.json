@@ -1,0 +1,9 @@
+{
+  "id": "KB-001",
+  "title": "How to Configure Alert Thresholds",
+  "category": "troubleshooting",
+  "tags": ["alerts", "configuration", "thresholds", "monitoring"],
+  "content": "# How to Configure Alert Thresholds\n\nCloudDash allows you to set custom alert thresholds for any monitored metric.\n\n## Steps to Configure\n\n1. Navigate to **Alerts > Alert Rules** in the CloudDash dashboard.\n2. Click **Create New Rule** or edit an existing rule.\n3. Select the **metric** you want to monitor (e.g., CPU utilization, memory usage, network I/O).\n4. Set the **threshold type**:\n   - **Static Threshold**: A fixed value (e.g., CPU > 80%).\n   - **Anomaly Detection**: CloudDash uses ML to detect deviations from baseline.\n5. Configure the **evaluation period** (e.g., trigger if threshold exceeded for 5 consecutive minutes).\n6. Set the **notification channels**: Email, Slack, PagerDuty, webhook, or SMS.\n7. Optionally add **tags** and **severity level** (Info, Warning, Critical).\n8. Click **Save Rule**.\n\n## Common Issues\n\n- **Alerts not firing**: Ensure the integration credentials are valid and the metric is actively being collected. Check the integration status page under **Settings > Integrations**.\n- **Too many alerts**: Consider increasing the evaluation period or adjusting the threshold value to reduce noise.\n- **Alert delay**: CloudDash evaluates metrics every 60 seconds. Alerts may take up to 2 minutes to fire after a threshold breach.\n\n## Supported Metrics\n\nCloudDash supports over 200 built-in metrics across AWS, GCP, and Azure, plus custom metrics via our API.\n\n## Plan Availability\n\nAlert thresholds are available on all plans. Anomaly detection is available on Pro and Enterprise plans only.",
+  "last_updated": "2026-04-15",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}

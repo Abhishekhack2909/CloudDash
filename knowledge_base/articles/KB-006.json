@@ -1,0 +1,9 @@
+{
+  "id": "KB-006",
+  "title": "CloudDash Pricing Plans and Feature Comparison",
+  "category": "billing",
+  "tags": ["pricing", "plans", "features", "comparison", "starter", "pro", "enterprise"],
+  "content": "# CloudDash Pricing Plans and Feature Comparison\n\n## Plan Overview\n\n### Starter Plan — $49/month\n- Up to 10 monitored hosts\n- 5 users\n- 50 alert rules\n- 7-day data retention\n- Email notifications only\n- AWS integration only\n- Community support\n- Basic dashboards (up to 10)\n\n### Pro Plan — $199/month\n- Up to 100 monitored hosts\n- 25 users\n- 500 alert rules\n- 30-day data retention\n- Email, Slack, PagerDuty, webhook notifications\n- AWS, GCP, Azure integrations\n- Priority email support (24hr response)\n- Custom dashboards (unlimited)\n- Anomaly detection\n- API access (10,000 requests/day)\n\n### Enterprise Plan — $599/month (or custom)\n- Unlimited monitored hosts\n- Unlimited users\n- Unlimited alert rules\n- 365-day data retention\n- All notification channels + SMS\n- All cloud integrations + custom\n- Dedicated support engineer (4hr response SLA)\n- SSO/SAML support\n- RBAC and audit logs\n- API access (100,000 requests/day)\n- Dashboard caching\n- Custom metrics\n- SLA guarantee (99.9% uptime)\n- Data export and compliance reports\n\n## Feature Comparison Table\n\n| Feature | Starter | Pro | Enterprise |\n|---------|---------|-----|------------|\n| Monitored Hosts | 10 | 100 | Unlimited |\n| Users | 5 | 25 | Unlimited |\n| Data Retention | 7 days | 30 days | 365 days |\n| Cloud Providers | AWS | AWS, GCP, Azure | All + Custom |\n| SSO/SAML | ✗ | ✗ | ✓ |\n| Anomaly Detection | ✗ | ✓ | ✓ |\n| API Access | ✗ | 10K/day | 100K/day |\n| RBAC | ✗ | ✗ | ✓ |\n| SLA Guarantee | ✗ | ✗ | 99.9% |\n\n## Billing Cycle\n\n- All plans are billed monthly.\n- Annual billing available at 20% discount.\n- All prices are in USD.",
+  "last_updated": "2026-04-20",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}

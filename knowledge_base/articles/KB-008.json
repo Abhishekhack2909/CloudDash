@@ -1,0 +1,9 @@
+{
+  "id": "KB-008",
+  "title": "Refund Policy",
+  "category": "billing",
+  "tags": ["refund", "billing", "policy", "payment"],
+  "content": "# CloudDash Refund Policy\n\n## Standard Refund Policy\n\n- CloudDash offers a **14-day money-back guarantee** for new subscriptions.\n- Refund requests within the first 14 days of a new subscription will be processed in full.\n- After 14 days, refunds are **not available** for the current billing period.\n\n## Refund Eligibility\n\n### Eligible for Refund\n- New subscription within 14 days of initial purchase.\n- Duplicate charges due to system error (processed automatically upon verification).\n- Service outage exceeding SLA commitment (Enterprise plan only — see SLA terms).\n- Billing errors caused by CloudDash (e.g., incorrect plan charge).\n\n### Not Eligible for Refund\n- Downgrade mid-cycle (access continues until cycle end).\n- Cancellation after 14-day window.\n- Unused portion of a billing period.\n- Feature dissatisfaction after the trial period.\n\n## How to Request a Refund\n\n1. Contact CloudDash support via chat or email at billing@clouddash.io.\n2. Provide your **account email** and **invoice number**.\n3. Describe the reason for the refund request.\n4. Our billing team will review and respond within **2 business days**.\n\n## Duplicate Charge Handling\n\nIf you notice a duplicate charge:\n1. Do not dispute the charge with your bank/card issuer first — contact us directly.\n2. We will verify the duplicate and process a refund within **5 business days**.\n3. If you dispute with your bank first, the resolution process may take 30–60 days.\n\n## Refund Processing\n\n- Approved refunds are processed to the **original payment method**.\n- Credit card refunds: 5–10 business days.\n- Wire transfer refunds: 10–15 business days.\n- CloudDash credits: Immediate.",
+  "last_updated": "2026-04-05",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}

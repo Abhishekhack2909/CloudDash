@@ -1,0 +1,9 @@
+{
+  "id": "KB-014",
+  "title": "API Rate Limits and Usage",
+  "category": "faq",
+  "tags": ["api", "rate limits", "usage", "throttling", "quota"],
+  "content": "# API Rate Limits and Usage\n\n## Rate Limits by Plan\n\n| Plan | Requests/Day | Requests/Minute | Burst Limit |\n|------|-------------|-----------------|-------------|\n| Starter | N/A (no API access) | N/A | N/A |\n| Pro | 10,000 | 100 | 200 |\n| Enterprise | 100,000 | 1,000 | 2,000 |\n\n## Rate Limit Headers\n\nEvery API response includes rate limit headers:\n- `X-RateLimit-Limit`: Maximum requests per minute.\n- `X-RateLimit-Remaining`: Requests remaining in the current window.\n- `X-RateLimit-Reset`: Unix timestamp when the limit resets.\n\n## When You Hit the Limit\n\n- API returns HTTP `429 Too Many Requests`.\n- Response body includes `retry_after` (seconds to wait).\n- Implement exponential backoff in your client code.\n\n## Best Practices\n\n1. **Cache responses** where possible to reduce API calls.\n2. **Use webhooks** instead of polling for real-time data.\n3. **Batch requests** when querying multiple metrics.\n4. **Monitor usage** via **Settings > API > Usage Dashboard**.\n\n## Requesting Higher Limits\n\nEnterprise customers can request custom rate limits by contacting their dedicated support engineer. Custom limits are evaluated based on use case and infrastructure capacity.",
+  "last_updated": "2026-04-14",
+  "applies_to": ["Pro", "Enterprise"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "KB-013",
+  "title": "Data Retention Policy",
+  "category": "faq",
+  "tags": ["data", "retention", "storage", "compliance", "gdpr"],
+  "content": "# Data Retention Policy\n\n## Metric Data Retention by Plan\n\n- **Starter**: 7 days of metric data.\n- **Pro**: 30 days of metric data.\n- **Enterprise**: 365 days of metric data.\n\n## What Data is Retained\n\n- **Metric data**: Time-series data from all monitored resources.\n- **Alert history**: Records of all alert triggers, acknowledgments, and resolutions.\n- **Audit logs**: User actions, configuration changes, and access logs.\n- **Dashboard configurations**: Saved dashboards and widget configurations.\n- **Integration logs**: Connection status and sync history.\n\n## Data After Retention Period\n\n- Metric data beyond the retention window is **automatically archived**.\n- Archived data is stored for an additional **90 days** in compressed format.\n- Archived data is not queryable through the dashboard but can be exported via the API (Enterprise only).\n- After the archive period, data is **permanently deleted**.\n\n## Data Export\n\n- Enterprise customers can export data at any time via **Settings > Data > Export**.\n- Supported formats: CSV, JSON, Parquet.\n- Exports include metric data, alert history, and audit logs.\n\n## Compliance\n\n- CloudDash is SOC 2 Type II compliant.\n- GDPR: Users can request data deletion via **Settings > Privacy > Data Deletion Request**.\n- All data is encrypted at rest (AES-256) and in transit (TLS 1.2+).\n- Data residency options are available for Enterprise customers (US, EU, APAC).\n\n## Account Deletion\n\n- When an account is cancelled, all data is retained for **30 days**.\n- After 30 days, all data is permanently and irreversibly deleted.\n- To request immediate deletion, contact support at privacy@clouddash.io.",
+  "last_updated": "2026-04-02",
+  "applies_to": ["Starter", "Pro", "Enterprise"]
+}
