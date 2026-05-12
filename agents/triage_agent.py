@@ -66,10 +66,19 @@ class TriageAgent(BaseAgent):
             routing = {"next_agent": "technical_support", "reason": "Failed to parse — defaulting to technical support"}
             initial_response = "I'd be happy to help you with that. Let me connect you with the right specialist."
 
+        # Normalize plan_type — LLM sometimes returns a list e.g. ['Pro', 'Enterprise']
+        raw_plan_type = entities.get("plan_type")
+        if isinstance(raw_plan_type, list):
+            plan_type = ", ".join(str(p) for p in raw_plan_type) if raw_plan_type else None
+        elif isinstance(raw_plan_type, str):
+            plan_type = raw_plan_type or None
+        else:
+            plan_type = None
+
         # Update conversation state with extracted entities
         state.extracted_entities = ExtractedEntities(
             customer_id=entities.get("customer_id"),
-            plan_type=entities.get("plan_type"),
+            plan_type=plan_type,
             issue_type=classification.get("primary_intent"),
             product_references=entities.get("product_references", []),
             urgency=entities.get("urgency", "medium"),

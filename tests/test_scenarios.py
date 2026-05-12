@@ -1,27 +1,32 @@
 """Integration tests for the 4 assessment scenarios.
 
-These tests require OPENAI_API_KEY and a populated KB (run ingest.py first).
+These tests require GROQ_API_KEY and a populated KB (run ingest.py first).
 They validate the full end-to-end flow through the orchestrator.
 """
 
 import os
 import sys
+import time
 from pathlib import Path
 
 import pytest
+from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Skip all tests if no API key
+# Load .env so GROQ_API_KEY is available to pytest
+load_dotenv(Path(__file__).parent.parent / ".env")
+
+# Skip all tests if no Groq API key
 pytestmark = pytest.mark.skipif(
-    not os.getenv("OPENAI_API_KEY"),
-    reason="OPENAI_API_KEY not set — skipping integration tests",
+    not os.getenv("GROQ_API_KEY"),
+    reason="GROQ_API_KEY not set — skipping integration tests",
 )
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def orchestrator():
-    """Create a shared orchestrator instance for all scenario tests."""
+    """Create a fresh orchestrator instance for each test."""
     from agents.orchestrator import Orchestrator
     return Orchestrator()
 

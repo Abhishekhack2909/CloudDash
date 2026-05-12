@@ -46,20 +46,29 @@ st.markdown("""
     .agent-escalation { background: #fce4ec; color: #c62828; }
     .agent-guardrails { background: #f3e5f5; color: #6a1b9a; }
     .citation-box {
-        background: #f5f5f5;
+        background: rgba(25, 118, 210, 0.12);
         border-left: 3px solid #1976d2;
         padding: 8px 12px;
         margin: 4px 0;
         font-size: 0.85rem;
         border-radius: 0 4px 4px 0;
+        color: inherit;
+    }
+    .citation-box strong {
+        color: #42a5f5;
     }
     .handover-event {
-        background: #fff8e1;
-        border: 1px solid #ffcc02;
-        padding: 8px 12px;
+        background: rgba(103, 58, 183, 0.25);
+        border: 1px solid #7c4dff;
+        border-left: 4px solid #7c4dff;
+        padding: 10px 14px;
         border-radius: 8px;
-        font-size: 0.85rem;
-        margin: 8px 0;
+        font-size: 0.88rem;
+        margin: 10px 0;
+        color: inherit;
+    }
+    .handover-event strong {
+        color: #b39ddb;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -77,6 +86,33 @@ def get_agent_badge(agent_id: str) -> str:
     css_class = f"agent-{agent_id.split('_')[0] if '_' in agent_id else agent_id}"
     name = agent_names.get(agent_id, agent_id)
     return f'<span class="agent-badge {css_class}">{name}</span>'
+
+
+def _get_cite_field(cite, field: str, default: str = "") -> str:
+    """Safely get a field from a citation — handles both dict and Pydantic objects."""
+    if isinstance(cite, dict):
+        return str(cite.get(field, default))
+    return str(getattr(cite, field, default))
+
+
+def render_citations(citations: list):
+    """Render KB citation boxes."""
+    if not citations:
+        return
+    with st.expander(f"📚 Sources ({len(citations)} KB articles)"):
+        for cite in citations:
+            article_id = _get_cite_field(cite, "article_id", "KB-???")
+            article_title = _get_cite_field(cite, "article_title", "Unknown Article")
+            category = _get_cite_field(cite, "category", "")
+            score_raw = _get_cite_field(cite, "relevance_score", "")
+            score_str = f" — score: {float(score_raw):.2f}" if score_raw else ""
+            cat_str = f" [{category}]" if category else ""
+            st.markdown(
+                f'<div class="citation-box">'
+                f'<strong>{article_id}</strong>: {article_title}{cat_str}{score_str}'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
 
 @st.cache_resource
@@ -186,20 +222,19 @@ def main():
                 # Show agent badge
                 if msg.get("agent_id"):
                     st.markdown(get_agent_badge(msg["agent_id"]), unsafe_allow_html=True)
-                st.write(msg["content"])
 
-                # Show citations
-                citations = msg.get("citations", [])
-                if citations:
-                    with st.expander("📚 Sources"):
-                        for cite in citations:
-                            st.markdown(
-                                f'<div class="citation-box">'
-                                f'<strong>{cite.get("article_id", "")}</strong>: '
-                                f'{cite.get("article_title", "Unknown")}'
-                                f'</div>',
-                                unsafe_allow_html=True,
-                            )
+                # Handover events stored as special type
+                if msg.get("type") == "handover":
+                    st.markdown(
+                        f'<div class="handover-event">'
+                        f'🔄 <strong>Handover:</strong> '
+                        f'{msg["content"]}'
+                        f'</div>',
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.write(msg["content"])
+                    render_citations(msg.get("citations", []))
 
     # Handle pending message from scenario buttons
     pending = st.session_state.pop("pending_message", None)
@@ -245,16 +280,7 @@ def main():
                                 st.markdown(get_agent_badge(agent_id), unsafe_allow_html=True)
                                 st.write(content)
 
-                                if citations:
-                                    with st.expander("📚 Sources"):
-                                        for cite in citations:
-                                            st.markdown(
-                                                f'<div class="citation-box">'
-                                                f'<strong>{cite.get("article_id", "")}</strong>: '
-                                                f'{cite.get("article_title", "Unknown")}'
-                                                f'</div>',
-                                                unsafe_allow_html=True,
-                                            )
+                                render_citations(citations)
 
                                 st.session_state.messages.append({
                                     "role": "assistant",
@@ -263,18 +289,33 @@ def main():
                                     "citations": citations,
                                 })
 
-                    # Show handover events
+                    # Show handover events — save to session state so they persist
                     handovers = result.get("handover_history", [])
                     if handovers:
                         latest = handovers[-1]
-                        st.markdown(
-                            f'<div class="handover-event">'
-                            f'🔄 <strong>Handover:</strong> '
-                            f'{latest.get("source_agent", "?")} → {latest.get("target_agent", "?")} '
-                            f'| {latest.get("reason", "")}'
-                            f'</div>',
-                            unsafe_allow_html=True,
+                        src = latest.get('source_agent', '?')
+                        tgt = latest.get('target_agent', '?')
+                        reason = latest.get('reason', '')
+                        handover_text = f"{src} → {tgt} | {reason}"
+
+                        # Only add if not already in messages
+                        already_shown = any(
+                            m.get("type") == "handover" and m.get("content") == handover_text
+                            for m in st.session_state.messages
                         )
+                        if not already_shown:
+                            st.markdown(
+                                f'<div class="handover-event">'
+                                f'🔄 <strong>Handover:</strong> {handover_text}'
+                                f'</div>',
+                                unsafe_allow_html=True,
+                            )
+                            st.session_state.messages.append({
+                                "role": "assistant",
+                                "type": "handover",
+                                "content": handover_text,
+                                "agent_id": "",
+                            })
 
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
