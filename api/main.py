@@ -70,8 +70,18 @@ async def lifespan(app: FastAPI):
     # Shutdown tasks (none needed currently)
 
 
-# Initialize the orchestrator
-orchestrator = Orchestrator()
+# Lazy orchestrator — initialized on first request, not at startup
+# This prevents loading ML models (sentence-transformers, torch) at boot
+_orchestrator = None
+
+
+def get_orchestrator() -> Orchestrator:
+    """Get or create the global orchestrator instance (lazy singleton)."""
+    global _orchestrator
+    if _orchestrator is None:
+        _orchestrator = Orchestrator()
+    return _orchestrator
+
 
 # In-memory conversation store
 conversations: dict[str, dict] = {}
@@ -131,7 +141,7 @@ async def start_conversation(request: StartConversationRequest):
     try:
         logger.info("api_new_conversation", message_preview=request.message[:100])
 
-        result = orchestrator.process_message(message=request.message)
+        result = get_orchestrator().process_message(message=request.message)
         conversation_id = result["conversation_id"]
         conversations[conversation_id] = result
 
@@ -182,7 +192,7 @@ async def send_message(conversation_id: str, request: SendMessageRequest):
             message_preview=request.message[:100],
         )
 
-        result = orchestrator.process_message(
+        result = get_orchestrator().process_message(
             conversation_id=conversation_id,
             message=request.message,
             existing_state=existing_state,
@@ -255,7 +265,7 @@ async def get_handover_logs(conversation_id: str):
             detail=f"Conversation {conversation_id} not found",
         )
 
-    logs = orchestrator.get_handover_logs(conversation_id)
+    logs = get_orchestrator().get_handover_logs(conversation_id)
     return logs
 
 

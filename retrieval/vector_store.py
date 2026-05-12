@@ -5,27 +5,45 @@ from pathlib import Path
 from typing import Any, Optional
 
 import chromadb
-from chromadb.utils import embedding_functions
 
 from models.knowledge import RetrievalResult
 
 
 class VectorStore:
-    """ChromaDB-based vector store for KB article retrieval."""
+    """ChromaDB-based vector store for KB article retrieval.
+
+    Uses lazy loading for the sentence-transformer embedding model —
+    the model is NOT loaded at __init__ time, only on the first search()
+    call. This keeps startup memory under 512MB on Render free tier.
+    """
 
     def __init__(self, db_dir: str | None = None, collection_name: str = "clouddash_kb"):
         if db_dir is None:
             db_dir = str(Path(__file__).parent.parent / "chroma_db")
 
+        self._db_dir = db_dir
+        self._collection_name = collection_name
+
+        # Lightweight client — no embedding function loaded yet
         self._client = chromadb.PersistentClient(path=db_dir)
-        # Use local sentence-transformers for zero-cost embeddings
-        self._embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2",
-        )
-        self._collection = self._client.get_or_create_collection(
-            name=collection_name,
-            embedding_function=self._embedding_fn,
-        )
+        self._collection = self._client.get_or_create_collection(name=collection_name)
+
+        # Lazy: search collection (with embedding fn) created on first search()
+        self._search_collection = None
+
+    def _get_search_collection(self):
+        """Return a collection with embedding function, loading model lazily."""
+        if self._search_collection is None:
+            # Import and load model only on first search call
+            from chromadb.utils import embedding_functions
+            ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name="all-MiniLM-L6-v2",
+            )
+            self._search_collection = self._client.get_collection(
+                name=self._collection_name,
+                embedding_function=ef,
+            )
+        return self._search_collection
 
     def search(
         self,
@@ -47,7 +65,7 @@ class VectorStore:
         if category_filter:
             where_filter = {"category": category_filter}
 
-        results = self._collection.query(
+        results = self._get_search_collection().query(
             query_texts=[query],
             n_results=k,
             where=where_filter,
@@ -76,5 +94,5 @@ class VectorStore:
 
     @property
     def count(self) -> int:
-        """Return the number of documents in the collection."""
+        """Return the number of documents in the collection (no model needed)."""
         return self._collection.count()

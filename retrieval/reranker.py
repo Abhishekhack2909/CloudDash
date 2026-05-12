@@ -1,7 +1,5 @@
 """Cross-encoder re-ranker for improving retrieval precision."""
 
-from sentence_transformers import CrossEncoder
-
 from models.knowledge import RetrievalResult
 
 
@@ -11,10 +9,22 @@ class Reranker:
     Cross-encoders process query-document pairs jointly, providing
     much higher precision than bi-encoders at the cost of speed.
     Used as a final refinement step after hybrid retrieval.
+
+    Uses lazy loading — CrossEncoder model is NOT imported or loaded
+    at __init__ time, only on the first rerank() call. This keeps
+    startup memory under 512MB on Render free tier.
     """
 
     def __init__(self, model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"):
-        self._model = CrossEncoder(model_name)
+        self._model_name = model_name
+        self._model = None  # Lazy: loaded on first rerank() call
+
+    def _get_model(self):
+        """Load the cross-encoder model lazily on first use."""
+        if self._model is None:
+            from sentence_transformers import CrossEncoder  # Lazy import
+            self._model = CrossEncoder(self._model_name)
+        return self._model
 
     def rerank(
         self,
@@ -35,11 +45,13 @@ class Reranker:
         if not results:
             return []
 
+        model = self._get_model()
+
         # Create query-document pairs for the cross-encoder
         pairs = [(query, result.chunk_text) for result in results]
 
         # Score all pairs
-        scores = self._model.predict(pairs)
+        scores = model.predict(pairs)
 
         # Attach scores and sort
         scored_results = list(zip(results, scores))
