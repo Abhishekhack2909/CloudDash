@@ -2,6 +2,7 @@
 # Deploy at: https://dashboard.render.com/new/blueprint
 
 services:
+  # REST API (primary backend)
   - type: web
     name: clouddash-api
     runtime: python
@@ -10,13 +11,34 @@ services:
     plan: free
     envVars:
       - key: GROQ_API_KEY
-        sync: false          # Set manually in Render dashboard
+        sync: false
       - key: LANGSMITH_API_KEY
-        sync: false          # Optional — set for tracing
+        sync: false
       - key: LANGSMITH_PROJECT
         value: clouddash-support
       - key: LANGCHAIN_TRACING_V2
-        value: "false"       # Set to "true" if LANGSMITH_API_KEY is provided
+        value: "false"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: "3.11"
+
+  # Streamlit UI (demo interface with pre-built test scenario buttons)
+  - type: web
+    name: clouddash-ui
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run streamlit_app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: LANGSMITH_PROJECT
+        value: clouddash-support
+      - key: LANGCHAIN_TRACING_V2
+        value: "false"
       - key: LOG_LEVEL
         value: INFO
       - key: PYTHON_VERSION
