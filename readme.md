@@ -1,3 +1,14 @@
+---
+title: CloudDash Customer Support
+emoji: ☁️
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.41.0
+app_file: streamlit_app.py
+pinned: false
+---
+
 # ☁️ CloudDash Multi-Agent Customer Support System
 
 A production-quality prototype multi-agent customer support system for **CloudDash** — a B2B SaaS cloud infrastructure monitoring platform (AWS, GCP, Azure).
