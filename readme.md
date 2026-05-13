@@ -3,8 +3,7 @@ title: CloudDash Customer Support
 emoji: ☁️
 colorFrom: blue
 colorTo: purple
-sdk: streamlit
-sdk_version: 1.41.0
+sdk: docker
 app_file: streamlit_app.py
 pinned: false
 ---
@@ -72,12 +71,22 @@ Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, 
 
 ---
 
-## 🚀 Quick Start
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Streamlit UI** | https://huggingface.co/spaces/ComplexHat/clouddash-support |
+| **REST API (Swagger)** | https://clouddash-r5xg.onrender.com/docs |
+
+---
+
+## 🚀 Quick Start (Local)
 
 ### Prerequisites
 
 - Python 3.10+
-- OpenAI API key
+- Groq API key (free at [console.groq.com](https://console.groq.com)) — primary LLM provider
+- LangSmith API key (optional, for tracing)
 
 ### 1. Clone & Setup
 
@@ -99,8 +108,9 @@ pip install -r requirements.txt
 ```bash
 cp .env.example .env
 # Edit .env and add your API keys:
-#   OPENAI_API_KEY=sk-...
-#   LANGSMITH_API_KEY=lsv2_...  (optional, for tracing)
+#   GROQ_API_KEY=gsk_...           (required — primary LLM)
+#   LANGSMITH_API_KEY=lsv2_...     (optional, for LangSmith tracing)
+#   LANGCHAIN_TRACING_V2=true      (optional, enable tracing)
 ```
 
 ### 3. Ingest Knowledge Base
@@ -112,7 +122,7 @@ python knowledge_base/ingest.py
 This will:
 - Load 20 KB articles from `knowledge_base/articles/`
 - Chunk them by section headers (~500 char chunks)
-- Embed using OpenAI `text-embedding-3-small`
+- Embed using `sentence-transformers/all-MiniLM-L6-v2` (local, no API key needed)
 - Index into ChromaDB (persisted in `./chroma_db/`)
 - Build a BM25 index (pickled in `./chroma_db/bm25_index.pkl`)
 
