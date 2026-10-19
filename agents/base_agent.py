@@ -4,23 +4,13 @@ from __future__ import annotations
 
 import os
 from abc import ABC, abstractmethod
-from pathlib import Path
-from typing import Any
-
-import yaml
 from langchain_groq import ChatGroq
 
+from config.llm import DEFAULT_GROQ_MODEL, groq_model_options, load_agent_config
 from models.conversation import AgentResponse, ConversationState, Message, MessageRole
 from observability.logger import get_logger
 
 logger = get_logger(__name__)
-
-
-def load_agent_config() -> dict[str, Any]:
-    """Load agent configuration from YAML."""
-    config_path = Path(__file__).parent.parent / "config" / "agents.yaml"
-    with open(config_path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
 
 
 class BaseAgent(ABC):
@@ -45,7 +35,7 @@ class BaseAgent(ABC):
         self.routes_to = self._agent_config.get("routes_to", [])
 
         self._llm = ChatGroq(
-            model=self._llm_config.get("model", "llama-3.3-70b-versatile"),
+            **groq_model_options(self._llm_config.get("model", DEFAULT_GROQ_MODEL)),
             temperature=self._llm_config.get("temperature", 0.3),
             max_tokens=self._llm_config.get("max_tokens", 1024),
             groq_api_key=os.getenv("GROQ_API_KEY"),

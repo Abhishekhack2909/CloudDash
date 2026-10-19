@@ -109,6 +109,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and add your API keys:
 #   GROQ_API_KEY=gsk_...           (required — primary LLM)
+#   GROQ_MODEL=openai/gpt-oss-120b (optional model override)
 #   LANGSMITH_API_KEY=lsv2_...     (optional, for LangSmith tracing)
 #   LANGCHAIN_TRACING_V2=true      (optional, enable tracing)
 ```

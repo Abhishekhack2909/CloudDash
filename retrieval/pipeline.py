@@ -5,6 +5,7 @@ from typing import Optional
 
 from langchain_groq import ChatGroq
 
+from config.llm import DEFAULT_GROQ_MODEL, groq_model_options, load_agent_config
 from models.knowledge import RetrievalResult
 from retrieval.bm25_store import BM25Store
 from retrieval.hybrid_retriever import HybridRetriever
@@ -27,7 +28,7 @@ class RAGPipeline:
         vector_store: VectorStore | None = None,
         bm25_store: BM25Store | None = None,
         reranker: Reranker | None = None,
-        llm_model: str = "llama-3.3-70b-versatile",
+        llm_model: str | None = None,
     ):
         self._vector_store = vector_store or VectorStore()
         self._bm25_store = bm25_store or BM25Store()
@@ -36,8 +37,11 @@ class RAGPipeline:
             bm25_store=self._bm25_store,
         )
         self._reranker = reranker or Reranker()
+        configured_model = llm_model or load_agent_config().get("llm", {}).get(
+            "model", DEFAULT_GROQ_MODEL
+        )
         self._llm = ChatGroq(
-            model=llm_model,
+            **groq_model_options(configured_model),
             temperature=0,
             groq_api_key=os.getenv("GROQ_API_KEY"),
         )

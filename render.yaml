@@ -12,6 +12,8 @@ services:
     envVars:
       - key: GROQ_API_KEY
         sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
       - key: LANGSMITH_API_KEY
         sync: false
       - key: LANGSMITH_PROJECT
@@ -33,6 +35,8 @@ services:
     envVars:
       - key: GROQ_API_KEY
         sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
       - key: LANGSMITH_API_KEY
         sync: false
       - key: LANGSMITH_PROJECT
