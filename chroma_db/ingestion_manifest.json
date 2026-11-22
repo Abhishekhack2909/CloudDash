@@ -1,0 +1,2116 @@
+{
+  "KB-001": {
+    "title": "How to Configure Alert Thresholds",
+    "category": "troubleshooting",
+    "content_hash": "b4c91ba066e3c9f6fd5fd59e0d172729eb184a2ca2f1171637faef3adc86ceda",
+    "chunk_ids": [
+      "KB-001-chunk-0",
+      "KB-001-chunk-1",
+      "KB-001-chunk-2",
+      "KB-001-chunk-3",
+      "KB-001-chunk-4",
+      "KB-001-chunk-5"
+    ],
+    "last_updated": "2026-04-15"
+  },
+  "KB-002": {
+    "title": "AWS CloudWatch Integration Setup",
+    "category": "troubleshooting",
+    "content_hash": "cedbd48f6a15e8d58b58253d7cf43dcd0f064eb9adc516eb8d880f07075f50e8",
+    "chunk_ids": [
+      "KB-002-chunk-0",
+      "KB-002-chunk-1",
+      "KB-002-chunk-2",
+      "KB-002-chunk-3",
+      "KB-002-chunk-4",
+      "KB-002-chunk-5",
+      "KB-002-chunk-6",
+      "KB-002-chunk-7",
+      "KB-002-chunk-8"
+    ],
+    "last_updated": "2026-04-10"
+  },
+  "KB-003": {
+    "title": "Troubleshooting Dashboard Loading Issues",
+    "category": "troubleshooting",
+    "content_hash": "8830b347dc1b586975ce0f1c845c089b6499ba2de04a36b614713aae6621f0e3",
+    "chunk_ids": [
+      "KB-003-chunk-0",
+      "KB-003-chunk-1",
+      "KB-003-chunk-2",
+      "KB-003-chunk-3",
+      "KB-003-chunk-4",
+      "KB-003-chunk-5",
+      "KB-003-chunk-6",
+      "KB-003-chunk-7",
+      "KB-003-chunk-8"
+    ],
+    "last_updated": "2026-03-28"
+  },
+  "KB-004": {
+    "title": "SSO and SAML Configuration Guide",
+    "category": "account",
+    "content_hash": "cd89d7e6071e012bb20ee005256c730d8bfe3c3ef01d5ca3ebcf0033e1a57e03",
+    "chunk_ids": [
+      "KB-004-chunk-0",
+      "KB-004-chunk-1",
+      "KB-004-chunk-2",
+      "KB-004-chunk-3",
+      "KB-004-chunk-4",
+      "KB-004-chunk-5",
+      "KB-004-chunk-6",
+      "KB-004-chunk-7",
+      "KB-004-chunk-8"
+    ],
+    "last_updated": "2026-04-01"
+  },
+  "KB-005": {
+    "title": "Webhook Delivery Failures and Troubleshooting",
+    "category": "troubleshooting",
+    "content_hash": "4f5aa6691d3e781bd159f65def1d70cdc6bdc9c2d7daa1657029df3b7bebeaf9",
+    "chunk_ids": [
+      "KB-005-chunk-0",
+      "KB-005-chunk-1",
+      "KB-005-chunk-2",
+      "KB-005-chunk-3",
+      "KB-005-chunk-4",
+      "KB-005-chunk-5",
+      "KB-005-chunk-6",
+      "KB-005-chunk-7",
+      "KB-005-chunk-8"
+    ],
+    "last_updated": "2026-04-12"
+  },
+  "KB-006": {
+    "title": "CloudDash Pricing Plans and Feature Comparison",
+    "category": "billing",
+    "content_hash": "fcd239c991b1e05289a63fa5f08a4f030557374a8b88af6ce55042a8b2afb7f8",
+    "chunk_ids": [
+      "KB-006-chunk-0",
+      "KB-006-chunk-1",
+      "KB-006-chunk-2",
+      "KB-006-chunk-3",
+      "KB-006-chunk-4",
+      "KB-006-chunk-5",
+      "KB-006-chunk-6"
+    ],
+    "last_updated": "2026-04-20"
+  },
+  "KB-007": {
+    "title": "Plan Upgrade and Downgrade Policy",
+    "category": "billing",
+    "content_hash": "8ac0f861c5d5c1afc815124a39ccaf0e9c303a09a2331d7169a30756007e1fef",
+    "chunk_ids": [
+      "KB-007-chunk-0",
+      "KB-007-chunk-1",
+      "KB-007-chunk-2",
+      "KB-007-chunk-3",
+      "KB-007-chunk-4",
+      "KB-007-chunk-5",
+      "KB-007-chunk-6",
+      "KB-007-chunk-7",
+      "KB-007-chunk-8",
+      "KB-007-chunk-9"
+    ],
+    "last_updated": "2026-04-18"
+  },
+  "KB-008": {
+    "title": "Refund Policy",
+    "category": "billing",
+    "content_hash": "6082c96f6af43201c0dc50a5ca6228856c54150045a48bb939ed54db4a8581fd",
+    "chunk_ids": [
+      "KB-008-chunk-0",
+      "KB-008-chunk-1",
+      "KB-008-chunk-2",
+      "KB-008-chunk-3",
+      "KB-008-chunk-4",
+      "KB-008-chunk-5",
+      "KB-008-chunk-6",
+      "KB-008-chunk-7"
+    ],
+    "last_updated": "2026-04-05"
+  },
+  "KB-009": {
+    "title": "Invoice Explanation and Payment Methods",
+    "category": "billing",
+    "content_hash": "96070578b4de0175d578c4c476dc543ce58887d9bb130d2527483904c5921722",
+    "chunk_ids": [
+      "KB-009-chunk-0",
+      "KB-009-chunk-1",
+      "KB-009-chunk-2",
+      "KB-009-chunk-3",
+      "KB-009-chunk-4",
+      "KB-009-chunk-5",
+      "KB-009-chunk-6",
+      "KB-009-chunk-7",
+      "KB-009-chunk-8",
+      "KB-009-chunk-9"
+    ],
+    "last_updated": "2026-03-30"
+  },
+  "KB-010": {
+    "title": "How to Reset Your API Key",
+    "category": "faq",
+    "content_hash": "cafdb7b09240a74ba23299e80399747a433404aee4a613670305a4271d203853",
+    "chunk_ids": [
+      "KB-010-chunk-0",
+      "KB-010-chunk-1",
+      "KB-010-chunk-2",
+      "KB-010-chunk-3",
+      "KB-010-chunk-4"
+    ],
+    "last_updated": "2026-04-08"
+  },
+  "KB-011": {
+    "title": "What Cloud Providers Does CloudDash Support?",
+    "category": "faq",
+    "content_hash": "6f991bcb3add789e1efdd843f4e53f669c9b3907a2ad3dbba0e5ee32a1d137a9",
+    "chunk_ids": [
+      "KB-011-chunk-0",
+      "KB-011-chunk-1",
+      "KB-011-chunk-2",
+      "KB-011-chunk-3",
+      "KB-011-chunk-4",
+      "KB-011-chunk-5",
+      "KB-011-chunk-6",
+      "KB-011-chunk-7"
+    ],
+    "last_updated": "2026-04-22"
+  },
+  "KB-012": {
+    "title": "How to Invite Team Members",
+    "category": "faq",
+    "content_hash": "633dcc46dda53926e4b492d3ad13a4c8dcba0e38e2aad5b50ec4af140c3d0e2f",
+    "chunk_ids": [
+      "KB-012-chunk-0",
+      "KB-012-chunk-1",
+      "KB-012-chunk-2",
+      "KB-012-chunk-3",
+      "KB-012-chunk-4",
+      "KB-012-chunk-5"
+    ],
+    "last_updated": "2026-03-25"
+  },
+  "KB-013": {
+    "title": "Data Retention Policy",
+    "category": "faq",
+    "content_hash": "27419eea2331b2a81e16062e296bdb67c23ba8eabd05df550d969d849c18c88a",
+    "chunk_ids": [
+      "KB-013-chunk-0",
+      "KB-013-chunk-1",
+      "KB-013-chunk-2",
+      "KB-013-chunk-3",
+      "KB-013-chunk-4",
+      "KB-013-chunk-5",
+      "KB-013-chunk-6"
+    ],
+    "last_updated": "2026-04-02"
+  },
+  "KB-014": {
+    "title": "API Rate Limits and Usage",
+    "category": "faq",
+    "content_hash": "1552c724c5d25f1ef95034cdc2b848757bebdd1cb06f11e4b3f31d2c8898495b",
+    "chunk_ids": [
+      "KB-014-chunk-0",
+      "KB-014-chunk-1",
+      "KB-014-chunk-2",
+      "KB-014-chunk-3",
+      "KB-014-chunk-4",
+      "KB-014-chunk-5"
+    ],
+    "last_updated": "2026-04-14"
+  },
+  "KB-015": {
+    "title": "Authentication and API Keys Reference",
+    "category": "api_docs",
+    "content_hash": "9e80ff03f85a2dd36235607385a77874266226d3250a58f749607a545c9054e8",
+    "chunk_ids": [
+      "KB-015-chunk-0",
+      "KB-015-chunk-1",
+      "KB-015-chunk-2",
+      "KB-015-chunk-3",
+      "KB-015-chunk-4",
+      "KB-015-chunk-5",
+      "KB-015-chunk-6",
+      "KB-015-chunk-7",
+      "KB-015-chunk-8"
+    ],
+    "last_updated": "2026-04-16"
+  },
+  "KB-016": {
+    "title": "Alert Endpoints and Webhook Configuration API",
+    "category": "api_docs",
+    "content_hash": "7f9fe43ee7d31b87eb8a2f41a0b32018ab65e61427876e9b4ec2f24ac0ef839c",
+    "chunk_ids": [
+      "KB-016-chunk-0",
+      "KB-016-chunk-1",
+      "KB-016-chunk-2",
+      "KB-016-chunk-3",
+      "KB-016-chunk-4",
+      "KB-016-chunk-5",
+      "KB-016-chunk-6",
+      "KB-016-chunk-7",
+      "KB-016-chunk-8",
+      "KB-016-chunk-9"
+    ],
+    "last_updated": "2026-04-18"
+  },
+  "KB-017": {
+    "title": "SDK Usage and Code Examples",
+    "category": "api_docs",
+    "content_hash": "6d65b8a4df815b2fb9edf4a8931c6278623b13ff645d13c2e6ecf814a4e1340a",
+    "chunk_ids": [
+      "KB-017-chunk-0",
+      "KB-017-chunk-1",
+      "KB-017-chunk-2",
+      "KB-017-chunk-3",
+      "KB-017-chunk-4",
+      "KB-017-chunk-5",
+      "KB-017-chunk-6",
+      "KB-017-chunk-7",
+      "KB-017-chunk-8",
+      "KB-017-chunk-9",
+      "KB-017-chunk-10",
+      "KB-017-chunk-11",
+      "KB-017-chunk-12",
+      "KB-017-chunk-13",
+      "KB-017-chunk-14",
+      "KB-017-chunk-15"
+    ],
+    "last_updated": "2026-04-20"
+  },
+  "KB-018": {
+    "title": "RBAC and Permissions Configuration",
+    "category": "account",
+    "content_hash": "38b3238372b3748310a08dc4b8a8eff4b4c42b4fcd205a91e9b14d6cef222b7f",
+    "chunk_ids": [
+      "KB-018-chunk-0",
+      "KB-018-chunk-1",
+      "KB-018-chunk-2",
+      "KB-018-chunk-3",
+      "KB-018-chunk-4",
+      "KB-018-chunk-5",
+      "KB-018-chunk-6",
+      "KB-018-chunk-7"
+    ],
+    "last_updated": "2026-04-11"
+  },
+  "KB-019": {
+    "title": "Audit Log Access and Configuration",
+    "category": "account",
+    "content_hash": "be0a4f1210fbab959c6a0ac86e012268e4acf5b5ed1705eceb80adb77bd7ff81",
+    "chunk_ids": [
+      "KB-019-chunk-0",
+      "KB-019-chunk-1",
+      "KB-019-chunk-2",
+      "KB-019-chunk-3",
+      "KB-019-chunk-4",
+      "KB-019-chunk-5",
+      "KB-019-chunk-6"
+    ],
+    "last_updated": "2026-04-09"
+  },
+  "KB-020": {
+    "title": "Alerts Not Firing \u2014 Complete Troubleshooting Guide",
+    "category": "troubleshooting",
+    "content_hash": "0d5f0cbdf437a5f141669608714c4581526c5f50bea2c518e3de1564e047d0fd",
+    "chunk_ids": [
+      "KB-020-chunk-0",
+      "KB-020-chunk-1",
+      "KB-020-chunk-2",
+      "KB-020-chunk-3",
+      "KB-020-chunk-4",
+      "KB-020-chunk-5",
+      "KB-020-chunk-6",
+      "KB-020-chunk-7",
+      "KB-020-chunk-8",
+      "KB-020-chunk-9"
+    ],
+    "last_updated": "2026-04-25"
+  },
+  "KB-021": {
+    "title": "Kubernetes DaemonSet Pod CrashLoopBackOff Resolution",
+    "category": "troubleshooting",
+    "content_hash": "ba15d41db0f9035d6f4fd4d5797129619894bc704cf5f38b7b2f6d5af47f094e",
+    "chunk_ids": [
+      "KB-021-chunk-0",
+      "KB-021-chunk-1",
+      "KB-021-chunk-2",
+      "KB-021-chunk-3",
+      "KB-021-chunk-4",
+      "KB-021-chunk-5",
+      "KB-021-chunk-6",
+      "KB-021-chunk-7",
+      "KB-021-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-022": {
+    "title": "Prometheus Scrape Timeout and Target Dropping",
+    "category": "troubleshooting",
+    "content_hash": "16bdb01d4ac0c99f59fa8860997d5e4901d075c26cda8e33cf2c2dd546413c78",
+    "chunk_ids": [
+      "KB-022-chunk-0",
+      "KB-022-chunk-1",
+      "KB-022-chunk-2",
+      "KB-022-chunk-3",
+      "KB-022-chunk-4",
+      "KB-022-chunk-5",
+      "KB-022-chunk-6",
+      "KB-022-chunk-7",
+      "KB-022-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-023": {
+    "title": "GCP Cloud Monitoring Integration Latency",
+    "category": "troubleshooting",
+    "content_hash": "d64d043f94328f3c6d89befcd484cc2108839adbae7c12edcfb65a4c38039657",
+    "chunk_ids": [
+      "KB-023-chunk-0",
+      "KB-023-chunk-1",
+      "KB-023-chunk-2",
+      "KB-023-chunk-3",
+      "KB-023-chunk-4",
+      "KB-023-chunk-5",
+      "KB-023-chunk-6",
+      "KB-023-chunk-7",
+      "KB-023-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-024": {
+    "title": "Azure Monitor Workspace Ingestion Quota Reached",
+    "category": "troubleshooting",
+    "content_hash": "dade9240ad6fcb19205a1e251709ad0d128bf70011868cc68e5f91eb30fa5946",
+    "chunk_ids": [
+      "KB-024-chunk-0",
+      "KB-024-chunk-1",
+      "KB-024-chunk-2",
+      "KB-024-chunk-3",
+      "KB-024-chunk-4",
+      "KB-024-chunk-5",
+      "KB-024-chunk-6",
+      "KB-024-chunk-7",
+      "KB-024-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-025": {
+    "title": "Redis Cache Eviction Spikes and Memory Pressure Alerts",
+    "category": "troubleshooting",
+    "content_hash": "9cad28da3e86712c6612970d944bab82ca2b1486a5798b19b7742fd212bf2bcb",
+    "chunk_ids": [
+      "KB-025-chunk-0",
+      "KB-025-chunk-1",
+      "KB-025-chunk-2",
+      "KB-025-chunk-3",
+      "KB-025-chunk-4",
+      "KB-025-chunk-5",
+      "KB-025-chunk-6",
+      "KB-025-chunk-7",
+      "KB-025-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-026": {
+    "title": "Envoy and Istio Proxy Connection Reset (503 UC)",
+    "category": "troubleshooting",
+    "content_hash": "89c33f4da6f026a90cfa88f14fe0d81a09601142f30cc02b4c4fd18f513ca2aa",
+    "chunk_ids": [
+      "KB-026-chunk-0",
+      "KB-026-chunk-1",
+      "KB-026-chunk-2",
+      "KB-026-chunk-3",
+      "KB-026-chunk-4",
+      "KB-026-chunk-5",
+      "KB-026-chunk-6",
+      "KB-026-chunk-7",
+      "KB-026-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-027": {
+    "title": "SSL/TLS Handshake Failures on Agent Webhooks",
+    "category": "troubleshooting",
+    "content_hash": "0abdf6cdba03fefe33066cca7481c21aafa09d6354d5fa6a9285fa63985a6a9b",
+    "chunk_ids": [
+      "KB-027-chunk-0",
+      "KB-027-chunk-1",
+      "KB-027-chunk-2",
+      "KB-027-chunk-3",
+      "KB-027-chunk-4",
+      "KB-027-chunk-5",
+      "KB-027-chunk-6",
+      "KB-027-chunk-7",
+      "KB-027-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-028": {
+    "title": "CoreDNS Resolution Throttling and DNS Query Timeouts",
+    "category": "troubleshooting",
+    "content_hash": "747cc52d502d0c219ca65b8e851a133fe89fdd171f3a36c40007f0e9039f658a",
+    "chunk_ids": [
+      "KB-028-chunk-0",
+      "KB-028-chunk-1",
+      "KB-028-chunk-2",
+      "KB-028-chunk-3",
+      "KB-028-chunk-4",
+      "KB-028-chunk-5",
+      "KB-028-chunk-6",
+      "KB-028-chunk-7",
+      "KB-028-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-029": {
+    "title": "Disk I/O Wait Spikes and High Queue Depth Alerts",
+    "category": "troubleshooting",
+    "content_hash": "9d69f29205821f6bf8e98fd5a3692f630b255f1a9a42fe6104166223526b419c",
+    "chunk_ids": [
+      "KB-029-chunk-0",
+      "KB-029-chunk-1",
+      "KB-029-chunk-2",
+      "KB-029-chunk-3",
+      "KB-029-chunk-4",
+      "KB-029-chunk-5",
+      "KB-029-chunk-6",
+      "KB-029-chunk-7",
+      "KB-029-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-030": {
+    "title": "Kafka Consumer Lag Accumulation and Partition Rebalancing",
+    "category": "troubleshooting",
+    "content_hash": "2604534c86522a9d1334f7ee9b8856c568cbc892a978844eaeac90187aa93075",
+    "chunk_ids": [
+      "KB-030-chunk-0",
+      "KB-030-chunk-1",
+      "KB-030-chunk-2",
+      "KB-030-chunk-3",
+      "KB-030-chunk-4",
+      "KB-030-chunk-5",
+      "KB-030-chunk-6",
+      "KB-030-chunk-7",
+      "KB-030-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-031": {
+    "title": "Elasticsearch Heap Memory Exhaustion and Circuit Breakers",
+    "category": "troubleshooting",
+    "content_hash": "33c176fa13dff2695fb36bcd664d92438c0181ff4725c34ec0509a335bddde19",
+    "chunk_ids": [
+      "KB-031-chunk-0",
+      "KB-031-chunk-1",
+      "KB-031-chunk-2",
+      "KB-031-chunk-3",
+      "KB-031-chunk-4",
+      "KB-031-chunk-5",
+      "KB-031-chunk-6",
+      "KB-031-chunk-7",
+      "KB-031-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-032": {
+    "title": "gRPC Status Code 14 UNAVAILABLE in Microservices",
+    "category": "troubleshooting",
+    "content_hash": "a246043a21ded688565be4482d5aaf6b974b9b8338a6370d1f39ff5f5f635b85",
+    "chunk_ids": [
+      "KB-032-chunk-0",
+      "KB-032-chunk-1",
+      "KB-032-chunk-2",
+      "KB-032-chunk-3",
+      "KB-032-chunk-4",
+      "KB-032-chunk-5",
+      "KB-032-chunk-6",
+      "KB-032-chunk-7",
+      "KB-032-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-033": {
+    "title": "PostgreSQL Connection Pool Exhaustion and 53300 Errors",
+    "category": "troubleshooting",
+    "content_hash": "d6c3e80665f859739271b96966ae76d9f4805869e31a4acbe93e3738d00a591f",
+    "chunk_ids": [
+      "KB-033-chunk-0",
+      "KB-033-chunk-1",
+      "KB-033-chunk-2",
+      "KB-033-chunk-3",
+      "KB-033-chunk-4",
+      "KB-033-chunk-5",
+      "KB-033-chunk-6",
+      "KB-033-chunk-7",
+      "KB-033-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-034": {
+    "title": "Docker Container OOMKilled Error Code 137",
+    "category": "troubleshooting",
+    "content_hash": "06383175aff3a5f847da1e132382514654d96b7d446099a68fbe0062bfbf2a98",
+    "chunk_ids": [
+      "KB-034-chunk-0",
+      "KB-034-chunk-1",
+      "KB-034-chunk-2",
+      "KB-034-chunk-3",
+      "KB-034-chunk-4",
+      "KB-034-chunk-5",
+      "KB-034-chunk-6",
+      "KB-034-chunk-7",
+      "KB-034-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-035": {
+    "title": "Nginx 502 Bad Gateway with Upstream Timeout",
+    "category": "troubleshooting",
+    "content_hash": "396d8b22e71d921c75fade40b60edb942812a7d49414b24288aeb4f6d9fb0dd6",
+    "chunk_ids": [
+      "KB-035-chunk-0",
+      "KB-035-chunk-1",
+      "KB-035-chunk-2",
+      "KB-035-chunk-3",
+      "KB-035-chunk-4",
+      "KB-035-chunk-5",
+      "KB-035-chunk-6",
+      "KB-035-chunk-7",
+      "KB-035-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-036": {
+    "title": "OpenTelemetry Collector Export Failures and Dropped Spans",
+    "category": "troubleshooting",
+    "content_hash": "b70d4561da9e705304164424f1de287cfe55b0fdd62c739d1ae974432c954e18",
+    "chunk_ids": [
+      "KB-036-chunk-0",
+      "KB-036-chunk-1",
+      "KB-036-chunk-2",
+      "KB-036-chunk-3",
+      "KB-036-chunk-4",
+      "KB-036-chunk-5",
+      "KB-036-chunk-6",
+      "KB-036-chunk-7",
+      "KB-036-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-037": {
+    "title": "AWS IAM STS AssumeRole AccessDenied in Cross-Account Setup",
+    "category": "troubleshooting",
+    "content_hash": "8102299d5853b71ac1719b04a9255652839413e469981afd927bce08c1f20577",
+    "chunk_ids": [
+      "KB-037-chunk-0",
+      "KB-037-chunk-1",
+      "KB-037-chunk-2",
+      "KB-037-chunk-3",
+      "KB-037-chunk-4",
+      "KB-037-chunk-5",
+      "KB-037-chunk-6",
+      "KB-037-chunk-7",
+      "KB-037-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-038": {
+    "title": "RabbitMQ Unacknowledged Message Spikes and Channel Freezing",
+    "category": "troubleshooting",
+    "content_hash": "8e01f2e30f11df655506828a2bb7bbac81abc91304235cabea0ca275e88bbfea",
+    "chunk_ids": [
+      "KB-038-chunk-0",
+      "KB-038-chunk-1",
+      "KB-038-chunk-2",
+      "KB-038-chunk-3",
+      "KB-038-chunk-4",
+      "KB-038-chunk-5",
+      "KB-038-chunk-6",
+      "KB-038-chunk-7",
+      "KB-038-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-039": {
+    "title": "Network Latency and Packet Loss in Multi-Region VPC Peering",
+    "category": "troubleshooting",
+    "content_hash": "a3043a868cdaed7eced3d62a29d29896304676b8d6569bd4b24f3b85a3f1ca60",
+    "chunk_ids": [
+      "KB-039-chunk-0",
+      "KB-039-chunk-1",
+      "KB-039-chunk-2",
+      "KB-039-chunk-3",
+      "KB-039-chunk-4",
+      "KB-039-chunk-5",
+      "KB-039-chunk-6",
+      "KB-039-chunk-7",
+      "KB-039-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-040": {
+    "title": "Logstash Pipeline Stalls and Backpressure on Beats Agents",
+    "category": "troubleshooting",
+    "content_hash": "60f51073641a792b0cd7b1709c4661a3964eb7fa1da81942933ecadf320a62f1",
+    "chunk_ids": [
+      "KB-040-chunk-0",
+      "KB-040-chunk-1",
+      "KB-040-chunk-2",
+      "KB-040-chunk-3",
+      "KB-040-chunk-4",
+      "KB-040-chunk-5",
+      "KB-040-chunk-6",
+      "KB-040-chunk-7",
+      "KB-040-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-041": {
+    "title": "High CPU Throttling on Burstable EC2 T3/T4g Instances",
+    "category": "troubleshooting",
+    "content_hash": "df0926f446a21b8b7b925efe73e7e19452495b048d244d4ad2ad1482576f4ef3",
+    "chunk_ids": [
+      "KB-041-chunk-0",
+      "KB-041-chunk-1",
+      "KB-041-chunk-2",
+      "KB-041-chunk-3",
+      "KB-041-chunk-4",
+      "KB-041-chunk-5",
+      "KB-041-chunk-6",
+      "KB-041-chunk-7",
+      "KB-041-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-042": {
+    "title": "Annual Enterprise Contract Commitments and True-Up Terms",
+    "category": "billing",
+    "content_hash": "f49f75008df3abd0c237c91d55f78dbb514fb7c1303012f7596a216bcabf296e",
+    "chunk_ids": [
+      "KB-042-chunk-0",
+      "KB-042-chunk-1",
+      "KB-042-chunk-2",
+      "KB-042-chunk-3",
+      "KB-042-chunk-4",
+      "KB-042-chunk-5",
+      "KB-042-chunk-6",
+      "KB-042-chunk-7",
+      "KB-042-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-043": {
+    "title": "Invoice Dispute and Credit Adjustment Procedure",
+    "category": "billing",
+    "content_hash": "878395293b7c922355b53e1f43aff8ae123f92ab7c1f604fce932f68b232c968",
+    "chunk_ids": [
+      "KB-043-chunk-0",
+      "KB-043-chunk-1",
+      "KB-043-chunk-2",
+      "KB-043-chunk-3",
+      "KB-043-chunk-4",
+      "KB-043-chunk-5",
+      "KB-043-chunk-6",
+      "KB-043-chunk-7",
+      "KB-043-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-044": {
+    "title": "Credit Card Expiration and Automated Payment Retries",
+    "category": "billing",
+    "content_hash": "2e7579390ef346397e4e0fd016d97517b5391d38e1894e732f4abc0b6da1163a",
+    "chunk_ids": [
+      "KB-044-chunk-0",
+      "KB-044-chunk-1",
+      "KB-044-chunk-2",
+      "KB-044-chunk-3",
+      "KB-044-chunk-4",
+      "KB-044-chunk-5",
+      "KB-044-chunk-6",
+      "KB-044-chunk-7",
+      "KB-044-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-045": {
+    "title": "Tax Exemption Certificate Upload and VAT Invalidation",
+    "category": "billing",
+    "content_hash": "8e802ff1b75e0c1eea25463ecf7df8b7fa9119fc6b904bac3f5730c7946441c1",
+    "chunk_ids": [
+      "KB-045-chunk-0",
+      "KB-045-chunk-1",
+      "KB-045-chunk-2",
+      "KB-045-chunk-3",
+      "KB-045-chunk-4",
+      "KB-045-chunk-5",
+      "KB-045-chunk-6",
+      "KB-045-chunk-7",
+      "KB-045-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-046": {
+    "title": "Multi-Currency Billing Options and Exchange Rate Guarantees",
+    "category": "billing",
+    "content_hash": "d9ba0d97a0b9f5c3f4614668d559325dcc71ba526032e272fe74d671022d2ea8",
+    "chunk_ids": [
+      "KB-046-chunk-0",
+      "KB-046-chunk-1",
+      "KB-046-chunk-2",
+      "KB-046-chunk-3",
+      "KB-046-chunk-4",
+      "KB-046-chunk-5",
+      "KB-046-chunk-6",
+      "KB-046-chunk-7",
+      "KB-046-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-047": {
+    "title": "Custom Metric Pricing Overages and Tiered Rate Cards",
+    "category": "billing",
+    "content_hash": "116f30669defdc0def6ff4114721953337fe683f763c5061401718077d20fd53",
+    "chunk_ids": [
+      "KB-047-chunk-0",
+      "KB-047-chunk-1",
+      "KB-047-chunk-2",
+      "KB-047-chunk-3",
+      "KB-047-chunk-4",
+      "KB-047-chunk-5",
+      "KB-047-chunk-6",
+      "KB-047-chunk-7",
+      "KB-047-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-048": {
+    "title": "Reserved Seat Licensing and Add-On User Pricing",
+    "category": "billing",
+    "content_hash": "893650e70d217290dfb29839f89be9e3a3c93e3d003067a8ec9e084a93e4eba4",
+    "chunk_ids": [
+      "KB-048-chunk-0",
+      "KB-048-chunk-1",
+      "KB-048-chunk-2",
+      "KB-048-chunk-3",
+      "KB-048-chunk-4",
+      "KB-048-chunk-5",
+      "KB-048-chunk-6",
+      "KB-048-chunk-7",
+      "KB-048-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-049": {
+    "title": "Purchase Order (PO) Invoicing and Net-30 Payment Terms",
+    "category": "billing",
+    "content_hash": "758e742e70ec01308a247441ec88f4046eae8f319cbd52491b07ab9365979cf1",
+    "chunk_ids": [
+      "KB-049-chunk-0",
+      "KB-049-chunk-1",
+      "KB-049-chunk-2",
+      "KB-049-chunk-3",
+      "KB-049-chunk-4",
+      "KB-049-chunk-5",
+      "KB-049-chunk-6",
+      "KB-049-chunk-7",
+      "KB-049-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-050": {
+    "title": "Billing Admin Role Delegation and Notification Routing",
+    "category": "billing",
+    "content_hash": "f54ed8438707f2deb41fa9dbce828631146b328633053b6dbad0501fdf3fde40",
+    "chunk_ids": [
+      "KB-050-chunk-0",
+      "KB-050-chunk-1",
+      "KB-050-chunk-2",
+      "KB-050-chunk-3",
+      "KB-050-chunk-4",
+      "KB-050-chunk-5",
+      "KB-050-chunk-6",
+      "KB-050-chunk-7",
+      "KB-050-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-051": {
+    "title": "Payment Failure Grace Period and Service Suspension Schedule",
+    "category": "billing",
+    "content_hash": "5d8ce16d1842a0e92360297abb46645c5a755400a199ca84e3f3cd1d5b1eeac0",
+    "chunk_ids": [
+      "KB-051-chunk-0",
+      "KB-051-chunk-1",
+      "KB-051-chunk-2",
+      "KB-051-chunk-3",
+      "KB-051-chunk-4",
+      "KB-051-chunk-5",
+      "KB-051-chunk-6",
+      "KB-051-chunk-7",
+      "KB-051-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-052": {
+    "title": "Nonprofit and Open-Source Project Discount Programs",
+    "category": "billing",
+    "content_hash": "16db9833e31c60c5eacbfa902414133463ffe3c38d0c0c6376fe29a1c51e9e40",
+    "chunk_ids": [
+      "KB-052-chunk-0",
+      "KB-052-chunk-1",
+      "KB-052-chunk-2",
+      "KB-052-chunk-3",
+      "KB-052-chunk-4",
+      "KB-052-chunk-5",
+      "KB-052-chunk-6",
+      "KB-052-chunk-7",
+      "KB-052-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-053": {
+    "title": "Early Termination Policy for Multi-Year Enterprise Contracts",
+    "category": "billing",
+    "content_hash": "6cf1bbacdf81495f2a02aaaf7e19bddd202235b60c073fd96f57233c213d115c",
+    "chunk_ids": [
+      "KB-053-chunk-0",
+      "KB-053-chunk-1",
+      "KB-053-chunk-2",
+      "KB-053-chunk-3",
+      "KB-053-chunk-4",
+      "KB-053-chunk-5",
+      "KB-053-chunk-6",
+      "KB-053-chunk-7",
+      "KB-053-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-054": {
+    "title": "Understanding Prorated Charges on Mid-Month Seat Additions",
+    "category": "billing",
+    "content_hash": "db659920b031fb774c23d9e4ff0be37e2286debe20df8f9417bea6c485c361af",
+    "chunk_ids": [
+      "KB-054-chunk-0",
+      "KB-054-chunk-1",
+      "KB-054-chunk-2",
+      "KB-054-chunk-3",
+      "KB-054-chunk-4",
+      "KB-054-chunk-5",
+      "KB-054-chunk-6",
+      "KB-054-chunk-7",
+      "KB-054-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-055": {
+    "title": "Self-Service Invoice Downloading and Receipt History",
+    "category": "billing",
+    "content_hash": "ead0d58b84972a703b3b6f7d3d644bf83d644225433dd725d27559c380e4e6a2",
+    "chunk_ids": [
+      "KB-055-chunk-0",
+      "KB-055-chunk-1",
+      "KB-055-chunk-2",
+      "KB-055-chunk-3",
+      "KB-055-chunk-4",
+      "KB-055-chunk-5",
+      "KB-055-chunk-6",
+      "KB-055-chunk-7",
+      "KB-055-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-056": {
+    "title": "Cloud Marketplace Billing (AWS Marketplace & GCP Marketplace)",
+    "category": "billing",
+    "content_hash": "55ebe8108080fcfa45bb5f6632c615f67595152f1954966d5b4b073b0b67642c",
+    "chunk_ids": [
+      "KB-056-chunk-0",
+      "KB-056-chunk-1",
+      "KB-056-chunk-2",
+      "KB-056-chunk-3",
+      "KB-056-chunk-4",
+      "KB-056-chunk-5",
+      "KB-056-chunk-6",
+      "KB-056-chunk-7",
+      "KB-056-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-057": {
+    "title": "Synthetic Monitoring Check Pricing and Run Frequency Costs",
+    "category": "billing",
+    "content_hash": "1dfac66bfbeb6272e92655206424d9840bd726eee8a2630f898a82cee01be2ea",
+    "chunk_ids": [
+      "KB-057-chunk-0",
+      "KB-057-chunk-1",
+      "KB-057-chunk-2",
+      "KB-057-chunk-3",
+      "KB-057-chunk-4",
+      "KB-057-chunk-5",
+      "KB-057-chunk-6",
+      "KB-057-chunk-7",
+      "KB-057-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-058": {
+    "title": "Log Ingestion Volume Billing and GB/Day Overage Calculator",
+    "category": "billing",
+    "content_hash": "1bc96dbb1f928e0bea90963986002e70629c5faa86f33624617f8e8212688ec1",
+    "chunk_ids": [
+      "KB-058-chunk-0",
+      "KB-058-chunk-1",
+      "KB-058-chunk-2",
+      "KB-058-chunk-3",
+      "KB-058-chunk-4",
+      "KB-058-chunk-5",
+      "KB-058-chunk-6",
+      "KB-058-chunk-7",
+      "KB-058-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-059": {
+    "title": "Updating Billing Address, Company Legal Name, and Tax ID",
+    "category": "billing",
+    "content_hash": "50e3ee5a9e84869d3738417aa7bfdb6b9c61aaa3099f7ed0b6a1464e5aa25d9e",
+    "chunk_ids": [
+      "KB-059-chunk-0",
+      "KB-059-chunk-1",
+      "KB-059-chunk-2",
+      "KB-059-chunk-3",
+      "KB-059-chunk-4",
+      "KB-059-chunk-5",
+      "KB-059-chunk-6",
+      "KB-059-chunk-7",
+      "KB-059-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-060": {
+    "title": "Prepaid Account Credits and Depletion Tracking",
+    "category": "billing",
+    "content_hash": "48a48aadc373a928ae3a2eb1479d971d347e6658a68b871cb4927adeff499393",
+    "chunk_ids": [
+      "KB-060-chunk-0",
+      "KB-060-chunk-1",
+      "KB-060-chunk-2",
+      "KB-060-chunk-3",
+      "KB-060-chunk-4",
+      "KB-060-chunk-5",
+      "KB-060-chunk-6",
+      "KB-060-chunk-7",
+      "KB-060-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-061": {
+    "title": "Downgrading to Free Developer Tier Policy and Data Pruning",
+    "category": "billing",
+    "content_hash": "3b59c128986c9ec463adeb261816fef52ffced0ee53f285ab3c3e3fdf3d15067",
+    "chunk_ids": [
+      "KB-061-chunk-0",
+      "KB-061-chunk-1",
+      "KB-061-chunk-2",
+      "KB-061-chunk-3",
+      "KB-061-chunk-4",
+      "KB-061-chunk-5",
+      "KB-061-chunk-6",
+      "KB-061-chunk-7",
+      "KB-061-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-062": {
+    "title": "ACH Direct Debit Failure Codes and Bank Authorization",
+    "category": "billing",
+    "content_hash": "adbccb98e1c800dd3b23dc6dbf40eebcc94a39e937938d3e752eb2f41de2f01a",
+    "chunk_ids": [
+      "KB-062-chunk-0",
+      "KB-062-chunk-1",
+      "KB-062-chunk-2",
+      "KB-062-chunk-3",
+      "KB-062-chunk-4",
+      "KB-062-chunk-5",
+      "KB-062-chunk-6",
+      "KB-062-chunk-7",
+      "KB-062-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-063": {
+    "title": "Okta SCIM Automated User Provisioning and Deprovisioning",
+    "category": "account",
+    "content_hash": "22c2b5afdab9e532199191dbd468bcaaebc6147416d198d2cb804bcaa9d1fbd0",
+    "chunk_ids": [
+      "KB-063-chunk-0",
+      "KB-063-chunk-1",
+      "KB-063-chunk-2",
+      "KB-063-chunk-3",
+      "KB-063-chunk-4",
+      "KB-063-chunk-5",
+      "KB-063-chunk-6",
+      "KB-063-chunk-7",
+      "KB-063-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-064": {
+    "title": "Azure Active Directory Group Mapping to CloudDash Roles",
+    "category": "account",
+    "content_hash": "4cab2e5918a8766d3e93a292f440e20cdfcc772768302e8d8d4c917bdc4c23b7",
+    "chunk_ids": [
+      "KB-064-chunk-0",
+      "KB-064-chunk-1",
+      "KB-064-chunk-2",
+      "KB-064-chunk-3",
+      "KB-064-chunk-4",
+      "KB-064-chunk-5",
+      "KB-064-chunk-6",
+      "KB-064-chunk-7",
+      "KB-064-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-065": {
+    "title": "Multi-Factor Authentication (MFA/2FA) Enforcement Policy",
+    "category": "account",
+    "content_hash": "d7365a1875cb14184e1e02634d90d68b31383220903a4704deac72d986e5ad05",
+    "chunk_ids": [
+      "KB-065-chunk-0",
+      "KB-065-chunk-1",
+      "KB-065-chunk-2",
+      "KB-065-chunk-3",
+      "KB-065-chunk-4",
+      "KB-065-chunk-5",
+      "KB-065-chunk-6",
+      "KB-065-chunk-7",
+      "KB-065-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-066": {
+    "title": "Dashboard Session Timeout and Inactivity Invalidation",
+    "category": "account",
+    "content_hash": "cb28a3497d946245ec4ffb8369baa84609c169faa0cd4c9b79e127b009816a8b",
+    "chunk_ids": [
+      "KB-066-chunk-0",
+      "KB-066-chunk-1",
+      "KB-066-chunk-2",
+      "KB-066-chunk-3",
+      "KB-066-chunk-4",
+      "KB-066-chunk-5",
+      "KB-066-chunk-6",
+      "KB-066-chunk-7",
+      "KB-066-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-067": {
+    "title": "IP Allowlisting for Web Dashboard and API Access",
+    "category": "account",
+    "content_hash": "774fb7ca3dfe5e80a3229cb10bfa46e6e6a6ebe7e8f5d5322bca56a74ad7f9bf",
+    "chunk_ids": [
+      "KB-067-chunk-0",
+      "KB-067-chunk-1",
+      "KB-067-chunk-2",
+      "KB-067-chunk-3",
+      "KB-067-chunk-4",
+      "KB-067-chunk-5",
+      "KB-067-chunk-6",
+      "KB-067-chunk-7",
+      "KB-067-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-068": {
+    "title": "Enterprise SSO Domain Verification via DNS TXT Record",
+    "category": "account",
+    "content_hash": "afecf0546e8c9e21c2f4c1f7542635cb93c23be0c20d5c187618b991907ee22d",
+    "chunk_ids": [
+      "KB-068-chunk-0",
+      "KB-068-chunk-1",
+      "KB-068-chunk-2",
+      "KB-068-chunk-3",
+      "KB-068-chunk-4",
+      "KB-068-chunk-5",
+      "KB-068-chunk-6",
+      "KB-068-chunk-7",
+      "KB-068-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-069": {
+    "title": "Service Account Creation and Non-Expiring Bot Tokens",
+    "category": "account",
+    "content_hash": "ba427e0554eeec633b811f0b1821c3e5ac83783c3b542e74ab04461a2995af5b",
+    "chunk_ids": [
+      "KB-069-chunk-0",
+      "KB-069-chunk-1",
+      "KB-069-chunk-2",
+      "KB-069-chunk-3",
+      "KB-069-chunk-4",
+      "KB-069-chunk-5",
+      "KB-069-chunk-6",
+      "KB-069-chunk-7",
+      "KB-069-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-070": {
+    "title": "Audit Log Streaming to Amazon S3 and Google Cloud Storage",
+    "category": "account",
+    "content_hash": "19f30a41ad852a7ae8a754bbeecacb0cfd76913bba9a79aaa59fb1f94cbf82ba",
+    "chunk_ids": [
+      "KB-070-chunk-0",
+      "KB-070-chunk-1",
+      "KB-070-chunk-2",
+      "KB-070-chunk-3",
+      "KB-070-chunk-4",
+      "KB-070-chunk-5",
+      "KB-070-chunk-6",
+      "KB-070-chunk-7",
+      "KB-070-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-071": {
+    "title": "Team Workspace Isolation and Multi-Tenant Project Segregation",
+    "category": "account",
+    "content_hash": "2d1413d2acc203f19375c4e30ac20a6b3b38d70bffc7f20160a64484f3be4bd5",
+    "chunk_ids": [
+      "KB-071-chunk-0",
+      "KB-071-chunk-1",
+      "KB-071-chunk-2",
+      "KB-071-chunk-3",
+      "KB-071-chunk-4",
+      "KB-071-chunk-5",
+      "KB-071-chunk-6",
+      "KB-071-chunk-7",
+      "KB-071-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-072": {
+    "title": "Configuring Granular Dashboard Read/Write ACLs",
+    "category": "account",
+    "content_hash": "e45c2e4792bb34209180726991debc815c800ceca4c088def51f2537ed0f287d",
+    "chunk_ids": [
+      "KB-072-chunk-0",
+      "KB-072-chunk-1",
+      "KB-072-chunk-2",
+      "KB-072-chunk-3",
+      "KB-072-chunk-4",
+      "KB-072-chunk-5",
+      "KB-072-chunk-6",
+      "KB-072-chunk-7",
+      "KB-072-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-073": {
+    "title": "Emergency Account Recovery and Break-Glass Administrator",
+    "category": "account",
+    "content_hash": "168ec54169a8c2187af4655e964d627bc8cc11a10a12e85719203107cfff8132",
+    "chunk_ids": [
+      "KB-073-chunk-0",
+      "KB-073-chunk-1",
+      "KB-073-chunk-2",
+      "KB-073-chunk-3",
+      "KB-073-chunk-4",
+      "KB-073-chunk-5",
+      "KB-073-chunk-6",
+      "KB-073-chunk-7",
+      "KB-073-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-074": {
+    "title": "Password Policy Complexity and Expiration Configuration",
+    "category": "account",
+    "content_hash": "68331e87213a97151c78623e1ef0c14c66bb9c8605d00c774f01cfe512861358",
+    "chunk_ids": [
+      "KB-074-chunk-0",
+      "KB-074-chunk-1",
+      "KB-074-chunk-2",
+      "KB-074-chunk-3",
+      "KB-074-chunk-4",
+      "KB-074-chunk-5",
+      "KB-074-chunk-6",
+      "KB-074-chunk-7",
+      "KB-074-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-075": {
+    "title": "Account Deletion, Data Purging, and GDPR Right to Erasure",
+    "category": "account",
+    "content_hash": "abd5bc207b403562a738ccd44813e2b6922688bf34858faaebf4c0c6e681875a",
+    "chunk_ids": [
+      "KB-075-chunk-0",
+      "KB-075-chunk-1",
+      "KB-075-chunk-2",
+      "KB-075-chunk-3",
+      "KB-075-chunk-4",
+      "KB-075-chunk-5",
+      "KB-075-chunk-6",
+      "KB-075-chunk-7",
+      "KB-075-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-076": {
+    "title": "SAML Single Logout (SLO) Configuration Guide",
+    "category": "account",
+    "content_hash": "aca9c008ec8616dd05009a6eb0e8b0d89917e3a32ee00864b0612aa1399bd7d8",
+    "chunk_ids": [
+      "KB-076-chunk-0",
+      "KB-076-chunk-1",
+      "KB-076-chunk-2",
+      "KB-076-chunk-3",
+      "KB-076-chunk-4",
+      "KB-076-chunk-5",
+      "KB-076-chunk-6",
+      "KB-076-chunk-7",
+      "KB-076-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-077": {
+    "title": "Custom RBAC Role Definition and Scoped Permission Matrix",
+    "category": "account",
+    "content_hash": "7593b930d1562057461cba730fc8e1fb43edfad2e0f4487d673b5a69a9bed408",
+    "chunk_ids": [
+      "KB-077-chunk-0",
+      "KB-077-chunk-1",
+      "KB-077-chunk-2",
+      "KB-077-chunk-3",
+      "KB-077-chunk-4",
+      "KB-077-chunk-5",
+      "KB-077-chunk-6",
+      "KB-077-chunk-7",
+      "KB-077-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-078": {
+    "title": "Managing Multiple CloudDash Organizations with One Email",
+    "category": "account",
+    "content_hash": "c23f1a4f7c900c866a00718cd0bc237a9afbfa65b8098d7c40a3c4051035f21a",
+    "chunk_ids": [
+      "KB-078-chunk-0",
+      "KB-078-chunk-1",
+      "KB-078-chunk-2",
+      "KB-078-chunk-3",
+      "KB-078-chunk-4",
+      "KB-078-chunk-5",
+      "KB-078-chunk-6",
+      "KB-078-chunk-7",
+      "KB-078-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-079": {
+    "title": "Suspicious Login Alerts and Geolocation Anomaly Detection",
+    "category": "account",
+    "content_hash": "acc0a008102bf9eb61b9ae55f22f5c7e3840ea9e7cf2e89b2063fe991312aac1",
+    "chunk_ids": [
+      "KB-079-chunk-0",
+      "KB-079-chunk-1",
+      "KB-079-chunk-2",
+      "KB-079-chunk-3",
+      "KB-079-chunk-4",
+      "KB-079-chunk-5",
+      "KB-079-chunk-6",
+      "KB-079-chunk-7",
+      "KB-079-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-080": {
+    "title": "API Key Expiration Policy and Automated Rotation Alerts",
+    "category": "account",
+    "content_hash": "dcaba9fb34aa5747a04443241b12f17e198ad49cb769803ab4b803ef5558d994",
+    "chunk_ids": [
+      "KB-080-chunk-0",
+      "KB-080-chunk-1",
+      "KB-080-chunk-2",
+      "KB-080-chunk-3",
+      "KB-080-chunk-4",
+      "KB-080-chunk-5",
+      "KB-080-chunk-6",
+      "KB-080-chunk-7",
+      "KB-080-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-081": {
+    "title": "Configuring Webhook Notification Endpoints for Audit Events",
+    "category": "account",
+    "content_hash": "e8262ec6dfe18ab779451c4bbf0550b705ec1eb7a25e099ecd2af5dd4d52208d",
+    "chunk_ids": [
+      "KB-081-chunk-0",
+      "KB-081-chunk-1",
+      "KB-081-chunk-2",
+      "KB-081-chunk-3",
+      "KB-081-chunk-4",
+      "KB-081-chunk-5",
+      "KB-081-chunk-6",
+      "KB-081-chunk-7",
+      "KB-081-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-082": {
+    "title": "Data Residency Region Selection (US, EU, APAC)",
+    "category": "account",
+    "content_hash": "1c642971b3dce8e26ee613af9e7f8f9fb49ed405f03afb4ac28c2ea23f847a55",
+    "chunk_ids": [
+      "KB-082-chunk-0",
+      "KB-082-chunk-1",
+      "KB-082-chunk-2",
+      "KB-082-chunk-3",
+      "KB-082-chunk-4",
+      "KB-082-chunk-5",
+      "KB-082-chunk-6",
+      "KB-082-chunk-7",
+      "KB-082-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-083": {
+    "title": "Transferring Organization Ownership to Another Administrator",
+    "category": "account",
+    "content_hash": "c34f5c7eff49f91deb73b93f5a618fd830ac20efd53b4231d2e79b2c9725039f",
+    "chunk_ids": [
+      "KB-083-chunk-0",
+      "KB-083-chunk-1",
+      "KB-083-chunk-2",
+      "KB-083-chunk-3",
+      "KB-083-chunk-4",
+      "KB-083-chunk-5",
+      "KB-083-chunk-6",
+      "KB-083-chunk-7",
+      "KB-083-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-084": {
+    "title": "SOC2 Type II Compliance Reports and Security Documentation",
+    "category": "faq",
+    "content_hash": "130cd5aac39ccccad85d7ca51a0f751b340247f08b357acecdecbb756ed4778d",
+    "chunk_ids": [
+      "KB-084-chunk-0",
+      "KB-084-chunk-1",
+      "KB-084-chunk-2",
+      "KB-084-chunk-3",
+      "KB-084-chunk-4",
+      "KB-084-chunk-5",
+      "KB-084-chunk-6",
+      "KB-084-chunk-7",
+      "KB-084-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-085": {
+    "title": "ISO 27001 Certification and Information Security Policies",
+    "category": "faq",
+    "content_hash": "8e64379a2d136b2f416f8dd31818836b0218e61a7191e30a7405dbb13c91946d",
+    "chunk_ids": [
+      "KB-085-chunk-0",
+      "KB-085-chunk-1",
+      "KB-085-chunk-2",
+      "KB-085-chunk-3",
+      "KB-085-chunk-4",
+      "KB-085-chunk-5",
+      "KB-085-chunk-6",
+      "KB-085-chunk-7",
+      "KB-085-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-086": {
+    "title": "Standard Service Level Agreement (SLA) and Uptime Guarantees",
+    "category": "faq",
+    "content_hash": "92d80cbd011c842f913bffc5068a8ede260d380b803331871460ac0307be8ee9",
+    "chunk_ids": [
+      "KB-086-chunk-0",
+      "KB-086-chunk-1",
+      "KB-086-chunk-2",
+      "KB-086-chunk-3",
+      "KB-086-chunk-4",
+      "KB-086-chunk-5",
+      "KB-086-chunk-6",
+      "KB-086-chunk-7",
+      "KB-086-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-087": {
+    "title": "Subscribing to Real-Time CloudDash Platform Status Notifications",
+    "category": "faq",
+    "content_hash": "c1bb93539b85f558f095bd4c1aa34222a762bc01657da287c4a636ae3547def9",
+    "chunk_ids": [
+      "KB-087-chunk-0",
+      "KB-087-chunk-1",
+      "KB-087-chunk-2",
+      "KB-087-chunk-3",
+      "KB-087-chunk-4",
+      "KB-087-chunk-5",
+      "KB-087-chunk-6",
+      "KB-087-chunk-7",
+      "KB-087-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-088": {
+    "title": "Agentless vs Agent-Based Cloud Monitoring Comparison",
+    "category": "faq",
+    "content_hash": "fe6686d2f43d8fc0d1b8f18c763ee893a2bd292bbaf68221b6165fcce1f6d474",
+    "chunk_ids": [
+      "KB-088-chunk-0",
+      "KB-088-chunk-1",
+      "KB-088-chunk-2",
+      "KB-088-chunk-3",
+      "KB-088-chunk-4",
+      "KB-088-chunk-5",
+      "KB-088-chunk-6",
+      "KB-088-chunk-7",
+      "KB-088-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-089": {
+    "title": "Cloud Provider Network Egress Costs Incurred by CloudDash",
+    "category": "faq",
+    "content_hash": "a0f680153557a54c0833b4326dd79ddbcc3e70ff6ae0c99aecaaddae76cd060f",
+    "chunk_ids": [
+      "KB-089-chunk-0",
+      "KB-089-chunk-1",
+      "KB-089-chunk-2",
+      "KB-089-chunk-3",
+      "KB-089-chunk-4",
+      "KB-089-chunk-5",
+      "KB-089-chunk-6",
+      "KB-089-chunk-7",
+      "KB-089-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-090": {
+    "title": "Maintenance Window Schedules and Alert Suppression Rules",
+    "category": "faq",
+    "content_hash": "4402368608996fe2fa551526419b15a5929d38f34decde64565337c824e438b8",
+    "chunk_ids": [
+      "KB-090-chunk-0",
+      "KB-090-chunk-1",
+      "KB-090-chunk-2",
+      "KB-090-chunk-3",
+      "KB-090-chunk-4",
+      "KB-090-chunk-5",
+      "KB-090-chunk-6",
+      "KB-090-chunk-7",
+      "KB-090-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-091": {
+    "title": "Telemetry Ingestion Endpoints and IP Whitelisting for Outbound Firewalls",
+    "category": "faq",
+    "content_hash": "8e585fa0feb2868d8049e55dcfe1e10a255bee299a6c9b79fdd959e433415ba0",
+    "chunk_ids": [
+      "KB-091-chunk-0",
+      "KB-091-chunk-1",
+      "KB-091-chunk-2",
+      "KB-091-chunk-3",
+      "KB-091-chunk-4",
+      "KB-091-chunk-5",
+      "KB-091-chunk-6",
+      "KB-091-chunk-7",
+      "KB-091-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-092": {
+    "title": "Supported Operating Systems and Linux Kernel Compatibility",
+    "category": "faq",
+    "content_hash": "42f495cb549f5a8cbaded314a67ab900bed201df5396df1ff8a6cd7496604346",
+    "chunk_ids": [
+      "KB-092-chunk-0",
+      "KB-092-chunk-1",
+      "KB-092-chunk-2",
+      "KB-092-chunk-3",
+      "KB-092-chunk-4",
+      "KB-092-chunk-5",
+      "KB-092-chunk-6",
+      "KB-092-chunk-7",
+      "KB-092-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-093": {
+    "title": "Data Encryption at Rest and in Transit Standards",
+    "category": "faq",
+    "content_hash": "ea819c469e60317ff7dd9d93b981d352f044b16d7ebc18637e4f23343a19a8a5",
+    "chunk_ids": [
+      "KB-093-chunk-0",
+      "KB-093-chunk-1",
+      "KB-093-chunk-2",
+      "KB-093-chunk-3",
+      "KB-093-chunk-4",
+      "KB-093-chunk-5",
+      "KB-093-chunk-6",
+      "KB-093-chunk-7",
+      "KB-093-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-094": {
+    "title": "Submitting Feature Requests and Roadmap Visibility",
+    "category": "faq",
+    "content_hash": "0ccd24f3789b0fb7eb5b4167b2de9bd085060f2daf92c8b2fcd9b082496aad32",
+    "chunk_ids": [
+      "KB-094-chunk-0",
+      "KB-094-chunk-1",
+      "KB-094-chunk-2",
+      "KB-094-chunk-3",
+      "KB-094-chunk-4",
+      "KB-094-chunk-5",
+      "KB-094-chunk-6",
+      "KB-094-chunk-7",
+      "KB-094-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-095": {
+    "title": "Migrating Dashboards and Alerts from Datadog to CloudDash",
+    "category": "faq",
+    "content_hash": "af8e58694289f3f440860eb19ead44c4c5e6c19a6f8e8f5ce51a3665632a29cf",
+    "chunk_ids": [
+      "KB-095-chunk-0",
+      "KB-095-chunk-1",
+      "KB-095-chunk-2",
+      "KB-095-chunk-3",
+      "KB-095-chunk-4",
+      "KB-095-chunk-5",
+      "KB-095-chunk-6",
+      "KB-095-chunk-7",
+      "KB-095-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-096": {
+    "title": "Migrating from Prometheus/Grafana to CloudDash",
+    "category": "faq",
+    "content_hash": "a1c632a824d8e0730aae1bd44405a4309ce1f489e532d6a935f61969b6e30ed4",
+    "chunk_ids": [
+      "KB-096-chunk-0",
+      "KB-096-chunk-1",
+      "KB-096-chunk-2",
+      "KB-096-chunk-3",
+      "KB-096-chunk-4",
+      "KB-096-chunk-5",
+      "KB-096-chunk-6",
+      "KB-096-chunk-7",
+      "KB-096-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-097": {
+    "title": "Data Processing Agreement (DPA) and Standard Contractual Clauses",
+    "category": "faq",
+    "content_hash": "d153bf6ca41982b7244ec59c2d9841951a03906f93b62c6a4c094c2ad0cb3c52",
+    "chunk_ids": [
+      "KB-097-chunk-0",
+      "KB-097-chunk-1",
+      "KB-097-chunk-2",
+      "KB-097-chunk-3",
+      "KB-097-chunk-4",
+      "KB-097-chunk-5",
+      "KB-097-chunk-6",
+      "KB-097-chunk-7",
+      "KB-097-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-098": {
+    "title": "Disaster Recovery (DR) and Multi-Region Redundancy Architecture",
+    "category": "faq",
+    "content_hash": "42f7d7b544468cc3c2e5a4153872cca89933dbc21a2efceeb93c396bce56cec8",
+    "chunk_ids": [
+      "KB-098-chunk-0",
+      "KB-098-chunk-1",
+      "KB-098-chunk-2",
+      "KB-098-chunk-3",
+      "KB-098-chunk-4",
+      "KB-098-chunk-5",
+      "KB-098-chunk-6",
+      "KB-098-chunk-7",
+      "KB-098-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-099": {
+    "title": "HIPAA Compliance and Business Associate Agreements (BAA)",
+    "category": "faq",
+    "content_hash": "908f53966d187018f4901b94409660933139390c12aa34b531b37d9dbfe23eb9",
+    "chunk_ids": [
+      "KB-099-chunk-0",
+      "KB-099-chunk-1",
+      "KB-099-chunk-2",
+      "KB-099-chunk-3",
+      "KB-099-chunk-4",
+      "KB-099-chunk-5",
+      "KB-099-chunk-6",
+      "KB-099-chunk-7",
+      "KB-099-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-100": {
+    "title": "Custom Webhook Payload Templating and Variable Substitution",
+    "category": "faq",
+    "content_hash": "bb8c9532697ebfc29e5af6c49e6e9b2c116c35f870dafcf0ad49f572684851d9",
+    "chunk_ids": [
+      "KB-100-chunk-0",
+      "KB-100-chunk-1",
+      "KB-100-chunk-2",
+      "KB-100-chunk-3",
+      "KB-100-chunk-4",
+      "KB-100-chunk-5",
+      "KB-100-chunk-6",
+      "KB-100-chunk-7",
+      "KB-100-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-101": {
+    "title": "Alert Fatigue Reduction and Flapping Detection Algorithms",
+    "category": "faq",
+    "content_hash": "74cba8ab9e9f2874e739ce2d236c42f7bf6544375b8c5f799c2f68edb4aa74b0",
+    "chunk_ids": [
+      "KB-101-chunk-0",
+      "KB-101-chunk-1",
+      "KB-101-chunk-2",
+      "KB-101-chunk-3",
+      "KB-101-chunk-4",
+      "KB-101-chunk-5",
+      "KB-101-chunk-6",
+      "KB-101-chunk-7",
+      "KB-101-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-102": {
+    "title": "Differences Between Metrics, Logs, and Traces in CloudDash",
+    "category": "faq",
+    "content_hash": "e928690e5d3d1b5c98f812b9b61239fc207818a145a55e0e67fcaf01bbfcbb9b",
+    "chunk_ids": [
+      "KB-102-chunk-0",
+      "KB-102-chunk-1",
+      "KB-102-chunk-2",
+      "KB-102-chunk-3",
+      "KB-102-chunk-4",
+      "KB-102-chunk-5",
+      "KB-102-chunk-6",
+      "KB-102-chunk-7",
+      "KB-102-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-103": {
+    "title": "Browser Support and Recommended Display Resolutions",
+    "category": "faq",
+    "content_hash": "9c67cc1d4a1a4dae3ec804b50af82abcc4b69eff523e9ab76d51ed1161518112",
+    "chunk_ids": [
+      "KB-103-chunk-0",
+      "KB-103-chunk-1",
+      "KB-103-chunk-2",
+      "KB-103-chunk-3",
+      "KB-103-chunk-4",
+      "KB-103-chunk-5",
+      "KB-103-chunk-6",
+      "KB-103-chunk-7",
+      "KB-103-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-104": {
+    "title": "Dedicated Support Channels and Technical Account Managers (TAM)",
+    "category": "faq",
+    "content_hash": "f1fe97ab05227a59b9a8a22442caf88617eb24309f95faae21ea271859fa38a5",
+    "chunk_ids": [
+      "KB-104-chunk-0",
+      "KB-104-chunk-1",
+      "KB-104-chunk-2",
+      "KB-104-chunk-3",
+      "KB-104-chunk-4",
+      "KB-104-chunk-5",
+      "KB-104-chunk-6",
+      "KB-104-chunk-7",
+      "KB-104-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-105": {
+    "title": "OpenTelemetry (OTLP) gRPC and HTTP Ingestion API",
+    "category": "api_docs",
+    "content_hash": "4211885e35cf365d42940b067868cc600e4216996174673d62f9e1097f46d370",
+    "chunk_ids": [
+      "KB-105-chunk-0",
+      "KB-105-chunk-1",
+      "KB-105-chunk-2",
+      "KB-105-chunk-3",
+      "KB-105-chunk-4",
+      "KB-105-chunk-5",
+      "KB-105-chunk-6",
+      "KB-105-chunk-7",
+      "KB-105-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-106": {
+    "title": "Batch Custom Metric Ingestion POST /api/v1/metrics/batch",
+    "category": "api_docs",
+    "content_hash": "02fe31a9ba03bf1231d16c8e7bfbe5a08565db5a6e4426de8eed7a3b9060d043",
+    "chunk_ids": [
+      "KB-106-chunk-0",
+      "KB-106-chunk-1",
+      "KB-106-chunk-2",
+      "KB-106-chunk-3",
+      "KB-106-chunk-4",
+      "KB-106-chunk-5",
+      "KB-106-chunk-6",
+      "KB-106-chunk-7",
+      "KB-106-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-107": {
+    "title": "Querying Historical Metric Aggregations GET /api/v1/metrics/query",
+    "category": "api_docs",
+    "content_hash": "ba1c660df3f067a60e8a3c3cd54ccce12134ed62a6b166feba2465b328d57f99",
+    "chunk_ids": [
+      "KB-107-chunk-0",
+      "KB-107-chunk-1",
+      "KB-107-chunk-2",
+      "KB-107-chunk-3",
+      "KB-107-chunk-4",
+      "KB-107-chunk-5",
+      "KB-107-chunk-6",
+      "KB-107-chunk-7",
+      "KB-107-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-108": {
+    "title": "Programmatic Alert Rule Management API CRUD Endpoints",
+    "category": "api_docs",
+    "content_hash": "d34a9b3ff1965e2f38708f487046b487b63451d4f5d0411e8a9a7f42d22d772b",
+    "chunk_ids": [
+      "KB-108-chunk-0",
+      "KB-108-chunk-1",
+      "KB-108-chunk-2",
+      "KB-108-chunk-3",
+      "KB-108-chunk-4",
+      "KB-108-chunk-5",
+      "KB-108-chunk-6",
+      "KB-108-chunk-7",
+      "KB-108-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-109": {
+    "title": "Alert Notification Channels API /api/v1/notifications/channels",
+    "category": "api_docs",
+    "content_hash": "f20e74c7257ff07cc065c0dd6589da9946477ba170711fad477278419d186598",
+    "chunk_ids": [
+      "KB-109-chunk-0",
+      "KB-109-chunk-1",
+      "KB-109-chunk-2",
+      "KB-109-chunk-3",
+      "KB-109-chunk-4",
+      "KB-109-chunk-5",
+      "KB-109-chunk-6",
+      "KB-109-chunk-7",
+      "KB-109-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-110": {
+    "title": "Incident and Alert History Extraction GET /api/v1/alerts/events",
+    "category": "api_docs",
+    "content_hash": "ed58d6a4479c13a1d2ca9ad0904c11742891907b7a819e759a7570f6da813f74",
+    "chunk_ids": [
+      "KB-110-chunk-0",
+      "KB-110-chunk-1",
+      "KB-110-chunk-2",
+      "KB-110-chunk-3",
+      "KB-110-chunk-4",
+      "KB-110-chunk-5",
+      "KB-110-chunk-6",
+      "KB-110-chunk-7",
+      "KB-110-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-111": {
+    "title": "Dashboard Export and Import as Code POST /api/v1/dashboards/import",
+    "category": "api_docs",
+    "content_hash": "114320f1c638f1a348cc8c8dadddfc8fdf746bfa2a2de385ad5a5f694c8ab872",
+    "chunk_ids": [
+      "KB-111-chunk-0",
+      "KB-111-chunk-1",
+      "KB-111-chunk-2",
+      "KB-111-chunk-3",
+      "KB-111-chunk-4",
+      "KB-111-chunk-5",
+      "KB-111-chunk-6",
+      "KB-111-chunk-7",
+      "KB-111-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-112": {
+    "title": "Terraform Provider for CloudDash Resource Provisioning",
+    "category": "api_docs",
+    "content_hash": "a675a43e43dfdf20e3080fc642d1afda28aaee6f72d111517b177675d80d7a66",
+    "chunk_ids": [
+      "KB-112-chunk-0",
+      "KB-112-chunk-1",
+      "KB-112-chunk-2",
+      "KB-112-chunk-3",
+      "KB-112-chunk-4",
+      "KB-112-chunk-5",
+      "KB-112-chunk-6",
+      "KB-112-chunk-7",
+      "KB-112-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-113": {
+    "title": "Synthetic Monitoring Check Creation API POST /api/v1/synthetics",
+    "category": "api_docs",
+    "content_hash": "e3c0ad06f4f79b3cc27d83204e0b11fe778716b46b26bd75150a289a1bb87602",
+    "chunk_ids": [
+      "KB-113-chunk-0",
+      "KB-113-chunk-1",
+      "KB-113-chunk-2",
+      "KB-113-chunk-3",
+      "KB-113-chunk-4",
+      "KB-113-chunk-5",
+      "KB-113-chunk-6",
+      "KB-113-chunk-7",
+      "KB-113-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-114": {
+    "title": "Log Ingestion and Bulk Search API POST /api/v1/logs",
+    "category": "api_docs",
+    "content_hash": "06f0c24e86a335c755a6f4ba5e2047bdf8eceb7d90514b162b5b141d2b4245c5",
+    "chunk_ids": [
+      "KB-114-chunk-0",
+      "KB-114-chunk-1",
+      "KB-114-chunk-2",
+      "KB-114-chunk-3",
+      "KB-114-chunk-4",
+      "KB-114-chunk-5",
+      "KB-114-chunk-6",
+      "KB-114-chunk-7",
+      "KB-114-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-115": {
+    "title": "Tagging and Host Metadata Enrichment API PUT /api/v1/hosts/tags",
+    "category": "api_docs",
+    "content_hash": "b0bd9f0bd37b7d03faad6510599ed5258fe341a0f582c962c20699ed557d5e4c",
+    "chunk_ids": [
+      "KB-115-chunk-0",
+      "KB-115-chunk-1",
+      "KB-115-chunk-2",
+      "KB-115-chunk-3",
+      "KB-115-chunk-4",
+      "KB-115-chunk-5",
+      "KB-115-chunk-6",
+      "KB-115-chunk-7",
+      "KB-115-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-116": {
+    "title": "Maintenance Window Scheduling API /api/v1/maintenance",
+    "category": "api_docs",
+    "content_hash": "5c27ae06cdc8447500adf5e5464b96aabd09691208befea1f1b0bd07b0b1f86d",
+    "chunk_ids": [
+      "KB-116-chunk-0",
+      "KB-116-chunk-1",
+      "KB-116-chunk-2",
+      "KB-116-chunk-3",
+      "KB-116-chunk-4",
+      "KB-116-chunk-5",
+      "KB-116-chunk-6",
+      "KB-116-chunk-7",
+      "KB-116-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-117": {
+    "title": "Audit Log Retrieval and SIEM Integration API GET /api/v1/audit",
+    "category": "api_docs",
+    "content_hash": "6cc78f7394088df49be21f2d49fe457614d8a534d9e66767a51aba82e093329f",
+    "chunk_ids": [
+      "KB-117-chunk-0",
+      "KB-117-chunk-1",
+      "KB-117-chunk-2",
+      "KB-117-chunk-3",
+      "KB-117-chunk-4",
+      "KB-117-chunk-5",
+      "KB-117-chunk-6",
+      "KB-117-chunk-7",
+      "KB-117-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-118": {
+    "title": "User Management and Team Membership API /api/v1/teams/users",
+    "category": "api_docs",
+    "content_hash": "df47420681bb0f95515b76b852ad372caa20cfaeb8525371cd83967f7ea5dba3",
+    "chunk_ids": [
+      "KB-118-chunk-0",
+      "KB-118-chunk-1",
+      "KB-118-chunk-2",
+      "KB-118-chunk-3",
+      "KB-118-chunk-4",
+      "KB-118-chunk-5",
+      "KB-118-chunk-6",
+      "KB-118-chunk-7",
+      "KB-118-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-119": {
+    "title": "Webhook Secret and HMAC-SHA256 Signature Rotation API",
+    "category": "api_docs",
+    "content_hash": "b8cb314fb104e265e1287fa329282b43ec230b243ca331d1a648ff1f2614837f",
+    "chunk_ids": [
+      "KB-119-chunk-0",
+      "KB-119-chunk-1",
+      "KB-119-chunk-2",
+      "KB-119-chunk-3",
+      "KB-119-chunk-4",
+      "KB-119-chunk-5",
+      "KB-119-chunk-6",
+      "KB-119-chunk-7",
+      "KB-119-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-120": {
+    "title": "Kubernetes Operator for CloudDash Custom Resource Definitions (CRDs)",
+    "category": "api_docs",
+    "content_hash": "09d822ccd9dc7d8dc8236e03ad254303742bdf07122a86ad2bb9ce64a52b1e83",
+    "chunk_ids": [
+      "KB-120-chunk-0",
+      "KB-120-chunk-1",
+      "KB-120-chunk-2",
+      "KB-120-chunk-3",
+      "KB-120-chunk-4",
+      "KB-120-chunk-5",
+      "KB-120-chunk-6",
+      "KB-120-chunk-7",
+      "KB-120-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-121": {
+    "title": "Anomalous Metric Detection API GET /api/v1/analytics/anomalies",
+    "category": "api_docs",
+    "content_hash": "f964ff20a0de4ad15f623ecd51e6bf14b682b440720d845dc856163f93d2521c",
+    "chunk_ids": [
+      "KB-121-chunk-0",
+      "KB-121-chunk-1",
+      "KB-121-chunk-2",
+      "KB-121-chunk-3",
+      "KB-121-chunk-4",
+      "KB-121-chunk-5",
+      "KB-121-chunk-6",
+      "KB-121-chunk-7",
+      "KB-121-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-122": {
+    "title": "GraphQL API Reference and Schema Introspection /api/graphql",
+    "category": "api_docs",
+    "content_hash": "a9040e8a7b9d5abf16adc937ef4a38edd1b6c00019a0c487b6c321ef89371b6c",
+    "chunk_ids": [
+      "KB-122-chunk-0",
+      "KB-122-chunk-1",
+      "KB-122-chunk-2",
+      "KB-122-chunk-3",
+      "KB-122-chunk-4",
+      "KB-122-chunk-5",
+      "KB-122-chunk-6",
+      "KB-122-chunk-7",
+      "KB-122-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-123": {
+    "title": "Python SDK Async Client and Streaming Telemetry Guide",
+    "category": "api_docs",
+    "content_hash": "330c84fa8a3cc64ce051a5cd8e502fcc641685c9534ed4b8ef5e01696f19d081",
+    "chunk_ids": [
+      "KB-123-chunk-0",
+      "KB-123-chunk-1",
+      "KB-123-chunk-2",
+      "KB-123-chunk-3",
+      "KB-123-chunk-4",
+      "KB-123-chunk-5",
+      "KB-123-chunk-6",
+      "KB-123-chunk-7",
+      "KB-123-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-124": {
+    "title": "Go SDK (clouddash-go) Installation and High-Performance Examples",
+    "category": "api_docs",
+    "content_hash": "fb5f10796cd0c4415ebbb4d846dcd9852c6fab1ba228e76ec6498b3fb652b342",
+    "chunk_ids": [
+      "KB-124-chunk-0",
+      "KB-124-chunk-1",
+      "KB-124-chunk-2",
+      "KB-124-chunk-3",
+      "KB-124-chunk-4",
+      "KB-124-chunk-5",
+      "KB-124-chunk-6",
+      "KB-124-chunk-7",
+      "KB-124-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  },
+  "KB-125": {
+    "title": "Rate Limit Status and Quota Headers Reference",
+    "category": "api_docs",
+    "content_hash": "ab80a32b475fb492e8e351f5f86ea2dfd0fefeb9076b521d2d7801272f949dcf",
+    "chunk_ids": [
+      "KB-125-chunk-0",
+      "KB-125-chunk-1",
+      "KB-125-chunk-2",
+      "KB-125-chunk-3",
+      "KB-125-chunk-4",
+      "KB-125-chunk-5",
+      "KB-125-chunk-6",
+      "KB-125-chunk-7",
+      "KB-125-chunk-8"
+    ],
+    "last_updated": "2026-05-01"
+  }
+}

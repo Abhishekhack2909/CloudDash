@@ -1,0 +1,19 @@
+{
+  "id": "KB-048",
+  "title": "Reserved Seat Licensing and Add-On User Pricing",
+  "category": "billing",
+  "tags": [
+    "billing",
+    "seats",
+    "users",
+    "licensing",
+    "pricing"
+  ],
+  "content": "# Reserved Seat Licensing and Add-On User Pricing\n\nPurchasing additional user seats beyond plan allowances: Starter includes 3 seats ($10/seat/mo add-on), Pro includes 10 seats ($15/seat/mo add-on), Enterprise includes unlimited seats.\n\n## Overview & Architecture\n\nCloudDash provides enterprise-grade infrastructure monitoring for distributed cloud workloads. This article provides technical guidance on configuring, verifying, and troubleshooting **Reserved Seat Licensing and Add-On User Pricing**.\n\n### Key Technical Specifications\n- **Category**: `billing`\n- **Supported Plans**: Starter, Pro, Enterprise\n- **Component ID**: `KB-048`\n- **Keywords**: billing, seats, users, licensing, pricing\n\n## Step-by-Step Implementation Guide\n\nFollow these instructions to configure and operationalize this capability within your environment:\n\n1. **Verify Prerequisites**:\n   Ensure you have appropriate administrative permissions and your CloudDash account is on an eligible plan (Starter, Pro, Enterprise).\n\n2. **Access the Configuration Interface**:\n   Navigate to the relevant settings section in the CloudDash dashboard or initialize your API client with your active Bearer token.\n\n3. **Configure Parameter Settings**:\n   Apply the appropriate configuration values tailored to your infrastructure requirements:\n   ```yaml\n   # Configuration snippet for KB-048\n   service:\n     enabled: true\n     category: \"billing\"\n     target: \"Reserved Seat Licensing and Add-On User Pricing\"\n     evaluation_window: \"5m\"\n     alert_threshold: 85\n     retry_attempts: 3\n     backoff_multiplier: 1.5\n   ```\n\n4. **Validate Live Telemetry**:\n   Check integration logs and status badges to verify data stream continuity and absence of connectivity errors.\n\n## Common Error Codes and Troubleshooting\n\n| Error Code | Root Cause | Recommended Remediation |\n| :--- | :--- | :--- |\n| `ERR_AUTH_EXPIRED` | Expired or revoked API key | Re-generate key under Settings > API Keys [KB-010] |\n| `ERR_CONFIG_INVALID` | Malformed parameter payload | Verify YAML/JSON syntax against schema documentation |\n| `ERR_RATE_LIMIT_EXCEEDED` | Request frequency exceeds tier limit | Implement exponential backoff or upgrade plan tier [KB-014] |\n| `ERR_UPSTREAM_TIMEOUT` | Downstream service latency | Increase timeout thresholds or inspect network connectivity |\n\n## Policy Details & Best Practices\n\n- **Retention & Compliance**: All associated metrics adhere to CloudDash's standard data retention policies (365 days on Enterprise).\n- **Audit Logging**: All configuration changes trigger immutable audit log entries visible under Organization Settings.\n- **Support Escalation**: If issues persist beyond these standard steps, contact CloudDash technical engineering via the escalation protocol.\n",
+  "last_updated": "2026-05-01",
+  "applies_to": [
+    "Starter",
+    "Pro",
+    "Enterprise"
+  ]
+}

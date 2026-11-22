@@ -1,0 +1,18 @@
+{
+  "id": "KB-101",
+  "title": "Alert Fatigue Reduction and Flapping Detection Algorithms",
+  "category": "faq",
+  "tags": [
+    "faq",
+    "alert-fatigue",
+    "flapping",
+    "noise-reduction",
+    "thresholds"
+  ],
+  "content": "# Alert Fatigue Reduction and Flapping Detection Algorithms\n\nHow CloudDash detects oscillating alert states (flapping) and automatically mutes repetitive notifications until metrics stabilize.\n\n## Overview & Architecture\n\nCloudDash provides enterprise-grade infrastructure monitoring for distributed cloud workloads. This article provides technical guidance on configuring, verifying, and troubleshooting **Alert Fatigue Reduction and Flapping Detection Algorithms**.\n\n### Key Technical Specifications\n- **Category**: `faq`\n- **Supported Plans**: Pro, Enterprise\n- **Component ID**: `KB-101`\n- **Keywords**: faq, alert-fatigue, flapping, noise-reduction, thresholds\n\n## Step-by-Step Implementation Guide\n\nFollow these instructions to configure and operationalize this capability within your environment:\n\n1. **Verify Prerequisites**:\n   Ensure you have appropriate administrative permissions and your CloudDash account is on an eligible plan (Pro, Enterprise).\n\n2. **Access the Configuration Interface**:\n   Navigate to the relevant settings section in the CloudDash dashboard or initialize your API client with your active Bearer token.\n\n3. **Configure Parameter Settings**:\n   Apply the appropriate configuration values tailored to your infrastructure requirements:\n   ```yaml\n   # Configuration snippet for KB-101\n   service:\n     enabled: true\n     category: \"faq\"\n     target: \"Alert Fatigue Reduction and Flapping Detection Algorithms\"\n     evaluation_window: \"5m\"\n     alert_threshold: 85\n     retry_attempts: 3\n     backoff_multiplier: 1.5\n   ```\n\n4. **Validate Live Telemetry**:\n   Check integration logs and status badges to verify data stream continuity and absence of connectivity errors.\n\n## Common Error Codes and Troubleshooting\n\n| Error Code | Root Cause | Recommended Remediation |\n| :--- | :--- | :--- |\n| `ERR_AUTH_EXPIRED` | Expired or revoked API key | Re-generate key under Settings > API Keys [KB-010] |\n| `ERR_CONFIG_INVALID` | Malformed parameter payload | Verify YAML/JSON syntax against schema documentation |\n| `ERR_RATE_LIMIT_EXCEEDED` | Request frequency exceeds tier limit | Implement exponential backoff or upgrade plan tier [KB-014] |\n| `ERR_UPSTREAM_TIMEOUT` | Downstream service latency | Increase timeout thresholds or inspect network connectivity |\n\n## Policy Details & Best Practices\n\n- **Retention & Compliance**: All associated metrics adhere to CloudDash's standard data retention policies (365 days on Enterprise).\n- **Audit Logging**: All configuration changes trigger immutable audit log entries visible under Organization Settings.\n- **Support Escalation**: If issues persist beyond these standard steps, contact CloudDash technical engineering via the escalation protocol.\n",
+  "last_updated": "2026-05-01",
+  "applies_to": [
+    "Pro",
+    "Enterprise"
+  ]
+}

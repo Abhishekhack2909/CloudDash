@@ -6,11 +6,11 @@ Evaluated on **42 golden test queries** covering all 20 CloudDash knowledge base
 
 | Retrieval Strategy | Recall@1 | Recall@3 | Recall@5 | MRR |
 | :--- | :---: | :---: | :---: | :---: |
-| **Vector Only** (`all-MiniLM-L6-v2`) | 78.57% | 97.62% | 97.62% | 0.8710 |
-| **BM25 Only** (BM25Okapi) | 61.90% | 78.57% | 85.71% | 0.7175 |
-| **Hybrid RRF** (Vector + BM25) | 73.81% | 90.48% | 95.24% | 0.8288 |
-| **Hybrid + Cross-Encoder Rerank** (`ms-marco-MiniLM-L-6-v2`) | **71.43%** | **90.48%** | **97.62%** | **0.8252** |
+| **Vector Only** (`all-MiniLM-L6-v2`) | 57.14% | 66.67% | 71.43% | 0.6258 |
+| **BM25 Only** (BM25Okapi) | 47.62% | 69.05% | 73.81% | 0.5896 |
+| **Hybrid RRF** (Vector + BM25) | 52.38% | 73.81% | 83.33% | 0.6614 |
+| **Hybrid + Cross-Encoder Rerank** (`ms-marco-MiniLM-L-6-v2`) | **59.52%** | **80.95%** | **85.71%** | **0.7166** |
 
 ## Key Insights
-- **Cross-Encoder Lift**: Reranking improves Recall@1 from 73.81% to 71.43% and MRR from 0.8288 to 0.8252.
+- **Cross-Encoder Lift**: Reranking improves Recall@1 from 52.38% to 59.52% and MRR from 0.6614 to 0.7166.
 - **Hybrid Fusion (RRF)** combines dense semantic vector representation with exact sparse keyword matching, outperforming single-retriever baselines.

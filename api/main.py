@@ -14,7 +14,7 @@ load_dotenv()
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from agents.orchestrator import Orchestrator
 from database.conversation_store import ConversationStore
@@ -160,7 +160,7 @@ async def health_check():
 )
 async def start_conversation(
     request: StartConversationRequest,
-    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    raw_request: Request,
 ):
     """Start a new customer support conversation.
 
@@ -168,6 +168,7 @@ async def start_conversation(
     classification and routing to the appropriate specialist agent.
     """
     try:
+        x_user_id = raw_request.headers.get("x-user-id")
         user_id = request.user_id or x_user_id or request.customer_id
         logger.info("api_new_conversation", message_preview=request.message[:100], user_id=user_id)
 
@@ -207,7 +208,7 @@ async def start_conversation(
 async def send_message(
     conversation_id: str,
     request: SendMessageRequest,
-    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+    raw_request: Request,
 ):
     """Send a follow-up message in an existing conversation.
 
@@ -222,6 +223,7 @@ async def send_message(
         )
 
     try:
+        x_user_id = raw_request.headers.get("x-user-id")
         user_id = request.user_id or x_user_id or existing_state.get("user_id")
         logger.info(
             "api_send_message",
@@ -306,6 +308,36 @@ async def get_handover_logs(conversation_id: str):
 
     logs = get_orchestrator().get_handover_logs(conversation_id)
     return logs
+
+
+@app.post(
+    "/admin/reindex",
+    tags=["Admin"],
+    summary="Trigger incremental or full KB re-indexing",
+)
+async def admin_reindex(
+    raw_request: Request,
+    force: bool = False,
+):
+    """Trigger incremental or full KB re-indexing.
+
+    Protected by ADMIN_API_KEY environment variable.
+    """
+    configured_key = os.getenv("ADMIN_API_KEY", "clouddash-admin-secret")
+    header_key = raw_request.headers.get("x-admin-key") or raw_request.headers.get("authorization", "").replace("Bearer ", "")
+    if not header_key or header_key != configured_key:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or missing X-Admin-Key header",
+        )
+
+    try:
+        from knowledge_base.ingest import ingest
+        summary = ingest(force=force)
+        return {"status": "success", "summary": summary}
+    except Exception as e:
+        logger.error("admin_reindex_failed", error=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # --- Helper functions ---
