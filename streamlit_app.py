@@ -135,6 +135,30 @@ def main():
         st.caption("Multi-Agent Customer Support System")
         st.divider()
 
+        # User ID for durable long-term memory
+        st.subheader("👤 Customer Profile")
+        if "user_id" not in st.session_state:
+            st.session_state.user_id = "user_demo"
+        user_id_input = st.text_input(
+            "User ID",
+            value=st.session_state.user_id,
+            help="Unique ID used to scope long-term memory across sessions",
+        )
+        st.session_state.user_id = user_id_input.strip() or "user_demo"
+
+        try:
+            from database.memory import UserMemoryService
+            mem_service = UserMemoryService()
+            user_mems = mem_service.get_memories(st.session_state.user_id)
+            if user_mems:
+                with st.expander("🧠 Long-Term Memories", expanded=False):
+                    for mk, mv in user_mems.items():
+                        st.markdown(f"**{mk}**: {mv}")
+        except Exception:
+            pass
+
+        st.divider()
+
         # Conversation info
         if "conversation_state" in st.session_state and st.session_state.conversation_state:
             state = st.session_state.conversation_state
@@ -270,6 +294,7 @@ def main():
                     result = orch.process_message(
                         message=user_input,
                         existing_state=st.session_state.conversation_state,
+                        user_id=getattr(st.session_state, "user_id", None),
                     )
                     st.session_state.conversation_state = result
 

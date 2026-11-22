@@ -29,9 +29,16 @@ class TriageAgent(BaseAgent):
 
         conversation_history = self._get_conversation_history(state)
 
+        # Inject durable user memories if available
+        memory_context = ""
+        if state.user_memory:
+            memory_context = "\n\nCUSTOMER PROFILE & LONG-TERM MEMORY (From previous conversations):\n" + "\n".join(
+                f"- {k}: {v}" for k, v in state.user_memory.items()
+            )
+
         # Build the prompt
         messages = [
-            SystemMessage(content=self.system_prompt),
+            SystemMessage(content=self.system_prompt + memory_context),
             HumanMessage(content=f"Conversation history:\n{conversation_history}\n\nLatest customer message: {user_message}"),
         ]
 
@@ -75,9 +82,15 @@ class TriageAgent(BaseAgent):
         else:
             plan_type = None
 
+        # Fallback to durable user memory if not mentioned in this turn
+        if not plan_type and state.user_memory and state.user_memory.get("plan_tier"):
+            plan_type = state.user_memory["plan_tier"]
+
+        customer_id = entities.get("customer_id") or state.user_id
+
         # Update conversation state with extracted entities
         state.extracted_entities = ExtractedEntities(
-            customer_id=entities.get("customer_id"),
+            customer_id=customer_id,
             plan_type=plan_type,
             issue_type=classification.get("primary_intent"),
             product_references=entities.get("product_references", []),

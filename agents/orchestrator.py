@@ -35,7 +35,20 @@ class Orchestrator:
     - Handover audit logging
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        conversation_store: Any | None = None,
+        checkpointer: Any | None = None,
+        user_memory: Any | None = None,
+    ):
+        from database.checkpointer import PersistentCheckpointer
+        from database.conversation_store import ConversationStore
+        from database.memory import UserMemoryService
+
+        self._store = conversation_store or ConversationStore()
+        self._checkpointer = checkpointer or PersistentCheckpointer()
+        self._memory = user_memory or UserMemoryService()
+
         # Initialize shared components
         self._rag = RAGPipeline()
         self._handover = HandoverProtocol()
@@ -51,7 +64,7 @@ class Orchestrator:
         # Build the graph
         self._graph = self._build_graph()
 
-    def _build_graph(self) -> StateGraph:
+    def _build_graph(self) -> Any:
         """Build the LangGraph state machine."""
         # Create graph with ConversationState as the state schema
         # We use dict-based state for LangGraph compatibility
@@ -111,7 +124,7 @@ class Orchestrator:
         workflow.add_edge("escalation", "output_guard")
         workflow.add_edge("output_guard", END)
 
-        return workflow.compile()
+        return workflow.compile(checkpointer=self._checkpointer)
 
     # --- Node functions (convert between dict and ConversationState) ---
 
@@ -285,6 +298,7 @@ class Orchestrator:
         conversation_id: str | None = None,
         message: str = "",
         existing_state: dict | None = None,
+        user_id: str | None = None,
     ) -> dict:
         """Process a single user message through the agent pipeline.
 
@@ -292,26 +306,45 @@ class Orchestrator:
             conversation_id: Optional conversation ID (generated if not provided).
             message: The user's message.
             existing_state: Optional existing conversation state for multi-turn.
+            user_id: Optional user ID for durable long-term memory scoping.
 
         Returns:
             Updated conversation state as a dict.
         """
         if existing_state:
             state = ConversationState(**existing_state)
+        elif conversation_id:
+            saved_state = self._store.get_conversation(conversation_id)
+            if saved_state:
+                state = ConversationState(**saved_state)
+            else:
+                state = ConversationState(conversation_id=conversation_id)
         else:
             state = ConversationState()
-            if conversation_id:
-                state.conversation_id = conversation_id
+
+        # Set user_id
+        if user_id:
+            state.user_id = user_id
+        elif not state.user_id:
+            state.user_id = "default_user"
+
+        # Inject long-term durable user memories
+        memories = self._memory.get_memories(state.user_id)
+        state.user_memory = memories
+        if memories.get("plan_tier") and not state.extracted_entities.plan_type:
+            state.extracted_entities.plan_type = memories["plan_tier"]
 
         # Add the user message
-        state.messages.append(Message(
+        user_msg = Message(
             role=MessageRole.USER,
             content=message,
-        ))
+        )
+        state.messages.append(user_msg)
 
         logger.info(
             "processing_message",
             conversation_id=state.conversation_id,
+            user_id=state.user_id,
             message_preview=message[:100],
             turn_count=state.turn_count,
         )
@@ -324,8 +357,50 @@ class Orchestrator:
         state.is_resolved = False
         state.retrieved_contexts = []
 
-        # Run through the graph
-        result = self._graph.invoke(state.model_dump())
+        # Run through the graph with thread_id for checkpointer
+        config = {"configurable": {"thread_id": state.conversation_id}}
+        result = self._graph.invoke(state.model_dump(), config=config)
+
+        # Persist messages and updated conversation state
+        try:
+            self._store.save_message(
+                conversation_id=state.conversation_id,
+                role="user",
+                content=message,
+                message_id=user_msg.id,
+            )
+
+            assistant_msgs = [
+                m for m in result.get("messages", [])
+                if (isinstance(m, dict) and m.get("role") == "assistant") or getattr(m, "role", "") == "assistant"
+            ]
+            if assistant_msgs:
+                last_m = assistant_msgs[-1]
+                content = last_m.get("content", "") if isinstance(last_m, dict) else last_m.content
+                meta = last_m.get("metadata", {}) if isinstance(last_m, dict) else getattr(last_m, "metadata", {})
+                mid = last_m.get("id") if isinstance(last_m, dict) else getattr(last_m, "id", None)
+                self._store.save_message(
+                    conversation_id=state.conversation_id,
+                    role="assistant",
+                    content=content,
+                    agent_id=result.get("current_agent"),
+                    metadata=meta,
+                    message_id=mid,
+                )
+
+            self._store.save_conversation(state.conversation_id, result, user_id=state.user_id)
+        except Exception as e:
+            logger.warning("conversation_store_save_failed", error=str(e))
+
+        # Extract and update durable long-term memory
+        try:
+            self._memory.extract_and_save_facts(
+                user_id=state.user_id,
+                conversation_id=state.conversation_id,
+                messages=result.get("messages", []),
+            )
+        except Exception as e:
+            logger.warning("user_memory_extract_failed", error=str(e))
 
         return result
 

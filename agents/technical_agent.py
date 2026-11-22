@@ -67,8 +67,15 @@ class TechnicalSupportAgent(BaseAgent):
             for r in results
         ]
 
+        # Build memory section
+        memory_section = ""
+        if state.user_memory:
+            memory_section = "\n\nCUSTOMER PROFILE & LONG-TERM MEMORY (From previous conversations):\n" + "\n".join(
+                f"- {k}: {v}" for k, v in state.user_memory.items()
+            )
+
         # Build prompt with KB context
-        augmented_prompt = f"""{self.system_prompt}
+        augmented_prompt = f"""{self.system_prompt}{memory_section}
 
 KNOWLEDGE BASE CONTEXT:
 {kb_context}

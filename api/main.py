@@ -14,9 +14,10 @@ load_dotenv()
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from agents.orchestrator import Orchestrator
+from database.conversation_store import ConversationStore
 from api.schemas import (
     ConversationHistoryResponse,
     ConversationResponse,
@@ -90,8 +91,20 @@ def get_orchestrator() -> Orchestrator:
     return _orchestrator
 
 
-# In-memory conversation store
+# Persistent conversation store
+_store = ConversationStore()
 conversations: dict[str, dict] = {}
+
+
+def _get_stored_conversation(conversation_id: str) -> Optional[dict]:
+    """Retrieve conversation state from cache or persistent database."""
+    if conversation_id in conversations:
+        return conversations[conversation_id]
+    db_state = _store.get_conversation(conversation_id)
+    if db_state:
+        conversations[conversation_id] = db_state
+        return db_state
+    return None
 
 # Create FastAPI app
 app = FastAPI(
@@ -145,16 +158,23 @@ async def health_check():
     tags=["Conversations"],
     summary="Start a new conversation",
 )
-async def start_conversation(request: StartConversationRequest):
+async def start_conversation(
+    request: StartConversationRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+):
     """Start a new customer support conversation.
 
     Sends the initial message through the triage pipeline for intent
     classification and routing to the appropriate specialist agent.
     """
     try:
-        logger.info("api_new_conversation", message_preview=request.message[:100])
+        user_id = request.user_id or x_user_id or request.customer_id
+        logger.info("api_new_conversation", message_preview=request.message[:100], user_id=user_id)
 
-        result = get_orchestrator().process_message(message=request.message)
+        result = get_orchestrator().process_message(
+            message=request.message,
+            user_id=user_id,
+        )
         conversation_id = result["conversation_id"]
         conversations[conversation_id] = result
 
@@ -184,24 +204,29 @@ async def start_conversation(request: StartConversationRequest):
     tags=["Conversations"],
     summary="Send a message in an existing conversation",
 )
-async def send_message(conversation_id: str, request: SendMessageRequest):
+async def send_message(
+    conversation_id: str,
+    request: SendMessageRequest,
+    x_user_id: Optional[str] = Header(None, alias="X-User-Id"),
+):
     """Send a follow-up message in an existing conversation.
 
     The conversation state is preserved, allowing multi-turn interactions
     with full context awareness.
     """
-    if conversation_id not in conversations:
+    existing_state = _get_stored_conversation(conversation_id)
+    if not existing_state:
         raise HTTPException(
             status_code=404,
             detail=f"Conversation {conversation_id} not found",
         )
 
     try:
-        existing_state = conversations[conversation_id]
-
+        user_id = request.user_id or x_user_id or existing_state.get("user_id")
         logger.info(
             "api_send_message",
             conversation_id=conversation_id,
+            user_id=user_id,
             message_preview=request.message[:100],
         )
 
@@ -209,6 +234,7 @@ async def send_message(conversation_id: str, request: SendMessageRequest):
             conversation_id=conversation_id,
             message=request.message,
             existing_state=existing_state,
+            user_id=user_id,
         )
 
         conversations[conversation_id] = result
@@ -244,13 +270,13 @@ async def send_message(conversation_id: str, request: SendMessageRequest):
 )
 async def get_conversation(conversation_id: str):
     """Retrieve the full conversation history including all messages and metadata."""
-    if conversation_id not in conversations:
+    state = _get_stored_conversation(conversation_id)
+    if not state:
         raise HTTPException(
             status_code=404,
             detail=f"Conversation {conversation_id} not found",
         )
 
-    state = conversations[conversation_id]
     messages = _extract_messages(state, include_all=True)
 
     return ConversationHistoryResponse(

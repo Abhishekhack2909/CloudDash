@@ -14,6 +14,7 @@ class StartConversationRequest(BaseModel):
     """Request to start a new conversation."""
 
     message: str = Field(..., description="Initial customer message", min_length=1)
+    user_id: Optional[str] = Field(None, description="Optional user ID for scoped long-term memory")
     customer_id: Optional[str] = Field(None, description="Optional customer identifier")
     metadata: dict[str, Any] = Field(default_factory=dict)
 
@@ -22,6 +23,7 @@ class SendMessageRequest(BaseModel):
     """Request to send a message in an existing conversation."""
 
     message: str = Field(..., description="Customer message", min_length=1)
+    user_id: Optional[str] = Field(None, description="Optional user ID for scoped long-term memory")
 
 
 # --- Response Schemas ---

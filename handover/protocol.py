@@ -96,10 +96,25 @@ class HandoverProtocol:
             fallback_agent=actual_target if status == HandoverStatus.FALLBACK else None,
         )
 
-        # Store the log
+        # Store the log in memory and database
         if conversation_id not in self._audit_logs:
             self._audit_logs[conversation_id] = []
         self._audit_logs[conversation_id].append(log_entry)
+
+        try:
+            from database.conversation_store import ConversationStore
+            store = ConversationStore()
+            store.save_handover_log(
+                conversation_id=conversation_id,
+                source_agent=source_agent,
+                target_agent=actual_target,
+                reason=reason,
+                status=status.value,
+                context_snapshot=log_entry.context_snapshot,
+                log_id=log_entry.id,
+            )
+        except Exception as e:
+            logger.warning("handover_db_save_failed", error=str(e))
 
         logger.info(
             "handover_executed",
@@ -142,8 +157,32 @@ class HandoverProtocol:
             self._audit_logs[conversation_id] = []
         self._audit_logs[conversation_id].append(log_entry)
 
+        try:
+            from database.conversation_store import ConversationStore
+            store = ConversationStore()
+            store.save_handover_log(
+                conversation_id=conversation_id,
+                source_agent=source_agent,
+                target_agent=target_agent,
+                reason=reason,
+                status=HandoverStatus.SUCCESS.value,
+                context_snapshot=context_snapshot or {},
+                log_id=log_entry.id,
+            )
+        except Exception as e:
+            logger.warning("handover_db_save_failed", error=str(e))
+
     def get_logs(self, conversation_id: str) -> list[dict]:
         """Get all handover audit logs for a conversation."""
+        try:
+            from database.conversation_store import ConversationStore
+            store = ConversationStore()
+            db_logs = store.get_handover_logs(conversation_id)
+            if db_logs:
+                return db_logs
+        except Exception as e:
+            logger.warning("handover_db_read_failed", error=str(e))
+
         logs = self._audit_logs.get(conversation_id, [])
         return [log.model_dump() for log in logs]
 
