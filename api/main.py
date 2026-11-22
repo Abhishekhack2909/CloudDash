@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 import sys
 from pathlib import Path
@@ -173,7 +174,8 @@ async def start_conversation(
         logger.info("api_new_conversation", message_preview=request.message[:100], user_id=user_id)
 
         customer_profile_dict = request.customer_profile.model_dump() if request.customer_profile else None
-        result = get_orchestrator().process_message(
+        result = await asyncio.to_thread(
+            get_orchestrator().process_message,
             message=request.message,
             user_id=user_id,
             customer_profile=customer_profile_dict,
@@ -235,7 +237,8 @@ async def send_message(
         )
 
         customer_profile_dict = request.customer_profile.model_dump() if request.customer_profile else None
-        result = get_orchestrator().process_message(
+        result = await asyncio.to_thread(
+            get_orchestrator().process_message,
             conversation_id=conversation_id,
             message=request.message,
             existing_state=existing_state,
@@ -337,7 +340,7 @@ async def admin_reindex(
 
     try:
         from knowledge_base.ingest import ingest
-        summary = ingest(force=force)
+        summary = await asyncio.to_thread(ingest, force=force)
         return {"status": "success", "summary": summary}
     except Exception as e:
         logger.error("admin_reindex_failed", error=str(e))

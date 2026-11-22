@@ -172,12 +172,15 @@ def test_fact_stated_in_session_1_used_in_session_2(clean_user_ids):
     # Mock technical agent LLM to assert that memory is present in augmented prompt
     technical_agent = orchestrator._technical
     original_llm = technical_agent._llm
+    original_llm_tools = getattr(technical_agent, "_llm_with_tools", None)
 
     mock_llm = MagicMock()
     mock_resp = MagicMock()
     mock_resp.content = "Because you are on the Enterprise plan, your data retention is 365 days [KB-013: Data Retention Policy]."
+    mock_resp.tool_calls = []
     mock_llm.invoke.return_value = mock_resp
     technical_agent._llm = mock_llm
+    technical_agent._llm_with_tools = mock_llm
 
     try:
         # User asks a retention question without repeating their plan tier
@@ -200,6 +203,8 @@ def test_fact_stated_in_session_1_used_in_session_2(clean_user_ids):
     finally:
         triage_agent._llm = original_triage_llm
         technical_agent._llm = original_llm
+        if original_llm_tools:
+            technical_agent._llm_with_tools = original_llm_tools
 
 
 def test_fact_extraction_with_structured_schema(clean_user_ids):

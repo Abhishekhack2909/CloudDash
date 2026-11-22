@@ -1,0 +1,33 @@
+services:
+  api:
+    build: .
+    container_name: clouddash-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      - DATABASE_URL=sqlite:////app/clouddash.db
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./clouddash.db:/app/clouddash.db
+    restart: unless-stopped
+
+  ui:
+    build: .
+    container_name: clouddash-ui
+    command: streamlit run streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      - DATABASE_URL=sqlite:////app/clouddash.db
+      - API_URL=http://api:8000
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./clouddash.db:/app/clouddash.db
+    depends_on:
+      - api
+    restart: unless-stopped

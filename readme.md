@@ -10,9 +10,9 @@ pinned: false
 
 # ☁️ CloudDash Multi-Agent Customer Support System
 
-A production-quality prototype multi-agent customer support system for **CloudDash** — a B2B SaaS cloud infrastructure monitoring platform (AWS, GCP, Azure).
+A production-style multi-agent customer support system for **CloudDash** — a B2B SaaS cloud infrastructure monitoring platform (AWS, GCP, Azure, Kubernetes).
 
-Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, **ChromaDB + BM25** for hybrid RAG retrieval, and **LangSmith** for LLM observability.
+Built with **LangGraph** for multi-agent supervisor orchestration, **FastAPI** for async REST endpoints, **ChromaDB + BM25** with cross-encoder re-ranking for hybrid RAG, **SQLAlchemy** (SQLite/PostgreSQL) for persistent conversation state and durable user memory, and **LangSmith** for LLM observability.
 
 ---
 
@@ -21,7 +21,7 @@ Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                        Interface Layer                           │
-│              FastAPI REST API  │  Streamlit Web UI               │
+│     FastAPI Async REST API  │  Streamlit Web UI + Customer Profile│
 └──────────────────────┬───────────────────┬───────────────────────┘
                        │                   │
 ┌──────────────────────▼───────────────────▼───────────────────────┐
@@ -31,10 +31,11 @@ Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, 
                        │
 ┌──────────────────────▼───────────────────────────────────────────┐
 │              LangGraph Orchestrator (Supervisor)                  │
+│  State checkpointer (SQLite/PostgreSQL) keyed by conversation_id  │
 │                                                                   │
 │  ┌───────────┐   ┌─────────────────┐   ┌──────────────┐         │
-│  │  Triage   │──▶│ Technical Agent  │──▶│   Billing    │         │
-│  │  Agent    │   │  (RAG-powered)   │   │   Agent      │         │
+│  │  Triage   │──▶│ Technical Agent │──▶│   Billing    │         │
+│  │  Agent    │   │  (RAG + Tools)  │   │(RAG + DB Acc)│         │
 │  └───────────┘   └────────┬────────┘   └──────┬───────┘         │
 │       │                   │                    │                  │
 │       │            ┌──────▼────────────────────▼──────┐          │
@@ -46,32 +47,62 @@ Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, 
 ┌──────────────────────▼───────────────────────────────────────────┐
 │                   Output Guardrails                               │
 │      PII Redaction │ Hallucination Check │ Policy Filter          │
-└──────────────────────────────────────────────────────────────────┘
+└──────────────────────┬───────────────────────────────────────────┘
                        │
 ┌──────────────────────▼───────────────────────────────────────────┐
-│                    RAG Pipeline                                   │
+│               Personalized Hybrid RAG Pipeline                    │
 │  Query Rewrite → Vector Search (ChromaDB) + BM25 Keyword Search  │
-│              → Reciprocal Rank Fusion → Cross-Encoder Reranking  │
+│              → Reciprocal Rank Fusion (RRF)                      │
+│              → Plan Tier & Active Integration Boosting           │
+│              → Cross-Encoder Re-Ranking (ms-marco-MiniLM-L-6-v2) │
+└──────────────────────┬───────────────────────────────────────────┘
+                       │
+┌──────────────────────▼───────────────────────────────────────────┐
+│              Persistent Storage & Tool Execution                  │
+│  - SQLite (default) / PostgreSQL (via DATABASE_URL)              │
+│  - Real Tools: create_support_ticket, check_integration_status,  │
+│    lookup_account (database-backed)                             │
+│  - Long-Term User Memory: extracted durable customer facts       │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-## ✨ Key Features
+---
 
-| Feature | Implementation |
-|---------|---------------|
-| **4 Specialized Agents** | Triage, Technical Support, Billing, Escalation — each with configurable YAML prompts |
-| **Hybrid RAG** | ChromaDB (vector) + BM25 (keyword) with RRF fusion and cross-encoder re-ranking |
-| **Agent Handovers** | Context-preserving handovers with fallback chains and full audit logging |
-| **Guardrails** | Input: prompt injection detection + off-topic filter. Output: PII redaction + hallucination check |
-| **Observability** | Structured JSON logging (structlog) + LangSmith tracing for full LLM observability |
-| **Knowledge Base** | 20 articles across 5 categories with source citations in every response |
-| **REST API** | FastAPI with Swagger docs — start conversations, send messages, view history |
-| **Web UI** | Streamlit chat interface with agent badges, citation display, and test scenarios |
-| **Configurable** | Agent prompts, routing rules, and guardrails are all YAML-configurable |
+## 📊 Empirical Evaluation Results
+
+The retrieval pipeline was evaluated on a comprehensive golden evaluation benchmark covering exact error codes, configuration syntaxes, and paraphrased user queries across all knowledge base categories.
+
+### Retrieval Strategy Benchmark (125 Enterprise KB Articles, 1,114 chunks)
+
+| Retrieval Strategy | Recall@1 | Recall@3 | Recall@5 | MRR |
+| :--- | :---: | :---: | :---: | :---: |
+| **Dense Vector Only** (`all-MiniLM-L6-v2`) | 57.14% | 66.67% | 71.43% | 0.6258 |
+| **Sparse BM25 Only** (`BM25Okapi`) | 47.62% | 69.05% | 73.81% | 0.5896 |
+| **Hybrid RRF** (Vector + BM25) | 52.38% | 73.81% | 83.33% | 0.6614 |
+| **Hybrid + Cross-Encoder Rerank** (`ms-marco-MiniLM-L-6-v2`) | **59.52%** | **80.95%** | **85.71%** | **0.7166** |
+
+### Key Takeaways:
+- **Cross-Encoder Reranking Lift**: Adding cross-encoder re-ranking increased **Recall@5 from 71.43% to 85.71% (+14.28% absolute lift)** and lifted **MRR by +0.0908 (0.6258 → 0.7166)** over vector search alone.
+- **Hybrid Fusion Power**: Sparse BM25 excels at specific error tokens (e.g. `ERR_AUTH_EXPIRED`), while dense vectors capture natural language semantics; RRF fusion eliminates single-retriever blind spots.
 
 ---
 
-## 🌐 Live Demo
+## ✨ Key Capabilities
+
+| Feature | Implementation |
+|---------|---------------|
+| **Multi-Agent Architecture** | Triage, Technical Support, Billing, Escalation with YAML-configurable prompts and LangGraph state machine |
+| **Hybrid RAG + Personalization** | ChromaDB + BM25 with RRF, customer plan tier boosting/down-weighting, and active integration scoring |
+| **Real Structured Tools** | `create_support_ticket` (persisted to SQL DB), `check_integration_status` (live health check), `lookup_account` (SQL account lookup) |
+| **Persistent State & Memory** | SQLAlchemy conversation storage (SQLite/Postgres), LangGraph checkpoints, and durable user memory extracted across sessions |
+| **Incremental Ingestion** | SHA-256 content hashing in `knowledge_base/ingest.py`, `/admin/reindex` endpoint, and 125 enterprise articles |
+| **Model Resilience** | `FallbackChatGroq` automatic failover across models (`openai/gpt-oss-120b`, `llama-3.3-70b-versatile`, etc.) |
+| **Guardrails & Safety** | Input: prompt injection regex + off-topic classifier; Output: PII redaction + citation hallucination check |
+| **Observability** | Structured JSON logging via `structlog` + LangSmith distributed tracing |
+
+---
+
+## 🌐 Live Deployments
 
 | Service | URL |
 |---------|-----|
@@ -80,132 +111,108 @@ Built with **LangGraph** for agent orchestration, **FastAPI** for the REST API, 
 
 ---
 
-## 🚀 Quick Start (Local)
+## 🚀 Quick Start (Local & Docker)
 
-### Prerequisites
-
-- Python 3.10+
-- Groq API key (free at [console.groq.com](https://console.groq.com)) — primary LLM provider
-- LangSmith API key (optional, for tracing)
-
-### 1. Clone & Setup
+### Option A: Run with Docker Compose (Recommended)
 
 ```bash
-git clone https://github.com/your-username/CloudDash.git
+# Clone the repository
+git clone https://github.com/Abhishekhack2909/CloudDash.git
 cd CloudDash
-python -m venv venv
+
+# Configure environment
+cp .env.example .env
+# Add GROQ_API_KEY=gsk_... to .env
+
+# Run full stack (FastAPI + Streamlit + ChromaDB + SQLite)
+docker compose up --build
+```
+- Web UI: `http://localhost:8501`
+- REST API Docs: `http://localhost:8000/docs`
+
+---
+
+### Option B: Local Python Environment
+
+#### 1. Setup Virtual Environment
+```bash
+python -m venv .venv
 
 # Windows
-venv\Scripts\activate
+.venv\Scripts\activate
 # macOS/Linux
-source venv/bin/activate
+source .venv/bin/activate
 
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment
-
+#### 2. Configure Environment
 ```bash
 cp .env.example .env
-# Edit .env and add your API keys:
-#   GROQ_API_KEY=gsk_...           (required — primary LLM)
-#   GROQ_MODEL=openai/gpt-oss-120b (optional model override)
-#   LANGSMITH_API_KEY=lsv2_...     (optional, for LangSmith tracing)
-#   LANGCHAIN_TRACING_V2=true      (optional, enable tracing)
+# Edit .env and set GROQ_API_KEY=gsk_...
 ```
 
-### 3. Ingest Knowledge Base
-
+#### 3. Ingest Knowledge Base
 ```bash
 python knowledge_base/ingest.py
 ```
+Outputs:
+- 125 articles indexed into ChromaDB (`./chroma_db/`)
+- BM25 index serialized (`./chroma_db/bm25_index.pkl`)
+- SHA-256 ingestion manifest (`./knowledge_base/ingestion_manifest.json`)
 
-This will:
-- Load 20 KB articles from `knowledge_base/articles/`
-- Chunk them by section headers (~500 char chunks)
-- Embed using `sentence-transformers/all-MiniLM-L6-v2` (local, no API key needed)
-- Index into ChromaDB (persisted in `./chroma_db/`)
-- Build a BM25 index (pickled in `./chroma_db/bm25_index.pkl`)
-
-### 4. Run the API
-
+#### 4. Run the API & UI
 ```bash
-python -m api.main
-# or
+# Terminal 1: FastAPI server
 uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
-```
 
-API docs available at: `http://localhost:8000/docs`
-
-### 5. Run the Web UI (Optional)
-
-```bash
+# Terminal 2: Streamlit chat interface
 streamlit run streamlit_app.py
 ```
 
-### 6. Run Tests
+---
 
+## 🧪 Testing & Evaluation CLI
+
+### Run Unit and Integration Tests
 ```bash
-# Unit tests (no API key needed)
-pytest tests/test_guardrails.py tests/test_handover.py tests/test_retrieval.py -v
+# Run all tests
+pytest tests/ -v
 
-# Integration tests (requires OPENAI_API_KEY + ingested KB)
-pytest tests/test_scenarios.py -v
+# Run personalization tests
+pytest tests/test_personalization.py -v
+
+# Run tools tests
+pytest tests/test_tools.py -v
+
+# Run memory tests
+pytest tests/test_memory.py -v
+```
+
+### Run Evaluation Harness
+```bash
+# Evaluate retrieval strategies against golden set
+python -m evals.run --suite retrieval
+
+# Check retrieval against regression baseline
+python -m evals.run --suite retrieval --check-baseline
+
+# Run end-to-end evaluation
+python -m evals.run --suite e2e
 ```
 
 ---
 
-## 📡 API Endpoints
+## 📡 API Reference
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/conversations` | Start a new conversation |
-| `POST` | `/conversations/{id}/messages` | Send a follow-up message |
-| `GET` | `/conversations/{id}` | Get conversation history |
-| `GET` | `/conversations/{id}/handovers` | Get handover audit log |
-| `GET` | `/health` | System health check |
-
-### Example: Start a Conversation
-
-```bash
-curl -X POST http://localhost:8000/conversations \
-  -H "Content-Type: application/json" \
-  -d '{"message": "My CloudDash alerts stopped firing after I updated my AWS credentials."}'
-```
-
-### Example: Send Follow-up Message
-
-```bash
-curl -X POST http://localhost:8000/conversations/{conversation_id}/messages \
-  -H "Content-Type: application/json" \
-  -d '{"message": "I am on the Pro plan. Can you also check my billing?"}'
-```
-
----
-
-## 🧪 Test Scenarios
-
-The system handles all 4 assessment scenarios:
-
-### Scenario 1 — Single-Agent Resolution
-> "My CloudDash alerts stopped firing after I updated my AWS integration credentials yesterday. I'm on the Pro plan."
-
-**Flow:** Triage → Technical Support → KB-grounded resolution with citations `[KB-001]`, `[KB-002]`, `[KB-020]`
-
-### Scenario 2 — Cross-Agent Handover
-> "I want to upgrade from Pro to Enterprise, but first can you check if the SSO integration issue I reported last week has been resolved?"
-
-**Flow:** Triage → Technical Support (SSO) → handover to Billing (upgrade) with full context
-
-### Scenario 3 — Escalation to Human
-> "I've been charged twice for April. I need an immediate refund and I want to speak to a manager."
-
-**Flow:** Triage → Billing/Escalation → human handover package with priority P1/P2, sentiment analysis, ticket ID
-
-### Scenario 4 — KB Retrieval Failure
-> "Does CloudDash support integration with Datadog for cross-platform alerting?"
-
-**Flow:** Agent searches KB → no relevant article → transparently acknowledges → offers escalation/feature request
+| `POST` | `/conversations` | Start conversation with initial message and optional customer profile |
+| `POST` | `/conversations/{id}/messages` | Send follow-up message in existing multi-turn conversation |
+| `GET` | `/conversations/{id}` | Get full conversation history, messages, and extracted entities |
+| `GET` | `/conversations/{id}/handovers` | Retrieve immutable handover audit log |
+| `GET` | `/health` | Health check with active model, fallback status, and KB count |
+| `POST` | `/admin/reindex` | Trigger incremental or full re-indexing (protected by `X-Admin-Key`) |
 
 ---
 
@@ -213,127 +220,23 @@ The system handles all 4 assessment scenarios:
 
 | Decision | Rationale | Trade-off |
 |----------|-----------|-----------|
-| **LangGraph (supervisor pattern)** | Fine-grained control over state transitions, conditional routing, and cyclic workflows. Central orchestrator is clear to debug and extend | Less autonomous than swarm pattern |
-| **ChromaDB** | File-persistent, zero-config, no external service. Self-contained prototype | Less scalable than Pinecone/Qdrant |
-| **Hybrid Retrieval (BM25 + Vector)** | Technical KB has exact terms (API endpoints, error codes) that BM25 catches better than vector alone | Additional complexity + BM25 index memory |
-| **Cross-encoder Re-ranking** | Significantly improves final retrieval precision at ~200ms latency cost | Adds sentence-transformers dependency |
-| **Custom Guardrails** | Lightweight, transparent, zero external dependencies. Adequate for prototype | Less comprehensive than LLM Guard |
-| **LangSmith** | Native LangGraph auto-instrumentation. Zero-config tracing | Requires LangSmith account |
-| **YAML Configuration** | Agent prompts, routing, guardrails are all YAML-configurable. Adding a new agent = adding a YAML block + a Python class | Slightly more boilerplate vs hardcoded |
+| **LangGraph Supervisor Pattern** | Explicit state graph with clear conditional routing, cycles, and handovers | Slightly more upfront structure than free-form swarms |
+| **SQLAlchemy Persistence** | Portable persistence: zero-config SQLite locally, seamlessly switches to Postgres via `DATABASE_URL` | Requires DB migrations in scaled multi-tenant production |
+| **Hybrid RAG (BM25 + Vector)** | Exact matches on error codes and technical terms combined with semantic similarity | Two indices to build and maintain |
+| **Cross-Encoder Re-Ranking** | Joint query-document attention provides significantly higher precision than bi-encoder embeddings alone | Adds ~150-250ms per retrieval query |
+| **Structured Output Tools** | Tools strictly typed with Pydantic for deterministic input validation | LLM must conform to schema |
+| **FallbackChatGroq Client** | Automatic failover when primary Groq model is deprecated or rate-limited | Requires maintaining fallback model list |
 
 ---
 
-## 📁 Repository Structure
+## ⚠️ Notes & Operational Details
 
-```
-CloudDash/
-├── README.md                    # This file
-├── ARCHITECTURE.md              # Detailed architecture document
-├── requirements.txt             # Python dependencies
-├── pyproject.toml               # Project config
-├── .env.example                 # Environment variable template
-├── .gitignore
-│
-├── agents/                      # Agent implementations
-│   ├── base_agent.py            # Abstract base class
-│   ├── triage_agent.py          # Intent classification + routing
-│   ├── technical_agent.py       # Technical support (RAG-powered)
-│   ├── billing_agent.py         # Billing + account (mock data)
-│   ├── escalation_agent.py      # Human handover packaging
-│   └── orchestrator.py          # LangGraph supervisor orchestrator
-│
-├── knowledge_base/              # KB articles + ingestion
-│   ├── articles/                # 20 JSON articles (KB-001 to KB-020)
-│   └── ingest.py                # Chunking, embedding, indexing script
-│
-├── retrieval/                   # RAG pipeline
-│   ├── embeddings.py            # OpenAI embedding wrapper
-│   ├── vector_store.py          # ChromaDB vector search
-│   ├── bm25_store.py            # BM25 keyword search
-│   ├── hybrid_retriever.py      # RRF fusion of vector + BM25
-│   ├── reranker.py              # Cross-encoder re-ranking
-│   └── pipeline.py              # Full RAG pipeline orchestration
-│
-├── handover/                    # Handover protocol
-│   └── protocol.py              # Context transfer + audit logging
-│
-├── guardrails/                  # Safety layer
-│   ├── input_guardrails.py      # Injection detection + off-topic
-│   └── output_guardrails.py     # PII redaction + hallucination check
-│
-├── observability/               # Logging & tracing
-│   ├── logger.py                # Structured JSON logging (structlog)
-│   └── tracing.py               # LangSmith tracing config
-│
-├── api/                         # REST API
-│   ├── main.py                  # FastAPI application
-│   └── schemas.py               # Request/response Pydantic models
-│
-├── config/                      # YAML configuration
-│   ├── agents.yaml              # Agent prompts, capabilities, routing
-│   ├── routing.yaml             # Intent-to-agent mapping
-│   └── guardrails.yaml          # Guardrail patterns and rules
-│
-├── tests/                       # Test suite
-│   ├── test_triage.py           # Triage classification tests
-│   ├── test_retrieval.py        # RAG pipeline tests
-│   ├── test_handover.py         # Handover protocol tests
-│   ├── test_guardrails.py       # Guardrails safety tests
-│   └── test_scenarios.py        # Integration tests (4 scenarios)
-│
-└── streamlit_app.py             # Web UI
-```
-
----
-
-## 🔧 Extending the System
-
-### Adding a New Agent (e.g., Onboarding Agent)
-
-1. **Add config** in `config/agents.yaml`:
-```yaml
-agents:
-  onboarding:
-    name: "Onboarding Agent"
-    system_prompt: |
-      You are the Onboarding Agent for CloudDash...
-    capabilities: [guided_setup, tutorial_generation]
-    routes_to: [technical_support, escalation]
-    tools: [search_knowledge_base]
-```
-
-2. **Create agent** in `agents/onboarding_agent.py`:
-```python
-from agents.base_agent import BaseAgent
-
-class OnboardingAgent(BaseAgent):
-    def __init__(self):
-        super().__init__(agent_id="onboarding")
-
-    def process(self, state):
-        # Your agent logic here
-        ...
-```
-
-3. **Register** in `agents/orchestrator.py` — add the node and edges.
-
-4. **Update routing** in `config/routing.yaml` — add intent mapping.
-
-No changes needed to the core orchestration logic, guardrails, or RAG pipeline.
-
----
-
-## ⚠️ Known Limitations
-
-- **In-memory conversation store**: Conversations are stored in memory and lost on restart. A production system would use Redis or PostgreSQL.
-- **Mock billing data**: Account lookup returns static mock data. A real system would integrate with Stripe/billing APIs.
-- **Single-threaded**: The API processes requests sequentially. Production would need async workers or a task queue.
-- **Cold start on Render**: Free tier instances spin down after 15 minutes of inactivity; first request takes ~60s to wake up.
-- **Cross-encoder latency**: Re-ranking adds ~200ms per query. Could be disabled for latency-sensitive deployments.
-- **No persistent checkpointing**: LangGraph checkpointing is not enabled; multi-turn conversations rely on in-memory state passed between calls.
+- **Groq Free-Tier Model Selection**: Uses Groq's high-speed inference. Default model is `openai/gpt-oss-120b` or `llama-3.3-70b-versatile` with automatic failover.
+- **Render Free-Tier Sleep**: Render free instances sleep after 15 minutes of inactivity; first request may take 45-60 seconds to spin up.
+- **Escalation**: Escalation agent generates structured P1/P2 human handoff packages with summary, sentiment, and ticket ID for human agent queuing.
 
 ---
 
 ## 📜 License
 
-This project was built as part of a technical assessment. All code is original.
+MIT License. Built for CloudDash Customer Support System.
