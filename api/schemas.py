@@ -10,12 +10,21 @@ from pydantic import BaseModel, Field
 
 # --- Request Schemas ---
 
+class CustomerProfile(BaseModel):
+    """Customer profile for personalization."""
+
+    plan_tier: Optional[str] = Field("Pro", description="Customer plan tier: Free, Starter, Pro, Enterprise")
+    active_integrations: list[str] = Field(default_factory=list, description="Active user integrations, e.g. ['aws', 'slack', 'datadog']")
+    account_age_days: Optional[int] = Field(30, description="Account age in days")
+
+
 class StartConversationRequest(BaseModel):
     """Request to start a new conversation."""
 
     message: str = Field(..., description="Initial customer message", min_length=1)
     user_id: Optional[str] = Field(None, description="Optional user ID for scoped long-term memory")
     customer_id: Optional[str] = Field(None, description="Optional customer identifier")
+    customer_profile: Optional[CustomerProfile] = Field(None, description="Optional customer profile for personalized retrieval")
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -24,6 +33,7 @@ class SendMessageRequest(BaseModel):
 
     message: str = Field(..., description="Customer message", min_length=1)
     user_id: Optional[str] = Field(None, description="Optional user ID for scoped long-term memory")
+    customer_profile: Optional[CustomerProfile] = Field(None, description="Optional customer profile for personalized retrieval")
 
 
 # --- Response Schemas ---

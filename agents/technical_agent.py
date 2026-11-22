@@ -39,10 +39,20 @@ class TechnicalSupportAgent(BaseAgent):
             query=user_message[:100],
         )
 
+        # Extract plan tier and integrations from state/user memory for personalized retrieval
+        plan_tier = state.extracted_entities.plan_type or state.user_memory.get("plan_tier")
+        active_integrations = []
+        if state.user_memory.get("integrations_used"):
+            active_integrations.extend([x.strip() for x in state.user_memory["integrations_used"].split(",")])
+        if state.extracted_entities.product_references:
+            active_integrations.extend(state.extracted_entities.product_references)
+
         results = self._rag.retrieve(
             query=user_message,
             conversation_context=conversation_history,
             top_k=5,
+            plan_tier=plan_tier,
+            active_integrations=active_integrations,
         )
 
         kb_context = self._rag.format_context(results)

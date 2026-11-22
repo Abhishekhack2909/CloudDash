@@ -91,8 +91,10 @@ Rewritten search query (respond with ONLY the rewritten query, nothing else):"""
         category_filter: Optional[str] = None,
         top_k: int = 5,
         hybrid_k: int = 15,
+        plan_tier: Optional[str] = None,
+        active_integrations: Optional[list[str]] = None,
     ) -> list[RetrievalResult]:
-        """Execute the full RAG retrieval pipeline.
+        """Execute the full RAG retrieval pipeline with optional personalization boosting.
 
         Args:
             query: The user's query.
@@ -100,6 +102,8 @@ Rewritten search query (respond with ONLY the rewritten query, nothing else):"""
             category_filter: Optional category to narrow search.
             top_k: Final number of results after re-ranking.
             hybrid_k: Number of candidates from hybrid retrieval before re-ranking.
+            plan_tier: Customer plan tier for boosting (Starter, Pro, Enterprise).
+            active_integrations: Active integrations (e.g. AWS, GCP) for domain boosting.
 
         Returns:
             List of RetrievalResult objects, re-ranked and ready for citation.
@@ -114,14 +118,31 @@ Rewritten search query (respond with ONLY the rewritten query, nothing else):"""
             category_filter=category_filter,
         )
 
+        # If customer has active integrations, fetch candidate documents aligned with them
+        if active_integrations:
+            integ_query = " ".join(active_integrations)
+            integ_candidates = self._hybrid_retriever.search(
+                query=f"{search_query} {integ_query}",
+                k=5,
+                category_filter=category_filter,
+            )
+            seen = {f"{r.article_id}:{r.chunk_text[:100]}" for r in hybrid_results}
+            for r in integ_candidates:
+                key = f"{r.article_id}:{r.chunk_text[:100]}"
+                if key not in seen:
+                    seen.add(key)
+                    hybrid_results.append(r)
+
         if not hybrid_results:
             return []
 
-        # Step 3: Cross-encoder re-ranking
+        # Step 3: Cross-encoder re-ranking with personalization boost
         reranked_results = self._reranker.rerank(
             query=search_query,
             results=hybrid_results,
             top_k=top_k,
+            plan_tier=plan_tier,
+            active_integrations=active_integrations,
         )
 
         return reranked_results

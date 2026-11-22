@@ -299,6 +299,7 @@ class Orchestrator:
         message: str = "",
         existing_state: dict | None = None,
         user_id: str | None = None,
+        customer_profile: dict | None = None,
     ) -> dict:
         """Process a single user message through the agent pipeline.
 
@@ -307,6 +308,7 @@ class Orchestrator:
             message: The user's message.
             existing_state: Optional existing conversation state for multi-turn.
             user_id: Optional user ID for durable long-term memory scoping.
+            customer_profile: Optional customer profile (plan tier, active integrations).
 
         Returns:
             Updated conversation state as a dict.
@@ -327,6 +329,16 @@ class Orchestrator:
             state.user_id = user_id
         elif not state.user_id:
             state.user_id = "default_user"
+
+        # Apply customer profile if provided
+        if customer_profile:
+            state.customer_profile = customer_profile
+            if customer_profile.get("plan_tier"):
+                state.extracted_entities.plan_type = customer_profile["plan_tier"]
+            if customer_profile.get("active_integrations"):
+                state.extracted_entities.product_references = list(
+                    set(state.extracted_entities.product_references + customer_profile["active_integrations"])
+                )
 
         # Inject long-term durable user memories
         memories = self._memory.get_memories(state.user_id)

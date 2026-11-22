@@ -172,9 +172,11 @@ async def start_conversation(
         user_id = request.user_id or x_user_id or request.customer_id
         logger.info("api_new_conversation", message_preview=request.message[:100], user_id=user_id)
 
+        customer_profile_dict = request.customer_profile.model_dump() if request.customer_profile else None
         result = get_orchestrator().process_message(
             message=request.message,
             user_id=user_id,
+            customer_profile=customer_profile_dict,
         )
         conversation_id = result["conversation_id"]
         conversations[conversation_id] = result
@@ -232,11 +234,13 @@ async def send_message(
             message_preview=request.message[:100],
         )
 
+        customer_profile_dict = request.customer_profile.model_dump() if request.customer_profile else None
         result = get_orchestrator().process_message(
             conversation_id=conversation_id,
             message=request.message,
             existing_state=existing_state,
             user_id=user_id,
+            customer_profile=customer_profile_dict,
         )
 
         conversations[conversation_id] = result

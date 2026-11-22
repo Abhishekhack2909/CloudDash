@@ -47,6 +47,7 @@ class ConversationState(BaseModel):
     conversation_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: Optional[str] = None
     user_memory: dict[str, str] = Field(default_factory=dict)
+    customer_profile: dict[str, Any] = Field(default_factory=dict)
     messages: list[Message] = Field(default_factory=list)
     current_agent: str = "triage"
     previous_agent: Optional[str] = None

@@ -146,6 +146,19 @@ def main():
         )
         st.session_state.user_id = user_id_input.strip() or "user_demo"
 
+        plan_options = ["Starter", "Pro", "Enterprise"]
+        current_plan = st.session_state.get("plan_tier", "Pro")
+        plan_index = plan_options.index(current_plan) if current_plan in plan_options else 1
+        st.session_state.plan_tier = st.selectbox("Plan Tier", plan_options, index=plan_index)
+
+        all_integrations = ["AWS", "CloudWatch", "Kubernetes", "Slack", "Datadog", "PagerDuty", "GCP", "Azure"]
+        current_integs = st.session_state.get("active_integrations", ["AWS", "Slack"])
+        st.session_state.active_integrations = st.multiselect(
+            "Active Integrations",
+            all_integrations,
+            default=[i for i in current_integs if i in all_integrations],
+        )
+
         try:
             from database.memory import UserMemoryService
             mem_service = UserMemoryService()
@@ -291,10 +304,15 @@ def main():
             with st.spinner("Processing..."):
                 try:
                     orch = get_orchestrator()
+                    profile = {
+                        "plan_tier": st.session_state.get("plan_tier", "Pro"),
+                        "active_integrations": st.session_state.get("active_integrations", []),
+                    }
                     result = orch.process_message(
                         message=user_input,
                         existing_state=st.session_state.conversation_state,
                         user_id=getattr(st.session_state, "user_id", None),
+                        customer_profile=profile,
                     )
                     st.session_state.conversation_state = result
 

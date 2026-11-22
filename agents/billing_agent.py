@@ -54,12 +54,14 @@ class BillingAgent(BaseAgent):
 
         conversation_history = self._get_conversation_history(state)
 
-        # Retrieve relevant billing KB articles
+        # Retrieve relevant billing KB articles with tier boosting
+        plan_tier = state.extracted_entities.plan_type or state.user_memory.get("plan_tier")
         results = self._rag.retrieve(
             query=user_message,
             conversation_context=conversation_history,
             category_filter=None,  # Don't filter — billing questions may reference features
             top_k=5,
+            plan_tier=plan_tier,
         )
 
         kb_context = self._rag.format_context(results)
