@@ -145,3 +145,17 @@ class AccountRecord(Base):
     monthly_spend = Column(Float, default=199.0)
     renewal_date = Column(String(32), nullable=False)
     status = Column(String(32), default="active")
+
+
+class FeedbackRecord(Base):
+    """User rating and comments for response evaluation."""
+
+    __tablename__ = "feedback"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    conversation_id = Column(String(64), index=True, nullable=False)
+    message_id = Column(String(64), nullable=True)
+    rating = Column(Integer, nullable=False)  # +1 (thumbs up) or -1 (thumbs down)
+    comment = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utc_now)
+

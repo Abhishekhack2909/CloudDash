@@ -253,179 +253,220 @@ def main():
                 st.session_state.pending_message = query
                 st.rerun()
 
-    # Main chat area
+    # Main area with tabs
     st.title("☁️ CloudDash Customer Support")
     st.caption("Powered by Multi-Agent AI System with RAG")
 
-    # Initialize session state
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    if "conversation_state" not in st.session_state:
-        st.session_state.conversation_state = None
+    tab_chat, tab_analytics = st.tabs(["💬 Support Chat", "📊 Platform Analytics"])
 
-    # Display chat history
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            with st.chat_message("user"):
-                st.write(msg["content"])
-        else:
-            with st.chat_message("assistant"):
-                # Show agent badge
-                if msg.get("agent_id"):
-                    st.markdown(get_agent_badge(msg["agent_id"]), unsafe_allow_html=True)
+    with tab_analytics:
+        st.subheader("📈 Operational Metrics & Quality Overview")
+        try:
+            from database.analytics import get_metrics
+            metrics = get_metrics()
 
-                # Handover events stored as special type
-                if msg.get("type") == "handover":
-                    st.markdown(
-                        f'<div class="handover-event">'
-                        f'🔄 <strong>Handover:</strong> '
-                        f'{msg["content"]}'
-                        f'</div>',
-                        unsafe_allow_html=True,
-                    )
-                elif msg.get("type") == "tool_call":
-                    with st.expander(f"🛠️ {msg['content']}", expanded=False):
-                        st.json(msg.get("data", {}))
-                else:
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total Conversations", metrics.get("total_conversations", 0))
+            col2.metric("Resolution Rate", f"{metrics.get('resolution_rate', 0.0) * 100:.1f}%")
+            col3.metric("Escalation Rate", f"{metrics.get('escalation_rate', 0.0) * 100:.1f}%")
+
+            col4, col5, col6 = st.columns(3)
+            col4.metric("Avg Turns / Convo", f"{metrics.get('average_turns_to_resolution', 0.0)}")
+            col5.metric("Positive Feedback", f"{metrics.get('positive_feedback_ratio', 1.0) * 100:.1f}%")
+            col6.metric("Total Ratings", metrics.get("total_feedbacks", 0))
+
+            st.divider()
+            if metrics.get("escalation_by_category"):
+                st.subheader("🚨 Escalation Breakdown by Category")
+                st.bar_chart(metrics["escalation_by_category"])
+            else:
+                st.info("No escalations recorded in the database yet.")
+        except Exception as e:
+            st.warning(f"Unable to load analytics metrics: {e}")
+
+    with tab_chat:
+        # Initialize session state
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+        if "conversation_state" not in st.session_state:
+            st.session_state.conversation_state = None
+
+        # Display chat history
+        for idx, msg in enumerate(st.session_state.messages):
+            if msg["role"] == "user":
+                with st.chat_message("user"):
                     st.write(msg["content"])
-                    render_citations(msg.get("citations", []))
+            else:
+                with st.chat_message("assistant"):
+                    # Show agent badge
+                    if msg.get("agent_id"):
+                        st.markdown(get_agent_badge(msg["agent_id"]), unsafe_allow_html=True)
 
-    # Handle pending message from scenario buttons
-    pending = st.session_state.pop("pending_message", None)
-
-    # Chat input
-    user_input = pending or st.chat_input("How can we help you today?")
-
-    if user_input:
-        # Add user message to display
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        with st.chat_message("user"):
-            st.write(user_input)
-
-        # Process through orchestrator
-        with st.chat_message("assistant"):
-            with st.spinner("Processing..."):
-                try:
-                    orch = get_orchestrator()
-                    profile = {
-                        "plan_tier": st.session_state.get("plan_tier", "Pro"),
-                        "active_integrations": st.session_state.get("active_integrations", []),
-                    }
-                    result = orch.process_message(
-                        message=user_input,
-                        existing_state=st.session_state.conversation_state,
-                        user_id=getattr(st.session_state, "user_id", None),
-                        customer_profile=profile,
-                    )
-                    st.session_state.conversation_state = result
-
-                    # Display new assistant messages
-                    for msg_data in result.get("messages", []):
-                        role = msg_data.get("role", "")
-                        if hasattr(role, "value"):
-                            role = role.value
-                        if role == "assistant":
-                            agent_id = msg_data.get("agent_id", "")
-                            content = msg_data.get("content", "")
-                            metadata = msg_data.get("metadata", {})
-                            citations = metadata.get("citations", [])
-
-                            # Check if this message is already displayed
-                            already_shown = any(
-                                m.get("content") == content and m.get("role") == "assistant"
-                                for m in st.session_state.messages
-                            )
-
-                            if not already_shown:
-                                st.markdown(get_agent_badge(agent_id), unsafe_allow_html=True)
-                                st.write(content)
-
-                                render_citations(citations)
-
-                                st.session_state.messages.append({
-                                    "role": "assistant",
-                                    "content": content,
-                                    "agent_id": agent_id,
-                                    "citations": citations,
-                                })
-
-                    # Show handover events — save to session state so they persist
-                    handovers = result.get("handover_history", [])
-                    if handovers:
-                        latest = handovers[-1]
-                        src = latest.get('source_agent', '?')
-                        tgt = latest.get('target_agent', '?')
-                        reason = latest.get('reason', '')
-                        handover_text = f"{src} → {tgt} | {reason}"
-
-                        # Only add if not already in messages
-                        already_shown = any(
-                            m.get("type") == "handover" and m.get("content") == handover_text
-                            for m in st.session_state.messages
+                    # Handover events stored as special type
+                    if msg.get("type") == "handover":
+                        st.markdown(
+                            f'<div class="handover-event">'
+                            f'🔄 <strong>Handover:</strong> '
+                            f'{msg["content"]}'
+                            f'</div>',
+                            unsafe_allow_html=True,
                         )
-                        if not already_shown:
-                            st.markdown(
-                                f'<div class="handover-event">'
-                                f'🔄 <strong>Handover:</strong> {handover_text}'
-                                f'</div>',
-                                unsafe_allow_html=True,
-                            )
-                            st.session_state.messages.append({
-                                "role": "assistant",
-                                "type": "handover",
-                                "content": handover_text,
-                                "agent_id": "",
-                            })
-
-                    # Show tool call timeline events (collapsed by default)
-                    tool_calls = result.get("tool_calls", [])
-                    if tool_calls:
-                        for tc in tool_calls:
-                            t_name = tc.get("tool", "tool")
-                            t_args = tc.get("args", {})
-                            arg_str = ", ".join(f"{v}" for v in t_args.values())
-                            res = tc.get("result", {})
-                            summary = res.get("health") or res.get("ticket_id") or res.get("company_name") or "completed"
-                            t_title = f"Called {t_name}({arg_str}) -> returned {summary}"
-
-                            already_shown = any(
-                                m.get("type") == "tool_call" and m.get("content") == t_title
-                                for m in st.session_state.messages
-                            )
-                            if not already_shown:
-                                with st.expander(f"🛠️ {t_title}", expanded=False):
-                                    st.json(tc)
-                                st.session_state.messages.append({
-                                    "role": "assistant",
-                                    "type": "tool_call",
-                                    "content": t_title,
-                                    "data": tc,
-                                })
-
-                except Exception as e:
-                    err_str = str(e)
-                    if "model_not_found" in err_str or "404" in err_str or "does not exist" in err_str:
-                        user_friendly = (
-                            "The configured Groq AI model is currently unavailable. "
-                            "Please ensure `GROQ_MODEL` is set to an active model (such as `openai/gpt-oss-120b`) "
-                            "in your Hugging Face Space settings or .env file."
-                        )
-                    elif "429" in err_str or "rate_limit" in err_str.lower() or "rate limit" in err_str.lower():
-                        user_friendly = "The Groq AI service is temporarily rate-limited. Please wait a few seconds and try again."
-                    elif "GROQ_API_KEY" in err_str or "api_key" in err_str.lower():
-                        user_friendly = "The Groq API key is missing or invalid. Please check your environment configuration."
+                    elif msg.get("type") == "tool_call":
+                        with st.expander(f"🛠️ {msg['content']}", expanded=False):
+                            st.json(msg.get("data", {}))
                     else:
-                        user_friendly = "I apologize, but I encountered an error while processing your request. Please try again."
+                        st.write(msg["content"])
+                        render_citations(msg.get("citations", []))
 
-                    st.error(f"⚠️ {user_friendly}")
-                    with st.expander("Technical details"):
-                        st.code(err_str)
+                        # Feedback widget
+                        fb_c1, fb_c2, fb_c3 = st.columns([1, 1, 8])
+                        if fb_c1.button("👍", key=f"up_{idx}", help="Helpful response"):
+                            from database.analytics import save_feedback
+                            cid = st.session_state.conversation_state.get("conversation_id", "demo") if st.session_state.conversation_state else "demo"
+                            save_feedback(conversation_id=cid, rating=1, comment="Helpful")
+                            st.toast("Thank you for your feedback! 👍")
+                        if fb_c2.button("👎", key=f"down_{idx}", help="Not helpful"):
+                            from database.analytics import save_feedback
+                            cid = st.session_state.conversation_state.get("conversation_id", "demo") if st.session_state.conversation_state else "demo"
+                            save_feedback(conversation_id=cid, rating=-1, comment="Not helpful")
+                            st.toast("Feedback recorded. We will improve! 👎")
 
-                    st.session_state.messages.append({
-                        "role": "assistant",
-                        "content": f"{user_friendly}\n\n*(Error reference: {err_str[:120]}...)*",
-                        "agent_id": "system",
-                    })
+        # Handle pending message from scenario buttons
+        pending = st.session_state.pop("pending_message", None)
+
+        # Chat input
+        user_input = pending or st.chat_input("How can we help you today?")
+
+        if user_input:
+            # Add user message to display
+            st.session_state.messages.append({"role": "user", "content": user_input})
+            with st.chat_message("user"):
+                st.write(user_input)
+
+            # Process through orchestrator
+            with st.chat_message("assistant"):
+                with st.spinner("Processing..."):
+                    try:
+                        orch = get_orchestrator()
+                        profile = {
+                            "plan_tier": st.session_state.get("plan_tier", "Pro"),
+                            "active_integrations": st.session_state.get("active_integrations", []),
+                        }
+                        result = orch.process_message(
+                            message=user_input,
+                            existing_state=st.session_state.conversation_state,
+                            user_id=getattr(st.session_state, "user_id", None),
+                            customer_profile=profile,
+                        )
+                        st.session_state.conversation_state = result
+
+                        # Display new assistant messages
+                        for msg_data in result.get("messages", []):
+                            role = msg_data.get("role", "")
+                            if hasattr(role, "value"):
+                                role = role.value
+                            if role == "assistant":
+                                agent_id = msg_data.get("agent_id", "")
+                                content = msg_data.get("content", "")
+                                metadata = msg_data.get("metadata", {})
+                                citations = metadata.get("citations", [])
+
+                                # Check if this message is already displayed
+                                already_shown = any(
+                                    m.get("content") == content and m.get("role") == "assistant"
+                                    for m in st.session_state.messages
+                                )
+
+                                if not already_shown:
+                                    st.markdown(get_agent_badge(agent_id), unsafe_allow_html=True)
+                                    st.write(content)
+
+                                    render_citations(citations)
+
+                                    st.session_state.messages.append({
+                                        "role": "assistant",
+                                        "content": content,
+                                        "agent_id": agent_id,
+                                        "citations": citations,
+                                    })
+
+                        # Show handover events — save to session state so they persist
+                        handovers = result.get("handover_history", [])
+                        if handovers:
+                            latest = handovers[-1]
+                            src = latest.get('source_agent', '?')
+                            tgt = latest.get('target_agent', '?')
+                            reason = latest.get('reason', '')
+                            handover_text = f"{src} → {tgt} | {reason}"
+
+                            # Only add if not already in messages
+                            already_shown = any(
+                                m.get("type") == "handover" and m.get("content") == handover_text
+                                for m in st.session_state.messages
+                            )
+                            if not already_shown:
+                                st.markdown(
+                                    f'<div class="handover-event">'
+                                    f'🔄 <strong>Handover:</strong> {handover_text}'
+                                    f'</div>',
+                                    unsafe_allow_html=True,
+                                )
+                                st.session_state.messages.append({
+                                    "role": "assistant",
+                                    "type": "handover",
+                                    "content": handover_text,
+                                    "agent_id": "",
+                                })
+
+                        # Show tool call timeline events (collapsed by default)
+                        tool_calls = result.get("tool_calls", [])
+                        if tool_calls:
+                            for tc in tool_calls:
+                                t_name = tc.get("tool", "tool")
+                                t_args = tc.get("args", {})
+                                arg_str = ", ".join(f"{v}" for v in t_args.values())
+                                res = tc.get("result", {})
+                                summary = res.get("health") or res.get("ticket_id") or res.get("company_name") or "completed"
+                                t_title = f"Called {t_name}({arg_str}) -> returned {summary}"
+
+                                already_shown = any(
+                                    m.get("type") == "tool_call" and m.get("content") == t_title
+                                    for m in st.session_state.messages
+                                )
+                                if not already_shown:
+                                    with st.expander(f"🛠️ {t_title}", expanded=False):
+                                        st.json(tc)
+                                    st.session_state.messages.append({
+                                        "role": "assistant",
+                                        "type": "tool_call",
+                                        "content": t_title,
+                                        "data": tc,
+                                    })
+
+                    except Exception as e:
+                        err_str = str(e)
+                        if "model_not_found" in err_str or "404" in err_str or "does not exist" in err_str:
+                            user_friendly = (
+                                "The configured Groq AI model is currently unavailable. "
+                                "Please ensure `GROQ_MODEL` is set to an active model (such as `openai/gpt-oss-120b`) "
+                                "in your Hugging Face Space settings or .env file."
+                            )
+                        elif "429" in err_str or "rate_limit" in err_str.lower() or "rate limit" in err_str.lower():
+                            user_friendly = "The Groq AI service is temporarily rate-limited. Please wait a few seconds and try again."
+                        elif "GROQ_API_KEY" in err_str or "api_key" in err_str.lower():
+                            user_friendly = "The Groq API key is missing or invalid. Please check your environment configuration."
+                        else:
+                            user_friendly = "I apologize, but I encountered an error while processing your request. Please try again."
+
+                        st.error(f"⚠️ {user_friendly}")
+                        with st.expander("Technical details"):
+                            st.code(err_str)
+
+                        st.session_state.messages.append({
+                            "role": "assistant",
+                            "content": f"{user_friendly}\n\n*(Error reference: {err_str[:120]}...)*",
+                            "agent_id": "system",
+                        })
 
 
 if __name__ == "__main__":

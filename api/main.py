@@ -23,9 +23,11 @@ from api.schemas import (
     ConversationHistoryResponse,
     ConversationResponse,
     ErrorResponse,
+    FeedbackRequest,
     HandoverLogResponse,
     HealthResponse,
     MessageResponse,
+    MetricsResponse,
     SendMessageRequest,
     StartConversationRequest,
 )
@@ -345,6 +347,40 @@ async def admin_reindex(
     except Exception as e:
         logger.error("admin_reindex_failed", error=str(e))
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get(
+    "/metrics",
+    response_model=MetricsResponse,
+    tags=["Analytics"],
+    summary="Get platform operational and feedback metrics",
+)
+async def get_platform_metrics():
+    """Retrieve aggregate platform operational metrics and user feedback ratios."""
+    from database.analytics import get_metrics
+    data = await asyncio.to_thread(get_metrics)
+    return MetricsResponse(**data)
+
+
+@app.post(
+    "/conversations/{conversation_id}/feedback",
+    tags=["Analytics"],
+    summary="Submit user feedback for a message or conversation",
+)
+async def submit_feedback(
+    conversation_id: str,
+    feedback: FeedbackRequest,
+):
+    """Submit thumbs up (+1) or thumbs down (-1) feedback with optional comment."""
+    from database.analytics import save_feedback
+    res = await asyncio.to_thread(
+        save_feedback,
+        conversation_id=conversation_id,
+        rating=feedback.rating,
+        message_id=feedback.message_id,
+        comment=feedback.comment,
+    )
+    return {"status": "success", "feedback": res}
 
 
 # --- Helper functions ---

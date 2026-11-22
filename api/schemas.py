@@ -36,6 +36,29 @@ class SendMessageRequest(BaseModel):
     customer_profile: Optional[CustomerProfile] = Field(None, description="Optional customer profile for personalized retrieval")
 
 
+class FeedbackRequest(BaseModel):
+    """Request to submit feedback on an agent response."""
+
+    message_id: Optional[str] = Field(None, description="Optional message ID")
+    rating: int = Field(..., description="+1 for positive, -1 for negative")
+    comment: Optional[str] = Field(None, description="Optional constructive feedback comment")
+
+
+class MetricsResponse(BaseModel):
+    """Operational platform metrics response."""
+
+    total_conversations: int
+    resolved_conversations: int
+    resolution_rate: float
+    escalated_conversations: int
+    escalation_rate: float
+    average_turns_to_resolution: float
+    total_feedbacks: int
+    positive_feedback_ratio: float
+    escalation_by_category: dict[str, int] = Field(default_factory=dict)
+
+
+
 # --- Response Schemas ---
 
 class MessageResponse(BaseModel):
