@@ -3,6 +3,9 @@
 
 llm:
   model: "openai/gpt-oss-120b"
+  fallback_models:
+    - "openai/gpt-oss-20b"
+    - "qwen/qwen3.8-27b"
   temperature: 0.3
   max_tokens: 1024
 

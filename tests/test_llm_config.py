@@ -241,3 +241,102 @@ def test_rag_model_selection(
         groq_api_key=SYNTHETIC_API_KEY,
         **reasoning_kwargs,
     )
+
+
+def test_fallback_chat_groq_triggers_fallback_on_404():
+    from config.llm import FallbackChatGroq
+
+    primary_client = Mock()
+    primary_client.invoke.side_effect = Exception("404 Model not found: llama-3.3-70b-versatile")
+
+    fallback_client = Mock()
+    fallback_client.invoke.return_value = Mock(content="fallback answer")
+
+    mock_constructor = Mock(return_value=fallback_client)
+
+    wrapper = FallbackChatGroq(
+        primary_client=primary_client,
+        primary_model="llama-3.3-70b-versatile",
+        fallback_models=["openai/gpt-oss-120b"],
+        chat_groq_cls=mock_constructor,
+    )
+
+    result = wrapper.invoke("test message")
+    assert result.content == "fallback answer"
+    primary_client.invoke.assert_called_once()
+    fallback_client.invoke.assert_called_once()
+
+
+def test_fallback_chat_groq_triggers_fallback_on_429():
+    from config.llm import FallbackChatGroq
+
+    primary_client = Mock()
+    primary_client.invoke.side_effect = Exception("Rate limit exceeded 429")
+
+    fallback_client = Mock()
+    fallback_client.invoke.return_value = Mock(content="fallback success")
+
+    mock_constructor = Mock(return_value=fallback_client)
+
+    wrapper = FallbackChatGroq(
+        primary_client=primary_client,
+        primary_model="primary-model",
+        fallback_models=["fallback-model"],
+        chat_groq_cls=mock_constructor,
+    )
+
+    result = wrapper.invoke("test message")
+    assert result.content == "fallback success"
+
+
+def test_fallback_chat_groq_fails_if_all_fail():
+    from config.llm import FallbackChatGroq
+
+    primary_client = Mock()
+    primary_client.invoke.side_effect = Exception("404 Not Found")
+
+    fallback_client = Mock()
+    fallback_client.invoke.side_effect = Exception("500 Server Error")
+
+    mock_constructor = Mock(return_value=fallback_client)
+
+    wrapper = FallbackChatGroq(
+        primary_client=primary_client,
+        primary_model="primary-model",
+        fallback_models=["fallback-model"],
+        chat_groq_cls=mock_constructor,
+    )
+
+    with pytest.raises(Exception, match="500 Server Error"):
+        wrapper.invoke("test message")
+
+
+def test_check_groq_models_success(monkeypatch):
+    import httpx
+    from config.llm import check_groq_models
+
+    mock_resp = Mock(status_code=200)
+    mock_resp.json.return_value = {
+        "data": [{"id": "openai/gpt-oss-120b"}, {"id": "openai/gpt-oss-20b"}]
+    }
+
+    monkeypatch.setattr(httpx.Client, "get", lambda *a, **k: mock_resp)
+    status = check_groq_models(api_key="mock_key")
+    assert status["active_model"] == "openai/gpt-oss-120b"
+    assert status["fallback_used"] is False
+
+
+def test_check_groq_models_fails_loudly_when_missing(monkeypatch):
+    import httpx
+    from config.llm import check_groq_models
+
+    mock_resp = Mock(status_code=200)
+    mock_resp.json.return_value = {"data": [{"id": "unrelated-model-xyz"}]}
+
+    monkeypatch.setattr(httpx.Client, "get", lambda *a, **k: mock_resp)
+    monkeypatch.setenv("GROQ_MODEL", "missing-primary")
+    monkeypatch.setenv("GROQ_FALLBACK_MODELS", "missing-fallback")
+
+    with pytest.raises(ValueError, match="not available in your Groq account"):
+        check_groq_models(api_key="mock_key")
+

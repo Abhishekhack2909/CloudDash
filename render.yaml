@@ -14,6 +14,8 @@ services:
         sync: false
       - key: GROQ_MODEL
         value: openai/gpt-oss-120b
+      - key: GROQ_FALLBACK_MODELS
+        value: openai/gpt-oss-20b,qwen/qwen3.8-27b
       - key: LANGSMITH_API_KEY
         sync: false
       - key: LANGSMITH_PROJECT
@@ -37,6 +39,8 @@ services:
         sync: false
       - key: GROQ_MODEL
         value: openai/gpt-oss-120b
+      - key: GROQ_FALLBACK_MODELS
+        value: openai/gpt-oss-20b,qwen/qwen3.8-27b
       - key: LANGSMITH_API_KEY
         sync: false
       - key: LANGSMITH_PROJECT

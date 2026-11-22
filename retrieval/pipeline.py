@@ -5,7 +5,13 @@ from typing import Optional
 
 from langchain_groq import ChatGroq
 
-from config.llm import DEFAULT_GROQ_MODEL, groq_model_options, load_agent_config
+from config.llm import (
+    DEFAULT_GROQ_MODEL,
+    FallbackChatGroq,
+    get_fallback_models,
+    groq_model_options,
+    load_agent_config,
+)
 from models.knowledge import RetrievalResult
 from retrieval.bm25_store import BM25Store
 from retrieval.hybrid_retriever import HybridRetriever
@@ -40,10 +46,19 @@ class RAGPipeline:
         configured_model = llm_model or load_agent_config().get("llm", {}).get(
             "model", DEFAULT_GROQ_MODEL
         )
-        self._llm = ChatGroq(
-            **groq_model_options(configured_model),
+        primary_opts = groq_model_options(configured_model)
+        primary_client = ChatGroq(
+            **primary_opts,
             temperature=0,
             groq_api_key=os.getenv("GROQ_API_KEY"),
+        )
+        self._llm = FallbackChatGroq(
+            primary_client=primary_client,
+            primary_model=primary_opts.get("model", DEFAULT_GROQ_MODEL),
+            fallback_models=get_fallback_models(),
+            temperature=0,
+            groq_api_key=os.getenv("GROQ_API_KEY"),
+            chat_groq_cls=ChatGroq,
         )
 
     def rewrite_query(self, query: str, conversation_context: str = "") -> str:

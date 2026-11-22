@@ -6,7 +6,13 @@ import os
 from abc import ABC, abstractmethod
 from langchain_groq import ChatGroq
 
-from config.llm import DEFAULT_GROQ_MODEL, groq_model_options, load_agent_config
+from config.llm import (
+    DEFAULT_GROQ_MODEL,
+    FallbackChatGroq,
+    get_fallback_models,
+    groq_model_options,
+    load_agent_config,
+)
 from models.conversation import AgentResponse, ConversationState, Message, MessageRole
 from observability.logger import get_logger
 
@@ -34,11 +40,21 @@ class BaseAgent(ABC):
         self.capabilities = self._agent_config.get("capabilities", [])
         self.routes_to = self._agent_config.get("routes_to", [])
 
-        self._llm = ChatGroq(
-            **groq_model_options(self._llm_config.get("model", DEFAULT_GROQ_MODEL)),
+        primary_opts = groq_model_options(self._llm_config.get("model", DEFAULT_GROQ_MODEL))
+        primary_client = ChatGroq(
+            **primary_opts,
             temperature=self._llm_config.get("temperature", 0.3),
             max_tokens=self._llm_config.get("max_tokens", 1024),
             groq_api_key=os.getenv("GROQ_API_KEY"),
+        )
+        self._llm = FallbackChatGroq(
+            primary_client=primary_client,
+            primary_model=primary_opts.get("model", DEFAULT_GROQ_MODEL),
+            fallback_models=get_fallback_models(self._llm_config.get("fallback_models")),
+            temperature=self._llm_config.get("temperature", 0.3),
+            max_tokens=self._llm_config.get("max_tokens", 1024),
+            groq_api_key=os.getenv("GROQ_API_KEY"),
+            chat_groq_cls=ChatGroq,
         )
 
     @abstractmethod

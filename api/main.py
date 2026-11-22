@@ -66,6 +66,13 @@ def _run_kb_ingest_if_needed():
 async def lifespan(app: FastAPI):
     """Run startup tasks before serving requests."""
     _run_kb_ingest_if_needed()
+    try:
+        from config.llm import check_groq_models
+        check_groq_models()
+    except Exception as e:
+        logger.error("groq_startup_check_failed", error=str(e))
+        if "not available in your Groq account" in str(e):
+            raise
     yield  # App is now running
     # Shutdown tasks (none needed currently)
 
@@ -117,12 +124,18 @@ async def health_check():
     except Exception:
         kb_count = 0
 
+    from config.llm import get_runtime_model_status
+    model_status = get_runtime_model_status()
+
     return HealthResponse(
         status="healthy",
         version="1.0.0",
         agents=["triage", "technical_support", "billing", "escalation"],
         kb_articles_count=kb_count,
         tracing_enabled=tracing["enabled"],
+        model_in_use=model_status.get("active_model", ""),
+        fallback_used=model_status.get("fallback_used", False),
+        available_models=model_status.get("available_models", []),
     )
 
 

@@ -119,6 +119,11 @@ def render_citations(citations: list):
 def get_orchestrator():
     """Get cached orchestrator instance."""
     configure_tracing()
+    try:
+        from config.llm import check_groq_models
+        check_groq_models()
+    except Exception as e:
+        pass
     return Orchestrator()
 
 
@@ -169,13 +174,22 @@ def main():
 
             st.divider()
 
-        # Tracing info
+        # Tracing & Model info
         tracing = get_tracing_config()
+        from config.llm import get_runtime_model_status
+        m_status = get_runtime_model_status()
+
         st.subheader("🔍 Observability")
         if tracing["enabled"]:
             st.success(f"LangSmith: Enabled ({tracing['project']})")
         else:
             st.warning("LangSmith: Disabled")
+
+        active_m = m_status.get("active_model", "N/A")
+        if m_status.get("fallback_used"):
+            st.warning(f"🤖 Model: {active_m} (Fallback)")
+        else:
+            st.info(f"🤖 Model: {active_m}")
 
         st.divider()
 
@@ -318,10 +332,27 @@ def main():
                             })
 
                 except Exception as e:
-                    st.error(f"Error: {str(e)}")
+                    err_str = str(e)
+                    if "model_not_found" in err_str or "404" in err_str or "does not exist" in err_str:
+                        user_friendly = (
+                            "The configured Groq AI model is currently unavailable. "
+                            "Please ensure `GROQ_MODEL` is set to an active model (such as `openai/gpt-oss-120b`) "
+                            "in your Hugging Face Space settings or .env file."
+                        )
+                    elif "429" in err_str or "rate_limit" in err_str.lower() or "rate limit" in err_str.lower():
+                        user_friendly = "The Groq AI service is temporarily rate-limited. Please wait a few seconds and try again."
+                    elif "GROQ_API_KEY" in err_str or "api_key" in err_str.lower():
+                        user_friendly = "The Groq API key is missing or invalid. Please check your environment configuration."
+                    else:
+                        user_friendly = "I apologize, but I encountered an error while processing your request. Please try again."
+
+                    st.error(f"⚠️ {user_friendly}")
+                    with st.expander("Technical details"):
+                        st.code(err_str)
+
                     st.session_state.messages.append({
                         "role": "assistant",
-                        "content": f"I apologize, but I encountered an error. Please try again. Error: {str(e)}",
+                        "content": f"{user_friendly}\n\n*(Error reference: {err_str[:120]}...)*",
                         "agent_id": "system",
                     })
 

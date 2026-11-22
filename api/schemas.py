@@ -84,6 +84,9 @@ class HealthResponse(BaseModel):
     agents: list[str] = []
     kb_articles_count: int = 0
     tracing_enabled: bool = False
+    model_in_use: str = ""
+    fallback_used: bool = False
+    available_models: list[str] = []
 
 
 class ErrorResponse(BaseModel):
