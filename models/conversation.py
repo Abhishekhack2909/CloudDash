@@ -67,6 +67,9 @@ class ConversationState(BaseModel):
     # RAG context
     retrieved_contexts: list[dict[str, Any]] = Field(default_factory=list)
 
+    # Tool calls executed during turn
+    tool_calls: list[dict[str, Any]] = Field(default_factory=list)
+
     # Guardrail flags
     input_blocked: bool = False
     block_reason: Optional[str] = None

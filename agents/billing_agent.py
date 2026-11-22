@@ -10,10 +10,11 @@ from agents.base_agent import BaseAgent
 from models.conversation import Citation, ConversationState
 from observability.logger import get_logger
 from retrieval.pipeline import RAGPipeline
+from tools import create_support_ticket, lookup_account
 
 logger = get_logger(__name__)
 
-# Mock account data for demonstration
+# Mock account data for demonstration (fallback)
 MOCK_ACCOUNTS = {
     "default": {
         "customer_id": "CUST-12345",
@@ -34,14 +35,37 @@ MOCK_ACCOUNTS = {
 
 
 class BillingAgent(BaseAgent):
-    """Handles billing inquiries, explains invoices, processes plan changes (simulated)."""
+    """Handles billing inquiries, explains invoices, and looks up real database accounts."""
 
     def __init__(self, rag_pipeline: RAGPipeline | None = None):
         super().__init__(agent_id="billing")
         self._rag = rag_pipeline or RAGPipeline()
+        self._tools = [lookup_account, create_support_ticket]
+        self._tool_map = {t.name: t for t in self._tools}
+        self._llm_with_tools = self._llm.bind_tools(self._tools)
 
     def _lookup_account(self, customer_id: str | None = None) -> dict:
-        """Mock account lookup. Returns simulated account data."""
+        """Lookup account data from real database tool or fallback to mock."""
+        try:
+            res = lookup_account.invoke({"customer_id": customer_id or "default"})
+            if res and not res.get("error"):
+                return {
+                    "customer_id": res.get("customer_id", customer_id or "default"),
+                    "name": res.get("company_name", "Acme Corp"),
+                    "email": "billing@customer.io",
+                    "plan": res.get("plan_tier", "Pro"),
+                    "billing_cycle": "monthly",
+                    "monthly_amount": f"${res.get('monthly_spend', 199.0):.2f}",
+                    "next_billing_date": res.get("renewal_date", "2026-12-31"),
+                    "payment_method": "Corporate Card ending in 4242",
+                    "status": res.get("status", "active"),
+                    "hosts_used": res.get("monitored_hosts", 10),
+                    "hosts_limit": 100,
+                    "users_used": 5,
+                    "users_limit": 25,
+                }
+        except Exception:
+            pass
         return MOCK_ACCOUNTS.get(customer_id or "default", MOCK_ACCOUNTS["default"])
 
     def process(self, state: ConversationState) -> ConversationState:
@@ -129,7 +153,42 @@ Cite billing policies using [KB-XXX: Title] format."""
             HumanMessage(content=user_message),
         ]
 
-        response = self._llm.invoke(messages)
+        response = self._llm_with_tools.invoke(messages)
+
+        # Check if model invoked any tools
+        if hasattr(response, "tool_calls") and response.tool_calls:
+            tool_outputs = []
+            for tc in response.tool_calls:
+                tool_name = tc.get("name")
+                tool_args = tc.get("args", {})
+                if tool_name in self._tool_map:
+                    try:
+                        tool_fn = self._tool_map[tool_name]
+                        tool_res = tool_fn.invoke(tool_args)
+                    except Exception as err:
+                        tool_res = {"error": str(err)}
+
+                    call_record = {
+                        "agent": self.agent_id,
+                        "tool": tool_name,
+                        "args": tool_args,
+                        "result": tool_res,
+                    }
+                    state.tool_calls.append(call_record)
+                    tool_outputs.append(f"Tool `{tool_name}` with args {tool_args} returned: {tool_res}")
+                    logger.info("tool_executed", agent=self.agent_id, tool=tool_name, args=tool_args)
+
+            tool_synth_prompt = f"""{augmented_prompt}
+
+REAL-TIME TOOL EXECUTION RESULTS:
+{chr(10).join(tool_outputs)}
+
+Provide a clear, direct answer to the user communicating the billing/account data."""
+            response = self._llm.invoke([
+                SystemMessage(content=tool_synth_prompt),
+                HumanMessage(content=user_message),
+            ])
+
         response_text = response.content.strip()
 
         # Parse handover/escalation signals

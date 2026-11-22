@@ -283,6 +283,9 @@ def main():
                         f'</div>',
                         unsafe_allow_html=True,
                     )
+                elif msg.get("type") == "tool_call":
+                    with st.expander(f"🛠️ {msg['content']}", expanded=False):
+                        st.json(msg.get("data", {}))
                 else:
                     st.write(msg["content"])
                     render_citations(msg.get("citations", []))
@@ -373,6 +376,31 @@ def main():
                                 "content": handover_text,
                                 "agent_id": "",
                             })
+
+                    # Show tool call timeline events (collapsed by default)
+                    tool_calls = result.get("tool_calls", [])
+                    if tool_calls:
+                        for tc in tool_calls:
+                            t_name = tc.get("tool", "tool")
+                            t_args = tc.get("args", {})
+                            arg_str = ", ".join(f"{v}" for v in t_args.values())
+                            res = tc.get("result", {})
+                            summary = res.get("health") or res.get("ticket_id") or res.get("company_name") or "completed"
+                            t_title = f"Called {t_name}({arg_str}) -> returned {summary}"
+
+                            already_shown = any(
+                                m.get("type") == "tool_call" and m.get("content") == t_title
+                                for m in st.session_state.messages
+                            )
+                            if not already_shown:
+                                with st.expander(f"🛠️ {t_title}", expanded=False):
+                                    st.json(tc)
+                                st.session_state.messages.append({
+                                    "role": "assistant",
+                                    "type": "tool_call",
+                                    "content": t_title,
+                                    "data": tc,
+                                })
 
                 except Exception as e:
                     err_str = str(e)

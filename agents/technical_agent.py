@@ -10,16 +10,20 @@ from agents.base_agent import BaseAgent
 from models.conversation import Citation, ConversationState
 from observability.logger import get_logger
 from retrieval.pipeline import RAGPipeline
+from tools import check_integration_status, create_support_ticket
 
 logger = get_logger(__name__)
 
 
 class TechnicalSupportAgent(BaseAgent):
-    """Resolves technical issues using KB retrieval, troubleshooting, and code generation."""
+    """Resolves technical issues using KB retrieval, live tools, and troubleshooting."""
 
     def __init__(self, rag_pipeline: RAGPipeline | None = None):
         super().__init__(agent_id="technical_support")
         self._rag = rag_pipeline or RAGPipeline()
+        self._tools = [check_integration_status, create_support_ticket]
+        self._tool_map = {t.name: t for t in self._tools}
+        self._llm_with_tools = self._llm.bind_tools(self._tools)
 
     def process(self, state: ConversationState) -> ConversationState:
         """Process a technical support request with RAG-grounded response."""
@@ -109,7 +113,44 @@ If the KB doesn't contain relevant information, acknowledge this transparently."
             HumanMessage(content=user_message),
         ]
 
-        response = self._llm.invoke(messages)
+        # Invoke model with tools
+        response = self._llm_with_tools.invoke(messages)
+
+        # Check if the LLM invoked any tools
+        if hasattr(response, "tool_calls") and response.tool_calls:
+            tool_outputs = []
+            for tc in response.tool_calls:
+                tool_name = tc.get("name")
+                tool_args = tc.get("args", {})
+                if tool_name in self._tool_map:
+                    try:
+                        tool_fn = self._tool_map[tool_name]
+                        tool_res = tool_fn.invoke(tool_args)
+                    except Exception as err:
+                        tool_res = {"error": str(err)}
+
+                    call_record = {
+                        "agent": self.agent_id,
+                        "tool": tool_name,
+                        "args": tool_args,
+                        "result": tool_res,
+                    }
+                    state.tool_calls.append(call_record)
+                    tool_outputs.append(f"Tool `{tool_name}` with args {tool_args} returned: {tool_res}")
+                    logger.info("tool_executed", agent=self.agent_id, tool=tool_name, args=tool_args)
+
+            # Synthesize final user-facing response grounded in tool output
+            tool_synth_prompt = f"""{augmented_prompt}
+
+REAL-TIME TOOL EXECUTION RESULTS:
+{chr(10).join(tool_outputs)}
+
+Provide a clear, direct answer to the user communicating the live status and any recommended steps."""
+            response = self._llm.invoke([
+                SystemMessage(content=tool_synth_prompt),
+                HumanMessage(content=user_message),
+            ])
+
         response_text = response.content.strip()
 
         # Parse handover/escalation signals

@@ -231,6 +231,58 @@ class FallbackChatGroq:
         if last_exception:
             raise last_exception
 
+    def bind_tools(self, tools: list[Any], *args, **kwargs) -> Any:
+        return FallbackChatGroqWithTools(
+            fallback_wrapper=self,
+            tools=tools,
+            bind_args=args,
+            bind_kwargs=kwargs,
+        )
+
+
+class FallbackChatGroqWithTools:
+    """Wrapper that applies tool binding across primary and fallback Groq models."""
+
+    def __init__(self, fallback_wrapper: FallbackChatGroq, tools: list[Any], bind_args: tuple, bind_kwargs: dict):
+        self._wrapper = fallback_wrapper
+        self._tools = tools
+        self._bind_args = bind_args
+        self._bind_kwargs = bind_kwargs
+
+    def invoke(self, input_data: Any, *args, **kwargs) -> Any:
+        models_to_try = [self._wrapper._primary_model] + self._wrapper._fallback_models
+        last_exception = None
+
+        for idx, model in enumerate(models_to_try):
+            try:
+                if idx == 0 and self._wrapper._primary_client is not None:
+                    raw_client = self._wrapper._primary_client
+                else:
+                    raw_client = self._wrapper._build_client_for_model(model)
+
+                client = raw_client.bind_tools(self._tools, *self._bind_args, **self._bind_kwargs)
+                response = client.invoke(input_data, *args, **kwargs)
+                record_active_model(model, fallback_used=(idx > 0))
+                return response
+            except Exception as e:
+                last_exception = e
+                if not self._wrapper._is_retryable_error(e) or idx == len(models_to_try) - 1:
+                    logger.error("llm_tool_invocation_failed", model=model, error=str(e))
+                    raise
+                next_model = models_to_try[idx + 1]
+                logger.warning(
+                    "llm_model_fallback_tools",
+                    failed_model=model,
+                    fallback_model=next_model,
+                    error=str(e),
+                )
+                record_active_model(next_model, fallback_used=True)
+
+        if last_exception:
+            raise last_exception
+
+
+
     async def ainvoke(self, input_data: Any, *args, **kwargs) -> Any:
         models_to_try = [self._primary_model] + self._fallback_models
         last_exception = None
@@ -264,3 +316,5 @@ class FallbackChatGroq:
 
         if last_exception:
             raise last_exception
+
+

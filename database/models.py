@@ -7,6 +7,7 @@ from sqlalchemy import (
     Boolean,
     Column,
     DateTime,
+    Float,
     Integer,
     LargeBinary,
     String,
@@ -113,3 +114,34 @@ class CheckpointWriteRecord(Base):
     channel = Column(String(128), nullable=False)
     type_name = Column(String(64), nullable=False)
     value_blob = Column(LargeBinary, nullable=False)
+
+
+class SupportTicketRecord(Base):
+    """Real customer support tickets created by agents."""
+
+    __tablename__ = "support_tickets"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    ticket_id = Column(String(32), unique=True, index=True, nullable=False)
+    title = Column(String(256), nullable=False)
+    description = Column(Text, nullable=False)
+    priority = Column(String(32), default="medium")
+    category = Column(String(64), default="general")
+    status = Column(String(32), default="open")
+    customer_id = Column(String(64), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utc_now)
+
+
+class AccountRecord(Base):
+    """Customer account data for real account lookups."""
+
+    __tablename__ = "accounts"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    customer_id = Column(String(64), unique=True, index=True, nullable=False)
+    company_name = Column(String(128), nullable=False)
+    plan_tier = Column(String(32), nullable=False)
+    monitored_hosts = Column(Integer, default=10)
+    monthly_spend = Column(Float, default=199.0)
+    renewal_date = Column(String(32), nullable=False)
+    status = Column(String(32), default="active")
