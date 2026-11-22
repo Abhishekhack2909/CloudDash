@@ -1,0 +1,26 @@
+{
+  "vector_only": {
+    "recall@1": 0.7857,
+    "recall@3": 0.9762,
+    "recall@5": 0.9762,
+    "mrr": 0.871
+  },
+  "bm25_only": {
+    "recall@1": 0.619,
+    "recall@3": 0.7857,
+    "recall@5": 0.8571,
+    "mrr": 0.7175
+  },
+  "hybrid_rrf": {
+    "recall@1": 0.7381,
+    "recall@3": 0.9048,
+    "recall@5": 0.9524,
+    "mrr": 0.8288
+  },
+  "hybrid_rerank": {
+    "recall@1": 0.7143,
+    "recall@3": 0.9048,
+    "recall@5": 0.9762,
+    "mrr": 0.8252
+  }
+}

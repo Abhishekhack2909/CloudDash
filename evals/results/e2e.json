@@ -1,0 +1,123 @@
+{
+  "total_cases": 3,
+  "routing_accuracy": 1.0,
+  "escalation": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "tn": 3
+  },
+  "citations": {
+    "evaluated_cases": 3,
+    "hit_rate": 1.0,
+    "precision": 0.8333,
+    "recall": 1.0
+  },
+  "llm_judge": {
+    "average_groundedness": 4.67,
+    "average_relevance": 5.0,
+    "scale": "1-5"
+  },
+  "per_case_logs": [
+    {
+      "id": "eval-001",
+      "question": "How do I set up a static threshold for CPU utilization alerts?",
+      "duration_sec": 26.997,
+      "routing": {
+        "expected": "technical_support",
+        "predicted": "technical_support",
+        "correct": true
+      },
+      "escalation": {
+        "expected": false,
+        "predicted": false
+      },
+      "citations": {
+        "expected": [
+          "KB-001"
+        ],
+        "cited": [
+          "KB-020",
+          "KB-001"
+        ],
+        "hit": true,
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      "judge": {
+        "groundedness_score": 4,
+        "groundedness_reasoning": "The response follows the KB steps for creating a static\u2011threshold alert, but incorrectly claims the information wasn't found in the knowledge base, which is inaccurate.",
+        "relevance_score": 5,
+        "relevance_reasoning": "It directly answers the user's request with a clear, step\u2011by\u2011step guide to setting up a static CPU utilization threshold."
+      },
+      "response_preview": "Sure thing! Here\u2019s a quick, step\u2011by\u2011step guide to creating a **static\u2011threshold** alert for CPU utilization in CloudDash:\n\n1. **Open the Alerts sectio..."
+    },
+    {
+      "id": "eval-002",
+      "question": "Can I use anomaly detection for metric monitoring on the Starter plan?",
+      "duration_sec": 5.595,
+      "routing": {
+        "expected": "technical_support",
+        "predicted": "technical_support",
+        "correct": true
+      },
+      "escalation": {
+        "expected": false,
+        "predicted": false
+      },
+      "citations": {
+        "expected": [
+          "KB-001"
+        ],
+        "cited": [
+          "KB-001"
+        ],
+        "hit": true,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "judge": {
+        "groundedness_score": 5,
+        "groundedness_reasoning": "The response accurately reflects the KB statement that anomaly detection is only available on Pro and Enterprise plans, with no unsupported claims.",
+        "relevance_score": 5,
+        "relevance_reasoning": "It directly answers the user's question about the Starter plan with a clear yes/no and explains the need to upgrade."
+      },
+      "response_preview": "No. Anomaly detection is only available on the **Pro** and **Enterprise** plans; the Starter plan does not include this feature. If you need anomaly\u2011b..."
+    },
+    {
+      "id": "eval-003",
+      "question": "What IAM permissions are required for the AWS CloudWatch integration?",
+      "duration_sec": 3.451,
+      "routing": {
+        "expected": "technical_support",
+        "predicted": "technical_support",
+        "correct": true
+      },
+      "escalation": {
+        "expected": false,
+        "predicted": false
+      },
+      "citations": {
+        "expected": [
+          "KB-002"
+        ],
+        "cited": [
+          "KB-002"
+        ],
+        "hit": true,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "judge": {
+        "groundedness_score": 5,
+        "groundedness_reasoning": "The response lists exactly the IAM permissions mentioned in the KB (CloudWatchReadOnlyAccess and ec2:DescribeInstances) and adds no contradictory information.",
+        "relevance_score": 5,
+        "relevance_reasoning": "It directly answers the user's question about required IAM permissions, providing the precise list and useful optional guidance."
+      },
+      "response_preview": "For the AWS CloudWatch integration CloudDash needs an IAM user or role that can read CloudWatch metrics and discover your EC2 resources. At a minimum,..."
+    }
+  ]
+}

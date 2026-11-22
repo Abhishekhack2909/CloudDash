@@ -1,0 +1,1587 @@
+{
+  "total_queries_evaluated": 42,
+  "metrics": {
+    "vector_only": {
+      "recall@1": 0.7857,
+      "recall@3": 0.9762,
+      "recall@5": 0.9762,
+      "mrr": 0.871
+    },
+    "bm25_only": {
+      "recall@1": 0.619,
+      "recall@3": 0.7857,
+      "recall@5": 0.8571,
+      "mrr": 0.7175
+    },
+    "hybrid_rrf": {
+      "recall@1": 0.7381,
+      "recall@3": 0.9048,
+      "recall@5": 0.9524,
+      "mrr": 0.8288
+    },
+    "hybrid_rerank": {
+      "recall@1": 0.7143,
+      "recall@3": 0.9048,
+      "recall@5": 0.9762,
+      "mrr": 0.8252
+    }
+  },
+  "per_query": [
+    {
+      "id": "eval-001",
+      "question": "How do I set up a static threshold for CPU utilization alerts?",
+      "expected": [
+        "KB-001"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-020",
+          "KB-001",
+          "KB-001",
+          "KB-015",
+          "KB-020"
+        ],
+        "bm25_only": [
+          "KB-001",
+          "KB-001",
+          "KB-020",
+          "KB-001",
+          "KB-005"
+        ],
+        "hybrid_rrf": [
+          "KB-020",
+          "KB-001",
+          "KB-001",
+          "KB-001",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-001",
+          "KB-020",
+          "KB-001",
+          "KB-015",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-002",
+      "question": "Can I use anomaly detection for metric monitoring on the Starter plan?",
+      "expected": [
+        "KB-001"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-001",
+          "KB-011",
+          "KB-020",
+          "KB-013",
+          "KB-001"
+        ],
+        "bm25_only": [
+          "KB-001",
+          "KB-014",
+          "KB-019",
+          "KB-012",
+          "KB-019"
+        ],
+        "hybrid_rrf": [
+          "KB-001",
+          "KB-006",
+          "KB-019",
+          "KB-006",
+          "KB-013"
+        ],
+        "hybrid_rerank": [
+          "KB-001",
+          "KB-006",
+          "KB-013",
+          "KB-006",
+          "KB-006"
+        ]
+      }
+    },
+    {
+      "id": "eval-003",
+      "question": "What IAM permissions are required for the AWS CloudWatch integration?",
+      "expected": [
+        "KB-002"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002"
+        ],
+        "bm25_only": [
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-018"
+        ],
+        "hybrid_rrf": [
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002"
+        ]
+      }
+    },
+    {
+      "id": "eval-004",
+      "question": "My CloudWatch integration shows Disconnected status after updating IAM credentials. How do I fix it?",
+      "expected": [
+        "KB-002"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-020",
+          "KB-002"
+        ],
+        "bm25_only": [
+          "KB-020",
+          "KB-002",
+          "KB-002",
+          "KB-002",
+          "KB-002"
+        ],
+        "hybrid_rrf": [
+          "KB-002",
+          "KB-020",
+          "KB-002",
+          "KB-002",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-002",
+          "KB-020",
+          "KB-002",
+          "KB-002",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-005",
+      "question": "I am receiving ERR_DASHBOARD_TIMEOUT when opening my dashboard.",
+      "expected": [
+        "KB-003"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-003",
+          "KB-003",
+          "KB-003",
+          "KB-003",
+          "KB-018"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-020",
+          "KB-014",
+          "KB-014",
+          "KB-013"
+        ],
+        "hybrid_rrf": [
+          "KB-014",
+          "KB-014",
+          "KB-020",
+          "KB-014",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-003",
+          "KB-015",
+          "KB-003",
+          "KB-003",
+          "KB-003"
+        ]
+      }
+    },
+    {
+      "id": "eval-006",
+      "question": "Why is the CloudDash dashboard failing to establish a WebSocket connection?",
+      "expected": [
+        "KB-003"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-003",
+          "KB-003",
+          "KB-005",
+          "KB-002",
+          "KB-005"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-013",
+          "KB-003",
+          "KB-004",
+          "KB-005"
+        ],
+        "hybrid_rrf": [
+          "KB-003",
+          "KB-003",
+          "KB-001",
+          "KB-005",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-005",
+          "KB-005",
+          "KB-004",
+          "KB-009",
+          "KB-003"
+        ]
+      }
+    },
+    {
+      "id": "eval-007",
+      "question": "How do I configure Okta SAML 2.0 single sign-on for my organization?",
+      "expected": [
+        "KB-004"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-004"
+        ],
+        "bm25_only": [
+          "KB-004",
+          "KB-004",
+          "KB-001",
+          "KB-001",
+          "KB-004"
+        ],
+        "hybrid_rrf": [
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-004"
+        ],
+        "hybrid_rerank": [
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-008",
+      "question": "Where can I find the CloudDash ACS URL and IdP Entity ID metadata for Azure AD SSO?",
+      "expected": [
+        "KB-004"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-015",
+          "KB-004"
+        ],
+        "bm25_only": [
+          "KB-004",
+          "KB-004",
+          "KB-011",
+          "KB-015",
+          "KB-005"
+        ],
+        "hybrid_rrf": [
+          "KB-004",
+          "KB-004",
+          "KB-015",
+          "KB-004",
+          "KB-011"
+        ],
+        "hybrid_rerank": [
+          "KB-004",
+          "KB-004",
+          "KB-004",
+          "KB-015",
+          "KB-011"
+        ]
+      }
+    },
+    {
+      "id": "eval-009",
+      "question": "Our alert webhooks are failing with HTTP 500 errors. What is the retry policy and backoff schedule?",
+      "expected": [
+        "KB-005"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-005",
+          "KB-016",
+          "KB-005",
+          "KB-016",
+          "KB-005"
+        ],
+        "bm25_only": [
+          "KB-005",
+          "KB-005",
+          "KB-014",
+          "KB-011",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-005",
+          "KB-005",
+          "KB-014",
+          "KB-005",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-005",
+          "KB-005",
+          "KB-005",
+          "KB-005",
+          "KB-014"
+        ]
+      }
+    },
+    {
+      "id": "eval-010",
+      "question": "How do I verify the HMAC-SHA256 signature header on incoming CloudDash webhooks?",
+      "expected": [
+        "KB-005"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-016",
+          "KB-005",
+          "KB-016",
+          "KB-005",
+          "KB-005"
+        ],
+        "bm25_only": [
+          "KB-016",
+          "KB-012",
+          "KB-008",
+          "KB-010",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-016",
+          "KB-005",
+          "KB-010",
+          "KB-005",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-016",
+          "KB-005",
+          "KB-005",
+          "KB-020",
+          "KB-004"
+        ]
+      }
+    },
+    {
+      "id": "eval-011",
+      "question": "What are the key differences between the Starter and Pro subscription plans?",
+      "expected": [
+        "KB-006"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-012",
+          "KB-009",
+          "KB-006",
+          "KB-007",
+          "KB-006"
+        ],
+        "bm25_only": [
+          "KB-010",
+          "KB-010",
+          "KB-004",
+          "KB-001",
+          "KB-008"
+        ],
+        "hybrid_rrf": [
+          "KB-010",
+          "KB-001",
+          "KB-014",
+          "KB-006",
+          "KB-007"
+        ],
+        "hybrid_rerank": [
+          "KB-010",
+          "KB-006",
+          "KB-007",
+          "KB-014",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-012",
+      "question": "How much does the Pro plan cost per month and how many metrics are included?",
+      "expected": [
+        "KB-006"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-006",
+          "KB-006",
+          "KB-013",
+          "KB-009",
+          "KB-006"
+        ],
+        "bm25_only": [
+          "KB-010",
+          "KB-001",
+          "KB-012",
+          "KB-001",
+          "KB-003"
+        ],
+        "hybrid_rrf": [
+          "KB-001",
+          "KB-007",
+          "KB-006",
+          "KB-006",
+          "KB-007"
+        ],
+        "hybrid_rerank": [
+          "KB-006",
+          "KB-006",
+          "KB-009",
+          "KB-011",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-013",
+      "question": "If I upgrade from Pro to Enterprise mid-month, how is the billing prorated?",
+      "expected": [
+        "KB-007"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-007",
+          "KB-009",
+          "KB-007",
+          "KB-007",
+          "KB-007"
+        ],
+        "bm25_only": [
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-012"
+        ],
+        "hybrid_rerank": [
+          "KB-009",
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-007"
+        ]
+      }
+    },
+    {
+      "id": "eval-014",
+      "question": "What happens to my historical data retention if I downgrade from Enterprise to Pro?",
+      "expected": [
+        "KB-007"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-007",
+          "KB-013",
+          "KB-007",
+          "KB-013",
+          "KB-013"
+        ],
+        "bm25_only": [
+          "KB-007",
+          "KB-007",
+          "KB-013",
+          "KB-007",
+          "KB-013"
+        ],
+        "hybrid_rrf": [
+          "KB-007",
+          "KB-013",
+          "KB-007",
+          "KB-013",
+          "KB-007"
+        ],
+        "hybrid_rerank": [
+          "KB-007",
+          "KB-007",
+          "KB-013",
+          "KB-007",
+          "KB-013"
+        ]
+      }
+    },
+    {
+      "id": "eval-015",
+      "question": "What is your refund policy if I cancel my annual subscription within 30 days?",
+      "expected": [
+        "KB-008"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-007",
+          "KB-008",
+          "KB-008",
+          "KB-008",
+          "KB-008"
+        ],
+        "bm25_only": [
+          "KB-007",
+          "KB-008",
+          "KB-008",
+          "KB-008",
+          "KB-009"
+        ],
+        "hybrid_rrf": [
+          "KB-007",
+          "KB-008",
+          "KB-008",
+          "KB-008",
+          "KB-009"
+        ],
+        "hybrid_rerank": [
+          "KB-007",
+          "KB-008",
+          "KB-008",
+          "KB-008",
+          "KB-008"
+        ]
+      }
+    },
+    {
+      "id": "eval-016",
+      "question": "Can I get a refund for unused days after downgrading my monthly plan?",
+      "expected": [
+        "KB-008"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-008",
+          "KB-007",
+          "KB-007",
+          "KB-007",
+          "KB-007"
+        ],
+        "bm25_only": [
+          "KB-008",
+          "KB-008",
+          "KB-007",
+          "KB-007",
+          "KB-015"
+        ],
+        "hybrid_rrf": [
+          "KB-008",
+          "KB-007",
+          "KB-008",
+          "KB-007",
+          "KB-008"
+        ],
+        "hybrid_rerank": [
+          "KB-008",
+          "KB-007",
+          "KB-007",
+          "KB-008",
+          "KB-008"
+        ]
+      }
+    },
+    {
+      "id": "eval-017",
+      "question": "Can we pay our Enterprise invoice via ACH or wire transfer instead of credit card?",
+      "expected": [
+        "KB-009"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-009",
+          "KB-009",
+          "KB-009",
+          "KB-009",
+          "KB-007"
+        ],
+        "bm25_only": [
+          "KB-008",
+          "KB-003",
+          "KB-001",
+          "KB-014",
+          "KB-008"
+        ],
+        "hybrid_rrf": [
+          "KB-009",
+          "KB-008",
+          "KB-009",
+          "KB-009",
+          "KB-009"
+        ],
+        "hybrid_rerank": [
+          "KB-009",
+          "KB-008",
+          "KB-009",
+          "KB-009",
+          "KB-009"
+        ]
+      }
+    },
+    {
+      "id": "eval-018",
+      "question": "Why does my invoice show overage charges and how are additional metrics billed?",
+      "expected": [
+        "KB-009"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-009",
+          "KB-009",
+          "KB-009",
+          "KB-006",
+          "KB-009"
+        ],
+        "bm25_only": [
+          "KB-002",
+          "KB-009",
+          "KB-009",
+          "KB-010",
+          "KB-011"
+        ],
+        "hybrid_rrf": [
+          "KB-009",
+          "KB-009",
+          "KB-009",
+          "KB-008",
+          "KB-009"
+        ],
+        "hybrid_rerank": [
+          "KB-009",
+          "KB-009",
+          "KB-009",
+          "KB-008",
+          "KB-009"
+        ]
+      }
+    },
+    {
+      "id": "eval-019",
+      "question": "How do I revoke and reset a compromised API key in the dashboard?",
+      "expected": [
+        "KB-010"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-015"
+        ],
+        "bm25_only": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-015",
+          "KB-010"
+        ],
+        "hybrid_rrf": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010"
+        ],
+        "hybrid_rerank": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010"
+        ]
+      }
+    },
+    {
+      "id": "eval-020",
+      "question": "Does resetting my API key offer a grace period for existing background jobs?",
+      "expected": [
+        "KB-010"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010"
+        ],
+        "bm25_only": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-015"
+        ],
+        "hybrid_rrf": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-009"
+        ],
+        "hybrid_rerank": [
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010",
+          "KB-010"
+        ]
+      }
+    },
+    {
+      "id": "eval-021",
+      "question": "Does CloudDash support on-premises Kubernetes clusters and DigitalOcean?",
+      "expected": [
+        "KB-011"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-011",
+          "KB-001",
+          "KB-011",
+          "KB-005",
+          "KB-013"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-011",
+          "KB-008",
+          "KB-017",
+          "KB-014"
+        ],
+        "hybrid_rrf": [
+          "KB-011",
+          "KB-011",
+          "KB-001",
+          "KB-017",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-011",
+          "KB-011",
+          "KB-001",
+          "KB-005",
+          "KB-002"
+        ]
+      }
+    },
+    {
+      "id": "eval-022",
+      "question": "Can I monitor Google Cloud Platform (GCP) and AWS in the same unified dashboard?",
+      "expected": [
+        "KB-011"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-011",
+          "KB-011",
+          "KB-002",
+          "KB-001",
+          "KB-002"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-011",
+          "KB-002",
+          "KB-011",
+          "KB-011"
+        ],
+        "hybrid_rrf": [
+          "KB-011",
+          "KB-011",
+          "KB-002",
+          "KB-002",
+          "KB-011"
+        ],
+        "hybrid_rerank": [
+          "KB-011",
+          "KB-011",
+          "KB-002",
+          "KB-002",
+          "KB-006"
+        ]
+      }
+    },
+    {
+      "id": "eval-023",
+      "question": "How do I invite a new engineer to our CloudDash team account?",
+      "expected": [
+        "KB-012"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-012",
+          "KB-012",
+          "KB-012",
+          "KB-004",
+          "KB-004"
+        ],
+        "bm25_only": [
+          "KB-012",
+          "KB-008",
+          "KB-012",
+          "KB-001",
+          "KB-008"
+        ],
+        "hybrid_rrf": [
+          "KB-012",
+          "KB-012",
+          "KB-008",
+          "KB-012",
+          "KB-010"
+        ],
+        "hybrid_rerank": [
+          "KB-012",
+          "KB-012",
+          "KB-012",
+          "KB-012",
+          "KB-010"
+        ]
+      }
+    },
+    {
+      "id": "eval-024",
+      "question": "Can we configure domain-based auto-join for users with our company email domain?",
+      "expected": [
+        "KB-012"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-012",
+          "KB-018",
+          "KB-004",
+          "KB-018",
+          "KB-004"
+        ],
+        "bm25_only": [
+          "KB-008",
+          "KB-004",
+          "KB-008",
+          "KB-012",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-004",
+          "KB-012",
+          "KB-018",
+          "KB-006",
+          "KB-004"
+        ],
+        "hybrid_rerank": [
+          "KB-004",
+          "KB-004",
+          "KB-001",
+          "KB-007",
+          "KB-018"
+        ]
+      }
+    },
+    {
+      "id": "eval-025",
+      "question": "How many days of metric data retention do I get on the Starter plan versus Pro?",
+      "expected": [
+        "KB-013"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-013",
+          "KB-007",
+          "KB-013",
+          "KB-019",
+          "KB-006"
+        ],
+        "bm25_only": [
+          "KB-013",
+          "KB-017",
+          "KB-015",
+          "KB-019",
+          "KB-006"
+        ],
+        "hybrid_rrf": [
+          "KB-013",
+          "KB-019",
+          "KB-013",
+          "KB-006",
+          "KB-013"
+        ],
+        "hybrid_rerank": [
+          "KB-013",
+          "KB-007",
+          "KB-006",
+          "KB-019",
+          "KB-013"
+        ]
+      }
+    },
+    {
+      "id": "eval-026",
+      "question": "Is there cold storage archiving available for GDPR compliance on Enterprise?",
+      "expected": [
+        "KB-013"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-013",
+          "KB-013",
+          "KB-013",
+          "KB-013",
+          "KB-019"
+        ],
+        "bm25_only": [
+          "KB-001",
+          "KB-004",
+          "KB-013",
+          "KB-016",
+          "KB-019"
+        ],
+        "hybrid_rrf": [
+          "KB-013",
+          "KB-013",
+          "KB-019",
+          "KB-004",
+          "KB-013"
+        ],
+        "hybrid_rerank": [
+          "KB-013",
+          "KB-019",
+          "KB-004",
+          "KB-006",
+          "KB-013"
+        ]
+      }
+    },
+    {
+      "id": "eval-027",
+      "question": "What are the rate limits for the REST API on the Pro tier?",
+      "expected": [
+        "KB-014"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014"
+        ],
+        "bm25_only": [
+          "KB-014",
+          "KB-010",
+          "KB-002",
+          "KB-014",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014"
+        ]
+      }
+    },
+    {
+      "id": "eval-028",
+      "question": "My API requests are returning 429 Too Many Requests. What headers show rate limit quotas?",
+      "expected": [
+        "KB-014"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-014",
+          "KB-015"
+        ],
+        "bm25_only": [
+          "KB-014",
+          "KB-015",
+          "KB-014",
+          "KB-010",
+          "KB-019"
+        ],
+        "hybrid_rrf": [
+          "KB-014",
+          "KB-014",
+          "KB-015",
+          "KB-014",
+          "KB-014"
+        ],
+        "hybrid_rerank": [
+          "KB-014",
+          "KB-014",
+          "KB-015",
+          "KB-005",
+          "KB-014"
+        ]
+      }
+    },
+    {
+      "id": "eval-029",
+      "question": "What authentication headers does the CloudDash REST API accept?",
+      "expected": [
+        "KB-015"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-010",
+          "KB-016",
+          "KB-015",
+          "KB-011",
+          "KB-016"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-010",
+          "KB-015",
+          "KB-015",
+          "KB-014"
+        ],
+        "hybrid_rrf": [
+          "KB-010",
+          "KB-011",
+          "KB-015",
+          "KB-013",
+          "KB-015"
+        ],
+        "hybrid_rerank": [
+          "KB-010",
+          "KB-004",
+          "KB-002",
+          "KB-015",
+          "KB-013"
+        ]
+      }
+    },
+    {
+      "id": "eval-030",
+      "question": "I am getting error ERR_AUTH_EXPIRED when querying the REST API with my Bearer token.",
+      "expected": [
+        "KB-015"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-015",
+          "KB-010",
+          "KB-010",
+          "KB-005",
+          "KB-016"
+        ],
+        "bm25_only": [
+          "KB-015",
+          "KB-014",
+          "KB-010",
+          "KB-010",
+          "KB-014"
+        ],
+        "hybrid_rrf": [
+          "KB-015",
+          "KB-010",
+          "KB-010",
+          "KB-014",
+          "KB-015"
+        ],
+        "hybrid_rerank": [
+          "KB-005",
+          "KB-010",
+          "KB-015",
+          "KB-015",
+          "KB-010"
+        ]
+      }
+    },
+    {
+      "id": "eval-031",
+      "question": "Which API endpoint allows programmatic creation of alert rules via POST /api/v1/alerts/rules?",
+      "expected": [
+        "KB-016"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-015",
+          "KB-016",
+          "KB-020",
+          "KB-001",
+          "KB-001"
+        ],
+        "bm25_only": [
+          "KB-001",
+          "KB-015",
+          "KB-014",
+          "KB-019",
+          "KB-016"
+        ],
+        "hybrid_rrf": [
+          "KB-015",
+          "KB-001",
+          "KB-016",
+          "KB-019",
+          "KB-020"
+        ],
+        "hybrid_rerank": [
+          "KB-015",
+          "KB-016",
+          "KB-016",
+          "KB-016",
+          "KB-016"
+        ]
+      }
+    },
+    {
+      "id": "eval-032",
+      "question": "How can I trigger a test ping to verify a webhook URL using the API?",
+      "expected": [
+        "KB-016"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-016",
+          "KB-005",
+          "KB-005",
+          "KB-016",
+          "KB-016"
+        ],
+        "bm25_only": [
+          "KB-016",
+          "KB-005",
+          "KB-005",
+          "KB-016",
+          "KB-011"
+        ],
+        "hybrid_rrf": [
+          "KB-016",
+          "KB-005",
+          "KB-005",
+          "KB-016",
+          "KB-005"
+        ],
+        "hybrid_rerank": [
+          "KB-016",
+          "KB-005",
+          "KB-005",
+          "KB-016",
+          "KB-016"
+        ]
+      }
+    },
+    {
+      "id": "eval-033",
+      "question": "How do I push custom metrics using the clouddash-python SDK?",
+      "expected": [
+        "KB-017"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-001",
+          "KB-001",
+          "KB-017",
+          "KB-017",
+          "KB-001"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-001",
+          "KB-001",
+          "KB-003",
+          "KB-002"
+        ],
+        "hybrid_rrf": [
+          "KB-001",
+          "KB-001",
+          "KB-011",
+          "KB-017",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-011",
+          "KB-017",
+          "KB-001",
+          "KB-001",
+          "KB-001"
+        ]
+      }
+    },
+    {
+      "id": "eval-034",
+      "question": "Can you provide a Node.js SDK code example for initializing the CloudDash client?",
+      "expected": [
+        "KB-017"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-017",
+          "KB-015",
+          "KB-017",
+          "KB-017",
+          "KB-017"
+        ],
+        "bm25_only": [
+          "KB-017",
+          "KB-017",
+          "KB-019",
+          "KB-008",
+          "KB-012"
+        ],
+        "hybrid_rrf": [
+          "KB-017",
+          "KB-005",
+          "KB-017",
+          "KB-005",
+          "KB-001"
+        ],
+        "hybrid_rerank": [
+          "KB-017",
+          "KB-017",
+          "KB-017",
+          "KB-005",
+          "KB-005"
+        ]
+      }
+    },
+    {
+      "id": "eval-035",
+      "question": "What are the default user roles in CloudDash and what permissions does Read-Only have?",
+      "expected": [
+        "KB-018"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-004",
+          "KB-002",
+          "KB-013",
+          "KB-011",
+          "KB-002"
+        ],
+        "bm25_only": [
+          "KB-011",
+          "KB-013",
+          "KB-019",
+          "KB-018",
+          "KB-007"
+        ],
+        "hybrid_rrf": [
+          "KB-011",
+          "KB-004",
+          "KB-002",
+          "KB-019",
+          "KB-013"
+        ],
+        "hybrid_rerank": [
+          "KB-004",
+          "KB-002",
+          "KB-013",
+          "KB-018",
+          "KB-019"
+        ]
+      }
+    },
+    {
+      "id": "eval-036",
+      "question": "Can we create custom RBAC roles with granular permissions on the Enterprise plan?",
+      "expected": [
+        "KB-018"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-018",
+          "KB-018",
+          "KB-007",
+          "KB-018",
+          "KB-018"
+        ],
+        "bm25_only": [
+          "KB-018",
+          "KB-014",
+          "KB-018",
+          "KB-011",
+          "KB-018"
+        ],
+        "hybrid_rrf": [
+          "KB-018",
+          "KB-018",
+          "KB-018",
+          "KB-011",
+          "KB-018"
+        ],
+        "hybrid_rerank": [
+          "KB-018",
+          "KB-018",
+          "KB-018",
+          "KB-018",
+          "KB-018"
+        ]
+      }
+    },
+    {
+      "id": "eval-037",
+      "question": "How do we export CloudDash security audit logs to Splunk or Datadog?",
+      "expected": [
+        "KB-019"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-019",
+          "KB-019",
+          "KB-002",
+          "KB-002",
+          "KB-001"
+        ],
+        "bm25_only": [
+          "KB-018",
+          "KB-019",
+          "KB-018",
+          "KB-019",
+          "KB-019"
+        ],
+        "hybrid_rrf": [
+          "KB-019",
+          "KB-019",
+          "KB-018",
+          "KB-019",
+          "KB-001"
+        ],
+        "hybrid_rerank": [
+          "KB-019",
+          "KB-019",
+          "KB-018",
+          "KB-013",
+          "KB-019"
+        ]
+      }
+    },
+    {
+      "id": "eval-038",
+      "question": "What events are recorded in the audit log for compliance tracking?",
+      "expected": [
+        "KB-019"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-019",
+          "KB-019",
+          "KB-018",
+          "KB-019",
+          "KB-019"
+        ],
+        "bm25_only": [
+          "KB-019",
+          "KB-019",
+          "KB-019",
+          "KB-018",
+          "KB-019"
+        ],
+        "hybrid_rrf": [
+          "KB-019",
+          "KB-018",
+          "KB-019",
+          "KB-019",
+          "KB-019"
+        ],
+        "hybrid_rerank": [
+          "KB-019",
+          "KB-019",
+          "KB-019",
+          "KB-018",
+          "KB-019"
+        ]
+      }
+    },
+    {
+      "id": "eval-039",
+      "question": "Why are my configured alerts not firing during a maintenance window?",
+      "expected": [
+        "KB-020"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-020",
+          "KB-020",
+          "KB-020",
+          "KB-002",
+          "KB-020"
+        ],
+        "bm25_only": [
+          "KB-020",
+          "KB-020",
+          "KB-002",
+          "KB-020",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-020",
+          "KB-020",
+          "KB-002",
+          "KB-020",
+          "KB-020"
+        ],
+        "hybrid_rerank": [
+          "KB-020",
+          "KB-020",
+          "KB-020",
+          "KB-002",
+          "KB-020"
+        ]
+      }
+    },
+    {
+      "id": "eval-040",
+      "question": "How do I check notification delivery status when an alert triggers but no email arrives?",
+      "expected": [
+        "KB-020"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-020",
+          "KB-020",
+          "KB-020",
+          "KB-020",
+          "KB-020"
+        ],
+        "bm25_only": [
+          "KB-020",
+          "KB-020",
+          "KB-005",
+          "KB-002",
+          "KB-005"
+        ],
+        "hybrid_rrf": [
+          "KB-020",
+          "KB-020",
+          "KB-002",
+          "KB-020",
+          "KB-020"
+        ],
+        "hybrid_rerank": [
+          "KB-020",
+          "KB-020",
+          "KB-020",
+          "KB-005",
+          "KB-020"
+        ]
+      }
+    },
+    {
+      "id": "eval-041",
+      "question": "Can I configure AWS CloudWatch integration metrics to trigger static alert thresholds?",
+      "expected": [
+        "KB-001",
+        "KB-002"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-001",
+          "KB-001",
+          "KB-001",
+          "KB-020",
+          "KB-002"
+        ],
+        "bm25_only": [
+          "KB-002",
+          "KB-002",
+          "KB-011",
+          "KB-002",
+          "KB-001"
+        ],
+        "hybrid_rrf": [
+          "KB-001",
+          "KB-002",
+          "KB-011",
+          "KB-002",
+          "KB-002"
+        ],
+        "hybrid_rerank": [
+          "KB-001",
+          "KB-001",
+          "KB-001",
+          "KB-001",
+          "KB-002"
+        ]
+      }
+    },
+    {
+      "id": "eval-042",
+      "question": "What is the cost of upgrading to Pro if I need 30 days of data retention instead of 7 days?",
+      "expected": [
+        "KB-013",
+        "KB-006"
+      ],
+      "retrieved": {
+        "vector_only": [
+          "KB-007",
+          "KB-013",
+          "KB-007",
+          "KB-006",
+          "KB-007"
+        ],
+        "bm25_only": [
+          "KB-013",
+          "KB-019",
+          "KB-003",
+          "KB-009",
+          "KB-007"
+        ],
+        "hybrid_rrf": [
+          "KB-013",
+          "KB-007",
+          "KB-019",
+          "KB-007",
+          "KB-013"
+        ],
+        "hybrid_rerank": [
+          "KB-007",
+          "KB-006",
+          "KB-013",
+          "KB-006",
+          "KB-007"
+        ]
+      }
+    }
+  ]
+}

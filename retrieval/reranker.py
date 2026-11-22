@@ -47,8 +47,8 @@ class Reranker:
 
         model = self._get_model()
 
-        # Create query-document pairs for the cross-encoder
-        pairs = [(query, result.chunk_text) for result in results]
+        # Create query-document pairs for the cross-encoder (include article title for context)
+        pairs = [(query, f"{result.article_title}: {result.chunk_text}") for result in results]
 
         # Score all pairs
         scores = model.predict(pairs)
