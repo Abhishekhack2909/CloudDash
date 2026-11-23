@@ -1,10 +1,10 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PORT=8000
+    PYTHONTDONTWRITEBYTECODE=1 \
+    PORT=7860
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -16,6 +16,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000 8501
+# Ingest KB at build time to precompute embeddings & BM25 indices
+RUN python knowledge_base/ingest.py || true
 
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 7860 8000 8501
+
+CMD ["streamlit", "run", "streamlit_app.py", \
+     "--server.port", "7860", \
+     "--server.address", "0.0.0.0", \
+     "--server.headless", "true"]

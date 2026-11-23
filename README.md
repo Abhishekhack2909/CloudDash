@@ -4,6 +4,7 @@ emoji: ☁️
 colorFrom: blue
 colorTo: purple
 sdk: docker
+app_port: 7860
 app_file: streamlit_app.py
 pinned: false
 ---
