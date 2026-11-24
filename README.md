@@ -11,60 +11,78 @@ pinned: false
 
 # ☁️ CloudDash Multi-Agent Customer Support System
 
-A production-style multi-agent customer support system for **CloudDash** — a B2B SaaS cloud infrastructure monitoring platform (AWS, GCP, Azure, Kubernetes).
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Live%20Demo-blue)](https://huggingface.co/spaces/ComplexHat/clouddash-support)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-brightgreen.svg)](https://www.python.org/downloads/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-orange.svg)](https://github.com/langchain-ai/langgraph)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
+[![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B.svg)](https://streamlit.io)
+[![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-blueviolet.svg)](https://www.trychroma.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Built with **LangGraph** for multi-agent supervisor orchestration, **FastAPI** for async REST endpoints, **ChromaDB + BM25** with cross-encoder re-ranking for hybrid RAG, **SQLAlchemy** (SQLite/PostgreSQL) for persistent conversation state and durable user memory, and **LangSmith** for LLM observability.
+A production-grade, stateful multi-agent customer support platform for **CloudDash** — an enterprise B2B SaaS cloud monitoring ecosystem (AWS, GCP, Azure, Kubernetes).
+
+Engineered with **LangGraph** for resilient supervisor agent orchestration, **FastAPI** for async high-throughput REST APIs, a **Personalized Hybrid RAG** engine combining sparse BM25 and dense ChromaDB embeddings with cross-encoder re-ranking, **SQLAlchemy** for persistent multi-turn state and durable customer memory, and an automated **Evaluation Harness** tracking golden retrieval and LLM-as-a-judge quality metrics.
 
 ---
 
-## 🏗️ Architecture
+## 🌐 Live Deployments & Demos
+
+| Component | Platform | Status | Access Link |
+| :--- | :--- | :---: | :--- |
+| **Interactive Support & Analytics UI** | **Hugging Face Spaces (Docker)** | 🟢 **Live & Active** | [Launch CloudDash UI](https://huggingface.co/spaces/ComplexHat/clouddash-support) |
+| **Async REST API Documentation** | **Local / Docker Compose** | 🟢 **Ready** | `http://localhost:8000/docs` (or Render when active) |
+
+> 💡 **Live Demo Tip:** The Hugging Face Spaces deployment is 100% self-contained in Docker, featuring the live multi-agent graph, knowledge base search, simulated human handoff, and real-time **Platform Analytics**.
+
+---
+
+## 🏗️ Architecture & Request Pipeline
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                        Interface Layer                           │
-│     FastAPI Async REST API  │  Streamlit Web UI + Customer Profile│
-└──────────────────────┬───────────────────┬───────────────────────┘
-                       │                   │
-┌──────────────────────▼───────────────────▼───────────────────────┐
-│                    Input Guardrails                               │
-│         Prompt Injection Detection │ Off-Topic Filter             │
-└──────────────────────┬───────────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────────┐
-│              LangGraph Orchestrator (Supervisor)                  │
-│  State checkpointer (SQLite/PostgreSQL) keyed by conversation_id  │
-│                                                                   │
-│  ┌───────────┐   ┌─────────────────┐   ┌──────────────┐         │
-│  │  Triage   │──▶│ Technical Agent │──▶│   Billing    │         │
-│  │  Agent    │   │  (RAG + Tools)  │   │(RAG + DB Acc)│         │
-│  └───────────┘   └────────┬────────┘   └──────┬───────┘         │
-│       │                   │                    │                  │
-│       │            ┌──────▼────────────────────▼──────┐          │
-│       └───────────▶│       Escalation Agent           │          │
-│                    │  (Human Handover Packaging)       │          │
-│                    └──────────────────────────────────┘          │
-└──────────────────────┬───────────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────────┐
-│                   Output Guardrails                               │
-│      PII Redaction │ Hallucination Check │ Policy Filter          │
-└──────────────────────┬───────────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────────┐
-│               Personalized Hybrid RAG Pipeline                    │
-│  Query Rewrite → Vector Search (ChromaDB) + BM25 Keyword Search  │
-│              → Reciprocal Rank Fusion (RRF)                      │
-│              → Plan Tier & Active Integration Boosting           │
-│              → Cross-Encoder Re-Ranking (ms-marco-MiniLM-L-6-v2) │
-└──────────────────────┬───────────────────────────────────────────┘
-                       │
-┌──────────────────────▼───────────────────────────────────────────┐
-│              Persistent Storage & Tool Execution                  │
-│  - SQLite (default) / PostgreSQL (via DATABASE_URL)              │
-│  - Real Tools: create_support_ticket, check_integration_status,  │
-│    lookup_account (database-backed)                             │
-│  - Long-Term User Memory: extracted durable customer facts       │
-└──────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                            Interface Layer                             │
+│     FastAPI Async REST API    │   Streamlit UI + Analytics Dashboard   │
+└──────────────────────────┬─────────────────────────────┬───────────────┘
+                           │                             │
+┌──────────────────────────▼─────────────────────────────▼───────────────┐
+│                        Input Guardrails                                │
+│         Prompt Injection Detection (Regex) │ Off-Topic Filter          │
+└──────────────────────────┬─────────────────────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────────────────────┐
+│                 LangGraph Orchestrator (Supervisor)                     │
+│  State checkpointer (SQLite/PostgreSQL) keyed by conversation_id       │
+│                                                                        │
+│  ┌───────────┐       ┌──────────────────────┐   ┌───────────────────┐  │
+│  │  Triage   │──────▶│   Technical Agent    │──▶│   Billing Agent   │  │
+│  │  Agent    │       │(RAG + Health Checks) │   │ (RAG + DB Lookup) │  │
+│  └─────┬─────┘       └──────────┬───────────┘   └─────────┬─────────┘  │
+│        │                        │                         │            │
+│        │                 ┌──────▼─────────────────────────▼─────────┐  │
+│        └────────────────▶│             Escalation Agent             │  │
+│                          │      (Human Handover Packaging & P1)     │  │
+│                          └──────────────────────────────────────────┘  │
+└──────────────────────────┬─────────────────────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────────────────────┐
+│                       Output Guardrails                                │
+│       PII Redaction │ Hallucination Check │ Policy Compliance          │
+└──────────────────────────┬─────────────────────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────────────────────┐
+│                 Personalized Hybrid RAG Pipeline                       │
+│  Query Rewrite ──▶ Dense Vector (ChromaDB) + Sparse Lexical (BM25)     │
+│                ──▶ Reciprocal Rank Fusion (RRF, k=60)                  │
+│                ──▶ Plan-Tier (Enterprise/Pro) & Integration Boosting   │
+│                ──▶ Cross-Encoder Reranking (ms-marco-MiniLM-L-6-v2)    │
+└──────────────────────────┬─────────────────────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────────────────────┐
+│                 Persistent Storage & Execution Engine                  │
+│  • SQLAlchemy ORM: Conversations, Messages, Handover Audit, Feedback   │
+│  • Pydantic Tools: create_support_ticket, check_integration_status     │
+│  • Durable User Memory: LLM-extracted customer profiles across turns  │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -96,19 +114,11 @@ The retrieval pipeline was evaluated on a comprehensive golden evaluation benchm
 | **Hybrid RAG + Personalization** | ChromaDB + BM25 with RRF, customer plan tier boosting/down-weighting, and active integration scoring |
 | **Real Structured Tools** | `create_support_ticket` (persisted to SQL DB), `check_integration_status` (live health check), `lookup_account` (SQL account lookup) |
 | **Persistent State & Memory** | SQLAlchemy conversation storage (SQLite/Postgres), LangGraph checkpoints, and durable user memory extracted across sessions |
-| **Incremental Ingestion** | SHA-256 content hashing in `knowledge_base/ingest.py`, `/admin/reindex` endpoint, and 125 enterprise articles |
+| **Incremental Ingestion** | SHA-256 content hashing in `knowledge_base/ingest.py`, `/admin/reindex` endpoint, and 125 enterprise articles (1,114 chunks) |
 | **Model Resilience** | `FallbackChatGroq` automatic failover across models (`openai/gpt-oss-120b`, `llama-3.3-70b-versatile`, etc.) |
 | **Guardrails & Safety** | Input: prompt injection regex + off-topic classifier; Output: PII redaction + citation hallucination check |
+| **Telemetry & Feedback** | User message feedback (👍/👎), `/metrics` aggregate telemetry, and real-time Streamlit Analytics dashboard |
 | **Observability** | Structured JSON logging via `structlog` + LangSmith distributed tracing |
-
----
-
-## 🌐 Live Deployments
-
-| Service | URL |
-|---------|-----|
-| **Streamlit UI** | https://huggingface.co/spaces/ComplexHat/clouddash-support |
-| **REST API (Swagger)** | https://clouddash-r5xg.onrender.com/docs |
 
 ---
 
@@ -180,14 +190,11 @@ streamlit run streamlit_app.py
 # Run all tests
 pytest tests/ -v
 
-# Run personalization tests
+# Run domain test suites
 pytest tests/test_personalization.py -v
-
-# Run tools tests
 pytest tests/test_tools.py -v
-
-# Run memory tests
 pytest tests/test_memory.py -v
+pytest tests/test_analytics.py -v
 ```
 
 ### Run Evaluation Harness
@@ -211,7 +218,9 @@ python -m evals.run --suite e2e
 | `POST` | `/conversations` | Start conversation with initial message and optional customer profile |
 | `POST` | `/conversations/{id}/messages` | Send follow-up message in existing multi-turn conversation |
 | `GET` | `/conversations/{id}` | Get full conversation history, messages, and extracted entities |
+| `POST` | `/conversations/{id}/feedback` | Submit thumbs-up/down rating with optional feedback note |
 | `GET` | `/conversations/{id}/handovers` | Retrieve immutable handover audit log |
+| `GET` | `/metrics` | Aggregate platform telemetry (resolution rate, routing distribution, sentiment) |
 | `GET` | `/health` | Health check with active model, fallback status, and KB count |
 | `POST` | `/admin/reindex` | Trigger incremental or full re-indexing (protected by `X-Admin-Key`) |
 
