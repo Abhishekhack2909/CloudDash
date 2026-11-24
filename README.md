@@ -1,13 +1,4 @@
----
-title: CloudDash Customer Support
-emoji: ☁️
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
-app_file: streamlit_app.py
-pinned: false
----
+
 
 # ☁️ CloudDash Multi-Agent Customer Support System
 
